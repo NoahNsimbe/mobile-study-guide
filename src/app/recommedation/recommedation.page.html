@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Get Recommedation</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Select Career</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" >Select your current status</ion-label>
+    <ion-select [compareWith]="compareWith" onchange="alert('changed')" #status >
+      <ion-select-option *ngFor="let level of level">{{level.name}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-grid>
+    <ion-label>Enter UACE Results</ion-label>
+    <ion-row class="ion-align-items-center" *ngFor="let subject of compUceSubjects$ | async" >
+
+      <ion-col>
+        <ion-input>{{ subject.name }}</ion-input>
+      </ion-col>
+
+      <ion-col>
+        <ion-select [compareWith]="compareWith">
+          <ion-select-option *ngFor="let grade of uceGrades$ | async">{{grade.name}}</ion-select-option>
+        </ion-select>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-label>Enter UACE Results</ion-label>
+    <ion-row class="ion-align-items-center" *ngFor="let subject of uaceSubjects$ | async" >
+
+      <ion-col>
+        <ion-input>{{ subject.name }}</ion-input>
+      </ion-col>
+
+      <ion-col>
+        <ion-select [compareWith]="compareWith">
+          <ion-select-option *ngFor="let grade of uaceGrades$ | async">{{grade.letter}}</ion-select-option>
+        </ion-select>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+  <ion-button>Submit</ion-button>
+
+</ion-content>

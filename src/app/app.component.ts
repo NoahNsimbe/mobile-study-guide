@@ -13,9 +13,9 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Study Recommendations',
+      title: 'Recommendations',
       url: '/recommedation',
-      icon: 'library-outline'
+      icon: 'library'
     },
     {
       title: 'Weighing System',

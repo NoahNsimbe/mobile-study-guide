@@ -3,7 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiRoot: 'http://127.0.0.1:8000/',
+  combination: 'get_combination/',
+  course: 'get_course/',
+  careers: 'careers/',
+  uceSubjects: 'uce_subjects/',
+  uaceSubjects: 'uace_subjects/'
 };
 
 /*

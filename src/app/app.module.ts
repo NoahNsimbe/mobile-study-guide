@@ -9,11 +9,12 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { environment } from '.././environments/environment';
+import { environment } from '../environments/environment';
 
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import {AppState} from './state/app.state';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +23,7 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    NgxsModule.forRoot([], {developmentMode: !environment.production}),
+    NgxsModule.forRoot([AppState], {developmentMode: !environment.production}),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsStoragePluginModule.forRoot({key: [] })
   ],

@@ -40,7 +40,7 @@ export class RecommendationPage implements OnInit {
 
   @Select() subjects$;
 
-  compareWith = this.compareWithFn;
+  // compareWith = this.compareWithFn;
 
   olevelSubjects: Subjects[] = [
     {code: 'UCE_MATH', name: 'Mathematics'},
@@ -71,9 +71,9 @@ export class RecommendationPage implements OnInit {
   recommendations: Recommendation[];
   recommendation: Recommendation;
 
-  compareWithFn = (o1, o2) => {
-    return o1 && o2 ? o1.id === o2.id : o1 === o2;
-  }
+  // compareWithFn = (o1, o2) => {
+  //   return o1 && o2 ? o1.id === o2.id : o1 === o2;
+  // }
 
   ngOnInit() {
 
@@ -92,9 +92,9 @@ export class RecommendationPage implements OnInit {
     this.initialize();
     this.appStore.dispatch(new SetCareers());
 
-    this.careers$.subscribe((value => {
-      console.log(value);
-    }));
+    // this.careers$.subscribe((value => {
+    //   console.log(value);
+    // }));
 
   }
 }

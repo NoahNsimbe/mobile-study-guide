@@ -22,6 +22,17 @@
   </ion-item>
 
   <ion-grid>
+    <ion-label>Careers</ion-label>
+    <ion-row class="ion-align-items-center" *ngFor="let subject of careers$ | async" >
+
+      <ion-col>
+        <ion-input>{{ subject.name }}</ion-input>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
     <ion-label>Enter UACE Results</ion-label>
     <ion-row class="ion-align-items-center" *ngFor="let subject of compUceSubjects$ | async" >
 

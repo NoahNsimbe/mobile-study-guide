@@ -1,7 +1,7 @@
 export interface Uce {
     code: string;
     name: string;
-    compulsory: boolean;
+    category: string;
   }
 
 export interface UceGrades {

@@ -6,12 +6,15 @@ import { Uace, UaceGrades } from '../models/uace';
 import { Uce, UceGrades } from '../models/uce';
 import {Career} from '../models/Career';
 import {Recommendation} from '../models/Recommendation';
-import {SetCareers} from '../state/app.actions';
+import {SetCareers, SetSubjects} from '../state/app.actions';
+import { LoadingController } from '@ionic/angular';
+import {ServerService} from '../services/server.service';
 
 export interface Subjects {
   code: string;
   name: string;
 }
+
 
 @Component({
   selector: 'app-recommendation',
@@ -20,20 +23,21 @@ export interface Subjects {
 })
 export class RecommendationPage implements OnInit {
 
-  constructor(private appStore: Store) {
+  constructor(private appStore: Store, public loadingCtrl: LoadingController, private serverService: ServerService) {
     this.recommendations = [
       {  name: 'Combination, provided results', value: 'UCE'},
       {  name: 'Course, provided results', value: 'UACE'},
       {  name: 'Combination, without results', value: 'COMBINATION'},
       {  name: 'Course, without results', value: 'COURSE'}
     ];
+    this.recommendation =  {  name: '', value: ''};
   }
 
   @Select(AppState.getUaceSubjects) uaceSubjects$: Observable<Uace[]>;
-  @Select(AppState.getUceSubjects) uceSubjects$: Observable<Uce[]>;
+  @Select(AppState.getCompulsoryUceSubjects) uceCompulsorySubjects$: Observable<Uce[]>;
+  @Select(AppState.getElectiveUceSubjects) uceElectiveSubjects$: Observable<Uce[]>;
   @Select(AppState.getCareers) careers$: Observable<Career[]>;
 
-  @Select(AppState.getUceCompSubjects) compUceSubjects$: Observable<Uce[]>;
 
   @Select(state => state.subjects.uceGrades) uceGrades$: Observable<UceGrades[]>;
   @Select(state => state.subjects.uaceGrades) uaceGrades$: Observable<UaceGrades[]>;
@@ -41,32 +45,6 @@ export class RecommendationPage implements OnInit {
   @Select() subjects$;
 
   // compareWith = this.compareWithFn;
-
-  olevelSubjects: Subjects[] = [
-    {code: 'UCE_MATH', name: 'Mathematics'},
-    {code: 'UCE_ENG', name: 'English'},
-    {code: 'UCE_CHEM', name: 'Chemistry'},
-    {code: 'UCE_GEOG', name: 'Geography'},
-    {code: 'UCE_BIO', name: 'Biology'},
-    {code: 'UCE_HIST', name: 'History'},
-    {code: 'UCE_COMP', name: 'Computer'},
-    {code: 'UCE_SPA', name: 'Spanish'},
-    {code: 'UCE_FRE', name: 'French'},
-    {code: 'UCE_LIT', name: 'Literature'}
-  ];
-
-  alevelSubjects: Subjects[] = [
-    {code: 'UACE_MATH', name: 'Mathematics'},
-    {code: 'UACE_ENG', name: 'English'},
-    {code: 'UACE_CHEM', name: 'Chemistry'},
-    {code: 'UACE_GEOG', name: 'Geography'},
-    {code: 'UACE_BIO', name: 'Biology'},
-    {code: 'UACE_HIST', name: 'History'},
-    {code: 'UACE_COMP', name: 'Computer'},
-    {code: 'UACE_SPA', name: 'Spanish'},
-    {code: 'UACE_FRE', name: 'French'},
-    {code: 'UACE_LIT', name: 'Literature'}
-  ];
 
   recommendations: Recommendation[];
   recommendation: Recommendation;
@@ -79,22 +57,83 @@ export class RecommendationPage implements OnInit {
 
   }
 
-  initialize() {
-    // this.educLevel.careers = true;
-    // this.educLevel.uce = false;
-    // this.educLevel.uace = false;
-    // this.educLevel.course = false;
-    // this.educLevel.combination = false;
-    // this.operationSuccess = false;
+  async initialize() {
+      await this.appStore.dispatch(new SetCareers());
+      await this.appStore.dispatch(new SetSubjects());
   }
 
-  getRecommendation() {
-    this.initialize();
-    this.appStore.dispatch(new SetCareers());
+    async loadRecommendation() {
+        const loading = await this.loadingCtrl.create({
+            message: 'Please wait...',
+            animated: true,
+            spinner: 'lines'
+        });
+        await loading.present();
+
+        await this.initialize();
+
+        await loading.dismiss();
+
+    }
+
+  async getRecommendation() {
+        const loading = await this.loadingCtrl.create({
+            message: 'Please wait...',
+            animated: true,
+            spinner: 'lines'
+        });
+        await loading.present();
+
+        switch (this.recommendation.value) {
+            case 'UCE':
+                this.recommendation = {  name: 'Combination, provided results', value: 'UCE'};
+                break;
+            case 'UACE':
+                this.recommendation = {  name: 'Course, provided results', value: 'UACE'};
+                break;
+            case 'COMBINATION':
+                this.recommendation = {  name: 'Combination, without results', value: 'COMBINATION'};
+                break;
+            case 'COURSE':
+                this.recommendation = {  name: 'Course, without results', value: 'COURSE'};
+                break;
+            default:
+                this.recommendation =  this.recommendations[0];
+                console.log('error');
+        }
+
+        await loading.dismiss();
+
 
     // this.careers$.subscribe((value => {
     //   console.log(value);
     // }));
 
   }
+
+    // olevelSubjects: Subjects[] = [
+    //     {code: 'UCE_MATH', name: 'Mathematics'},
+    //     {code: 'UCE_ENG', name: 'English'},
+    //     {code: 'UCE_CHEM', name: 'Chemistry'},
+    //     {code: 'UCE_GEOG', name: 'Geography'},
+    //     {code: 'UCE_BIO', name: 'Biology'},
+    //     {code: 'UCE_HIST', name: 'History'},
+    //     {code: 'UCE_COMP', name: 'Computer'},
+    //     {code: 'UCE_SPA', name: 'Spanish'},
+    //     {code: 'UCE_FRE', name: 'French'},
+    //     {code: 'UCE_LIT', name: 'Literature'}
+    // ];
+    //
+    // alevelSubjects: Subjects[] = [
+    //     {code: 'UACE_MATH', name: 'Mathematics'},
+    //     {code: 'UACE_ENG', name: 'English'},
+    //     {code: 'UACE_CHEM', name: 'Chemistry'},
+    //     {code: 'UACE_GEOG', name: 'Geography'},
+    //     {code: 'UACE_BIO', name: 'Biology'},
+    //     {code: 'UACE_HIST', name: 'History'},
+    //     {code: 'UACE_COMP', name: 'Computer'},
+    //     {code: 'UACE_SPA', name: 'Spanish'},
+    //     {code: 'UACE_FRE', name: 'French'},
+    //     {code: 'UACE_LIT', name: 'Literature'}
+    // ];
 }

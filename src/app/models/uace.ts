@@ -1,10 +1,13 @@
 export interface Uace {
     code: string;
     name: string;
-    compulsory: boolean;
+    category: string;
+    language_subject: boolean;
+    general_subject: boolean;
+    abbr: string;
   }
 
 export interface UaceGrades {
-    letter: string;
+    name: string;
     value: number;
   }

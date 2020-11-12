@@ -11,7 +11,7 @@
 
   <ion-item>
     <ion-label position="floating" >Select a recommendation</ion-label>
-    <ion-select [compareWith]="compareWith" [(ngModel)]="recommendation" (ionChange)="getRecommendation()" #status >
+    <ion-select [(ngModel)]="recommendation" (ionChange)="loadRecommendation()" #status >
       <ion-select-option *ngFor="let x of recommendations" [value]="x.value" >{{x.name}}</ion-select-option>
     </ion-select>
   </ion-item>
@@ -32,16 +32,29 @@
     </ion-row>
   </ion-grid>
 
-  <ion-grid>
-    <ion-label>Enter UACE Results</ion-label>
-    <ion-row class="ion-align-items-center" *ngFor="let subject of compUceSubjects$ | async" >
+  <ion-grid *ngIf="recommendation.value.toUpperCase() === 'UCE'" >
+    <ion-label>Enter UCE Results</ion-label>
+    <ion-row class="ion-align-items-center" *ngFor="let subject of uceCompulsorySubjects$ | async" >
 
       <ion-col>
         <ion-input>{{ subject.name }}</ion-input>
       </ion-col>
 
       <ion-col>
-        <ion-select [compareWith]="compareWith">
+        <ion-select>
+          <ion-select-option *ngFor="let grade of uceGrades$ | async">{{grade.name}}</ion-select-option>
+        </ion-select>
+      </ion-col>
+
+    </ion-row>
+    <ion-row class="ion-align-items-center" *ngFor="let subject of uceElectiveSubjects$ | async" >
+
+      <ion-col>
+        <ion-input>{{ subject.name }}</ion-input>
+      </ion-col>
+
+      <ion-col>
+        <ion-select>
           <ion-select-option *ngFor="let grade of uceGrades$ | async">{{grade.name}}</ion-select-option>
         </ion-select>
       </ion-col>
@@ -49,7 +62,7 @@
     </ion-row>
   </ion-grid>
 
-  <ion-grid>
+  <ion-grid *ngIf="recommendation.value.toUpperCase() === 'UACE'" >
     <ion-label>Enter UACE Results</ion-label>
     <ion-row class="ion-align-items-center" *ngFor="let subject of uaceSubjects$ | async" >
 
@@ -59,13 +72,13 @@
 
       <ion-col>
         <ion-select [compareWith]="compareWith">
-          <ion-select-option *ngFor="let grade of uaceGrades$ | async">{{grade.letter}}</ion-select-option>
+          <ion-select-option *ngFor="let grade of uaceGrades$ | async">{{grade.name}}</ion-select-option>
         </ion-select>
       </ion-col>
 
     </ion-row>
   </ion-grid>
 
-  <ion-button>Submit</ion-button>
+  <ion-button (click)="getRecommendation()" >Submit</ion-button>
 
 </ion-content>

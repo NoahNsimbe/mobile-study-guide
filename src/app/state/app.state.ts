@@ -1,20 +1,16 @@
-
-import { State, Action, StateContext, Selector, Store, Select } from '@ngxs/store';
+import {Action, Selector, State, StateContext} from '@ngxs/store';
 //import {  ConfirmOrder, OrderFailed, OrderSuccess, AddToCart, RemoveFromCart, SetCart, SetOrders, UpdateAmount } from './orders.actions';
-import { tap} from 'rxjs/operators';
 // import { OrderService } from '../services/order.service';
 // import { Order, OrderItem } from '../models/order';
-
 // import { StoreItem } from '../models/store-items';
 // import { MatSnackBar } from '@angular/material/snack-bar';
 // import { MessageComponent } from '../message/message.component';
 // import { StoresStateModel, StoresState } from './stores.state';
-import { Observable } from 'rxjs';
-import { Uace, UaceGrades } from '../models/uace';
-import { Uce, UceGrades } from '../models/uce';
-import { Career } from '../models/Career';
-import {SetCareers, SetSubjects} from './app.actions';
-import { ServerService } from '../services/server.service';
+import {Uace, UaceGrades} from '../models/uace';
+import {Uce, UceGrades} from '../models/uce';
+import {Career} from '../models/Career';
+import {SetCareers, SetSubjects, SetUaceSubjects, SetUceSubjects} from './app.actions';
+import {ServerService} from '../services/server.service';
 
 
 export interface AppStateModel {
@@ -28,8 +24,22 @@ export interface AppStateModel {
 const defaults: AppStateModel = {
     uace: Array<Uace>(),
     uce: Array<Uce>(),
-    uaceGrades: Array<UaceGrades>(),
-    uceGrades: Array<UceGrades>(),
+    uaceGrades: [
+        {name : 'A', value : 6},
+        {name : 'B', value : 5},
+        {name : 'C', value : 4},
+        {name : 'D', value : 3},
+        {name : 'E', value : 2},
+        {name : 'F', value : 1},
+    ],
+    uceGrades: [
+        {name : 'D1', value : 1},
+        {name : 'D2', value : 2},
+        {name : 'C3', value : 3},
+        {name : 'C4', value : 4},
+        {name : 'C5', value : 5},
+        {name : 'C6', value : 6},
+        ],
     careers: Array<Career>()
 };
 
@@ -56,22 +66,51 @@ export class AppState {
     }
 
     @Selector()
-    static getUceCompSubjects(state: AppStateModel) {
-        return state.uce.filter(subject => subject.compulsory === true);
+    static getCompulsoryUceSubjects(state: AppStateModel) {
+        return state.uce.filter(value =>
+            value.category.toUpperCase() === 'COMPULSORY'
+        );
+    }
+
+    @Selector()
+    static getElectiveUceSubjects(state: AppStateModel) {
+        return state.uce.filter(value =>
+            value.category.toUpperCase() === 'ELECTIVE'
+        );
     }
 
     @Action(SetSubjects)
     setSubjects(context: StateContext<AppStateModel>) {
-        this.serverService.getSubjects();
-        // context.setState({uce: [], uace: [], uaceGrades: [], uceGrades: []});
+        context.dispatch(new SetUceSubjects());
+        context.dispatch(new SetUaceSubjects());
     }
 
     @Action(SetCareers)
     setCareers(context: StateContext<AppStateModel>) {
-        this.serverService.getCareers().subscribe( (careers: Career[]) => {
-            context.patchState({careers});
+        this.serverService.getCareers().subscribe( (data: Career[]) => {
+            context.patchState({careers: data});
         }, (error => {
             console.log(error);
         }));
     }
+
+    @Action(SetUceSubjects)
+    setUceSubjects(context: StateContext<AppStateModel>) {
+        this.serverService.getUceSubjects().subscribe( (data: Uce[]) => {
+            context.patchState({uce : data});
+        }, (error => {
+            console.log(error);
+        }));
+    }
+
+    @Action(SetUaceSubjects)
+    setUaceSubjects(context: StateContext<AppStateModel>) {
+        this.serverService.getUaceSubjects().subscribe( (data: Uace[]) => {
+            context.patchState({uace: data});
+        }, (error => {
+            console.log(error);
+        }));
+    }
+
+
 }

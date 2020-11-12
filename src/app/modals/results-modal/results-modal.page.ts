@@ -9,8 +9,6 @@ import {ModalController} from '@ionic/angular';
 export class ResultsModalPage {
 
   @Input() firstName: string;
-  @Input() lastName: string;
-  @Input() middleInitial: string;
 
   constructor(public modalCtrl: ModalController) { }
 

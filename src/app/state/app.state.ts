@@ -56,6 +56,16 @@ export class AppState {
     }
 
     @Selector()
+    static getUaceGrades(state: AppStateModel) {
+        return state.uaceGrades;
+    }
+
+    @Selector()
+    static getUceGrades(state: AppStateModel) {
+        return state.uceGrades;
+    }
+
+    @Selector()
     static getCareers(state: AppStateModel) {
         return state.careers;
     }

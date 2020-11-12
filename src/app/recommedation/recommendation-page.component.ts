@@ -43,21 +43,17 @@ export class RecommendationPage implements OnInit {
   @Select(AppState.getElectiveUceSubjects) uceElectiveSubjects$: Observable<Uce[]>;
   @Select(AppState.getCareers) careers$: Observable<Career[]>;
 
+  @Select(AppState.getUceGrades) uceGrades$: Observable<UceGrades[]>;
+  @Select(AppState.getUaceGrades) uaceGrades$: Observable<UaceGrades[]>;
 
-  @Select(state => state.subjects.uceGrades) uceGrades$: Observable<UceGrades[]>;
-  @Select(state => state.subjects.uaceGrades) uaceGrades$: Observable<UaceGrades[]>;
+  // @Select(state => state.subjects.uceGrades) uceGrades$: Observable<UceGrades[]>;
+  // @Select(state => state.subjects.uaceGrades) uaceGrades$: Observable<UaceGrades[]>;
 
   @Select() subjects$;
-
-  // compareWith = this.compareWithFn;
 
   recommendations: Recommendation[];
   recommendation: Recommendation;
   // careerSearchbar = document.querySelector('ion-searchbar');
-
-  // compareWithFn = (o1, o2) => {
-  //   return o1 && o2 ? o1.id === o2.id : o1 === o2;
-  // }
 
   ngOnInit() {
 
@@ -101,8 +97,7 @@ export class RecommendationPage implements OnInit {
         const loading = await this.loadingCtrl.create({
             message: 'Please wait...',
             animated: true,
-            spinner: 'lines',
-            duration: 5000
+            spinner: 'lines'
         });
         await loading.present();
 
@@ -146,29 +141,4 @@ export class RecommendationPage implements OnInit {
         return await modal.present();
     }
 
-    // olevelSubjects: Subjects[] = [
-    //     {code: 'UCE_MATH', name: 'Mathematics'},
-    //     {code: 'UCE_ENG', name: 'English'},
-    //     {code: 'UCE_CHEM', name: 'Chemistry'},
-    //     {code: 'UCE_GEOG', name: 'Geography'},
-    //     {code: 'UCE_BIO', name: 'Biology'},
-    //     {code: 'UCE_HIST', name: 'History'},
-    //     {code: 'UCE_COMP', name: 'Computer'},
-    //     {code: 'UCE_SPA', name: 'Spanish'},
-    //     {code: 'UCE_FRE', name: 'French'},
-    //     {code: 'UCE_LIT', name: 'Literature'}
-    // ];
-    //
-    // alevelSubjects: Subjects[] = [
-    //     {code: 'UACE_MATH', name: 'Mathematics'},
-    //     {code: 'UACE_ENG', name: 'English'},
-    //     {code: 'UACE_CHEM', name: 'Chemistry'},
-    //     {code: 'UACE_GEOG', name: 'Geography'},
-    //     {code: 'UACE_BIO', name: 'Biology'},
-    //     {code: 'UACE_HIST', name: 'History'},
-    //     {code: 'UACE_COMP', name: 'Computer'},
-    //     {code: 'UACE_SPA', name: 'Spanish'},
-    //     {code: 'UACE_FRE', name: 'French'},
-    //     {code: 'UACE_LIT', name: 'Literature'}
-    // ];
 }

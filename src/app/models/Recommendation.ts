@@ -3,10 +3,21 @@ export interface Recommendation {
     value: string;
 }
 
-export class UserSubmissions {
-    uceResults?: any;
-    uaceResults?: any;
+export interface Elective {
+    code: string;
+    name: string;
+    value: string;
+}
+
+export interface UserSubmissions {
+    uceResults?: UserResults[];
+    uaceResults?: UserResults[];
     career: string;
+}
+
+export class UserResults {
+    code: string;
+    value: string;
 }
 
 export interface Combination {

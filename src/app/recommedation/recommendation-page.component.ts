@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Select, Store} from '@ngxs/store';
-import { AppState } from '../state/app.state';
-import { Observable } from 'rxjs';
-import { Uace, UaceGrades } from '../models/uace';
-import { Uce, UceGrades } from '../models/uce';
+import {AppState} from '../state/app.state';
+import {Observable} from 'rxjs';
+import {Uace, UaceGrades} from '../models/uace';
+import {Uce, UceGrades} from '../models/uce';
 import {Career} from '../models/Career';
-import {Recommendation} from '../models/Recommendation';
+import {Combination, Elective, Recommendation, UserResults, UserSubmissions} from '../models/Recommendation';
 import {SetCareers, SetSubjects} from '../state/app.actions';
-import { LoadingController } from '@ionic/angular';
-import { ModalController } from '@ionic/angular';
+import {LoadingController, ModalController} from '@ionic/angular';
 import {ServerService} from '../services/server.service';
 import {ResultsModalPage} from '../modals/results-modal/results-modal.page';
+import {ElectivesModalPage} from '../modals/electives-modal/electives-modal.page';
 
 export interface Subjects {
   code: string;
@@ -34,7 +34,13 @@ export class RecommendationPage implements OnInit {
       {  name: 'Combination, without results', value: 'COMBINATION'},
       {  name: 'Course, without results', value: 'COURSE'}
     ];
-    this.recommendation =  {  name: '', value: ''};
+    this.recommendation =  '';
+    this.submissions = {
+        career: '', uaceResults:  [], uceResults: []
+
+    };
+    this.uceElectives = [];
+
     // this.careerSearchbar.addEventListener('ionInput', this.handleCareerInput);
   }
 
@@ -52,7 +58,9 @@ export class RecommendationPage implements OnInit {
   @Select() subjects$;
 
   recommendations: Recommendation[];
-  recommendation: Recommendation;
+  recommendation: string;
+  submissions: UserSubmissions;
+  uceElectives: Elective[];
   // careerSearchbar = document.querySelector('ion-searchbar');
 
   ngOnInit() {
@@ -101,44 +109,94 @@ export class RecommendationPage implements OnInit {
         });
         await loading.present();
 
-        // switch (this.recommendation.value) {
-        //     case 'UCE':
-        //         this.recommendation = {  name: 'Combination, provided results', value: 'UCE'};
-        //         break;
-        //     case 'UACE':
-        //         this.recommendation = {  name: 'Course, provided results', value: 'UACE'};
-        //         break;
-        //     case 'COMBINATION':
-        //         this.recommendation = {  name: 'Combination, without results', value: 'COMBINATION'};
-        //         break;
-        //     case 'COURSE':
-        //         this.recommendation = {  name: 'Course, without results', value: 'COURSE'};
-        //         break;
-        //     default:
-        //         this.recommendation =  this.recommendations[0];
-        //         console.log('error');
-        // }
-        //
+
+        const data = {
+            results: [],
+            flag: ''
+        };
+
+        switch (this.recommendation) {
+            case 'UCE':
+                await this.serverService.getCombinations(this.submissions, false)
+                    .subscribe((results: Combination[]) => {
+                        data.results = results;
+                        data.flag = 'UCE';
+                    }, error => {
+                        console.log(error);
+                    }
+
+                );
+                break;
+            case 'UACE':
+                break;
+            case 'COMBINATION':
+                await this.serverService.getCombinations(this.submissions, true)
+                    .subscribe((results: Combination[]) => {
+                        data.results = results;
+                        data.flag = 'UCE';
+                        }, error => {
+                            console.log(error);
+                        }
+
+                    );
+                break;
+            case 'COURSE':
+                break;
+            default:
+                this.recommendation =  this.recommendations[0].value;
+                console.log('error');
+        }
+
 
 
         await loading.dismiss();
 
-        const data = {
-            firstName: 'Douglas',
-            lastName: 'Adams',
-            middleInitial: 'N'
-        };
-
+        console.log(data);
         await this.presentModal(data);
+
+
 
   }
 
-    async presentModal(data: any) {
+  async presentModal(data: any) {
         const modal = await this.modalCtrl.create({
             component: ResultsModalPage,
-            componentProps: data
+            componentProps: {
+                results: data.results,
+                flag: data.flag
+            }
         });
         return await modal.present();
+    }
+
+  uceChanged(element: string, e: CustomEvent) {
+      this.submissions.uceResults[element] = e.detail.value;
+    }
+
+  async addElective(category: string) {
+
+      const modal = await this.modalCtrl.create({
+              component: ElectivesModalPage,
+              componentProps: {category}
+          });
+
+      await modal.present();
+
+      modal.onDidDismiss().then((response: any) => {
+          const data: UserResults = response.data;
+          if (category.toUpperCase() === 'UCE') {
+              this.submissions.uceResults[data.code] = data.value;
+          }
+
+          if (category.toUpperCase() === 'UACE') {
+              this.submissions.uaceResults[data.code] = data.value;
+          }
+          console.log(this.submissions);
+      });
+  }
+
+  uaceChanged(element: string, e: CustomEvent) {
+        this.submissions.uaceResults[element] = e.detail.value;
     }
 
 }

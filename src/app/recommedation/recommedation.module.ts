@@ -9,6 +9,8 @@ import { RecommendationPageRoutingModule } from './recommedation-routing.module'
 import { RecommendationPage } from './recommendation-page.component';
 import {ResultsModalPageModule} from '../modals/results-modal/results-modal.module';
 import {ResultsModalPage} from '../modals/results-modal/results-modal.page';
+import {ElectivesModalPage} from '../modals/electives-modal/electives-modal.page';
+import {ElectivesModalPageModule} from '../modals/electives-modal/electives-modal.module';
 
 @NgModule({
   imports: [
@@ -16,9 +18,10 @@ import {ResultsModalPage} from '../modals/results-modal/results-modal.page';
     FormsModule,
     IonicModule,
     RecommendationPageRoutingModule,
-    ResultsModalPageModule
+    ResultsModalPageModule,
+    ElectivesModalPageModule
   ],
-  entryComponents: [ResultsModalPage],
+  entryComponents: [ResultsModalPage, ElectivesModalPage],
   declarations: [RecommendationPage]
 })
 export class RecommendationPageModule {}

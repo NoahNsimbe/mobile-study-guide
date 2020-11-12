@@ -6,9 +6,11 @@ import {ModalController} from '@ionic/angular';
   templateUrl: './results-modal.page.html',
   styleUrls: ['./results-modal.page.scss'],
 })
-export class ResultsModalPage {
+export class ResultsModalPage implements OnInit{
 
-  @Input() firstName: string;
+
+  @Input() results: any;
+  @Input() flag: string;
 
   constructor(public modalCtrl: ModalController) { }
 
@@ -16,6 +18,10 @@ export class ResultsModalPage {
     this.modalCtrl.dismiss().then(r => {
       console.log(r);
     });
+  }
+
+  ngOnInit(): void {
+    console.log(this.results);
   }
 
 }

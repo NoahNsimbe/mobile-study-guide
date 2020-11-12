@@ -10,6 +10,7 @@ import {SetCareers, SetSubjects} from '../state/app.actions';
 import { LoadingController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import {ServerService} from '../services/server.service';
+import {ResultsModalPage} from '../modals/results-modal/results-modal.page';
 
 export interface Subjects {
   code: string;
@@ -100,36 +101,50 @@ export class RecommendationPage implements OnInit {
         const loading = await this.loadingCtrl.create({
             message: 'Please wait...',
             animated: true,
-            spinner: 'lines'
+            spinner: 'lines',
+            duration: 5000
         });
         await loading.present();
 
-        switch (this.recommendation.value) {
-            case 'UCE':
-                this.recommendation = {  name: 'Combination, provided results', value: 'UCE'};
-                break;
-            case 'UACE':
-                this.recommendation = {  name: 'Course, provided results', value: 'UACE'};
-                break;
-            case 'COMBINATION':
-                this.recommendation = {  name: 'Combination, without results', value: 'COMBINATION'};
-                break;
-            case 'COURSE':
-                this.recommendation = {  name: 'Course, without results', value: 'COURSE'};
-                break;
-            default:
-                this.recommendation =  this.recommendations[0];
-                console.log('error');
-        }
+        // switch (this.recommendation.value) {
+        //     case 'UCE':
+        //         this.recommendation = {  name: 'Combination, provided results', value: 'UCE'};
+        //         break;
+        //     case 'UACE':
+        //         this.recommendation = {  name: 'Course, provided results', value: 'UACE'};
+        //         break;
+        //     case 'COMBINATION':
+        //         this.recommendation = {  name: 'Combination, without results', value: 'COMBINATION'};
+        //         break;
+        //     case 'COURSE':
+        //         this.recommendation = {  name: 'Course, without results', value: 'COURSE'};
+        //         break;
+        //     default:
+        //         this.recommendation =  this.recommendations[0];
+        //         console.log('error');
+        // }
+        //
+
 
         await loading.dismiss();
 
+        const data = {
+            firstName: 'Douglas',
+            lastName: 'Adams',
+            middleInitial: 'N'
+        };
 
-    // this.careers$.subscribe((value => {
-    //   console.log(value);
-    // }));
+        await this.presentModal(data);
 
   }
+
+    async presentModal(data: any) {
+        const modal = await this.modalCtrl.create({
+            component: ResultsModalPage,
+            componentProps: data
+        });
+        return await modal.present();
+    }
 
     // olevelSubjects: Subjects[] = [
     //     {code: 'UCE_MATH', name: 'Mathematics'},

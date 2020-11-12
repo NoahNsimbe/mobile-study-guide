@@ -4,17 +4,21 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { RecommedationPageRoutingModule } from './recommedation-routing.module';
+import { RecommendationPageRoutingModule } from './recommedation-routing.module';
 
 import { RecommendationPage } from './recommendation-page.component';
+import {ResultsModalPageModule} from '../modals/results-modal/results-modal.module';
+import {ResultsModalPage} from '../modals/results-modal/results-modal.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RecommedationPageRoutingModule
+    RecommendationPageRoutingModule,
+    ResultsModalPageModule
   ],
+  entryComponents: [ResultsModalPage],
   declarations: [RecommendationPage]
 })
-export class RecommedationPageModule {}
+export class RecommendationPageModule {}

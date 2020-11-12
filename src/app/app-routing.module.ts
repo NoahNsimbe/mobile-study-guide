@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'recommedation',
-    loadChildren: () => import('./recommedation/recommedation.module').then( m => m.RecommedationPageModule)
+    loadChildren: () => import('./recommedation/recommedation.module').then( m => m.RecommendationPageModule)
   }
 ];
 

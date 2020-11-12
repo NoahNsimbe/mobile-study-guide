@@ -21,8 +21,9 @@
     <ion-input></ion-input>
   </ion-item>
 
+
   <ion-item>
-    <ion-grid *ngIf="recommendation.value.toUpperCase() === 'UCE'" >
+    <ion-grid >
       <ion-label>Enter UCE Results</ion-label>
       <ion-row class="ion-align-items-center" *ngFor="let subject of uceCompulsorySubjects$ | async" >
 
@@ -37,6 +38,7 @@
         </ion-col>
 
       </ion-row>
+
       <ion-row class="ion-align-items-center" *ngFor="let subject of uceElectiveSubjects$ | async" >
 
         <ion-col>
@@ -53,7 +55,7 @@
     </ion-grid>
   </ion-item>
 
-  <ion-grid *ngIf="recommendation.value.toUpperCase() === 'UACE'" >
+  <ion-grid >
     <ion-label>Enter UACE Results</ion-label>
     <ion-row class="ion-align-items-center" *ngFor="let subject of uaceSubjects$ | async" >
 

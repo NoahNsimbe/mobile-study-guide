@@ -11,7 +11,7 @@
 
   <ion-item>
     <ion-label position="floating" >Select a recommendation</ion-label>
-    <ion-select [(ngModel)]="recommendation" (ionChange)="loadRecommendation()" #status >
+    <ion-select [(ngModel)]="recommendation" (ionChange)="loadRecommendation()" >
       <ion-select-option *ngFor="let x of recommendations" [value]="x.value" >{{x.name}}</ion-select-option>
     </ion-select>
   </ion-item>
@@ -21,46 +21,37 @@
     <ion-input></ion-input>
   </ion-item>
 
-  <ion-grid>
-    <ion-label>Careers</ion-label>
-    <ion-row class="ion-align-items-center" *ngFor="let subject of careers$ | async" >
+  <ion-item>
+    <ion-grid *ngIf="recommendation.value.toUpperCase() === 'UCE'" >
+      <ion-label>Enter UCE Results</ion-label>
+      <ion-row class="ion-align-items-center" *ngFor="let subject of uceCompulsorySubjects$ | async" >
 
-      <ion-col>
-        <ion-input>{{ subject.name }}</ion-input>
-      </ion-col>
+        <ion-col>
+          <ion-input>{{ subject.name }}</ion-input>
+        </ion-col>
 
-    </ion-row>
-  </ion-grid>
+        <ion-col>
+          <ion-select>
+            <ion-select-option *ngFor="let grade of uceGrades$ | async">{{grade.name}}</ion-select-option>
+          </ion-select>
+        </ion-col>
 
-  <ion-grid *ngIf="recommendation.value.toUpperCase() === 'UCE'" >
-    <ion-label>Enter UCE Results</ion-label>
-    <ion-row class="ion-align-items-center" *ngFor="let subject of uceCompulsorySubjects$ | async" >
+      </ion-row>
+      <ion-row class="ion-align-items-center" *ngFor="let subject of uceElectiveSubjects$ | async" >
 
-      <ion-col>
-        <ion-input>{{ subject.name }}</ion-input>
-      </ion-col>
+        <ion-col>
+          <ion-input>{{ subject.name }}</ion-input>
+        </ion-col>
 
-      <ion-col>
-        <ion-select>
-          <ion-select-option *ngFor="let grade of uceGrades$ | async">{{grade.name}}</ion-select-option>
-        </ion-select>
-      </ion-col>
+        <ion-col>
+          <ion-select>
+            <ion-select-option *ngFor="let grade of uceGrades$ | async">{{grade.name}}</ion-select-option>
+          </ion-select>
+        </ion-col>
 
-    </ion-row>
-    <ion-row class="ion-align-items-center" *ngFor="let subject of uceElectiveSubjects$ | async" >
-
-      <ion-col>
-        <ion-input>{{ subject.name }}</ion-input>
-      </ion-col>
-
-      <ion-col>
-        <ion-select>
-          <ion-select-option *ngFor="let grade of uceGrades$ | async">{{grade.name}}</ion-select-option>
-        </ion-select>
-      </ion-col>
-
-    </ion-row>
-  </ion-grid>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
 
   <ion-grid *ngIf="recommendation.value.toUpperCase() === 'UACE'" >
     <ion-label>Enter UACE Results</ion-label>
@@ -71,7 +62,7 @@
       </ion-col>
 
       <ion-col>
-        <ion-select [compareWith]="compareWith">
+        <ion-select>
           <ion-select-option *ngFor="let grade of uaceGrades$ | async">{{grade.name}}</ion-select-option>
         </ion-select>
       </ion-col>

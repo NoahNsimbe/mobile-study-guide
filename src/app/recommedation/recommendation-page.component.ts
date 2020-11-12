@@ -8,6 +8,7 @@ import {Career} from '../models/Career';
 import {Recommendation} from '../models/Recommendation';
 import {SetCareers, SetSubjects} from '../state/app.actions';
 import { LoadingController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import {ServerService} from '../services/server.service';
 
 export interface Subjects {
@@ -23,14 +24,17 @@ export interface Subjects {
 })
 export class RecommendationPage implements OnInit {
 
-  constructor(private appStore: Store, public loadingCtrl: LoadingController, private serverService: ServerService) {
+  constructor(private appStore: Store, public modalCtrl: ModalController,
+              public loadingCtrl: LoadingController, private serverService: ServerService) {
+
     this.recommendations = [
-      {  name: 'Combination, provided results', value: 'UCE'},
-      {  name: 'Course, provided results', value: 'UACE'},
+      {  name: 'Combination, with results', value: 'UCE'},
+      {  name: 'Course, with results', value: 'UACE'},
       {  name: 'Combination, without results', value: 'COMBINATION'},
       {  name: 'Course, without results', value: 'COURSE'}
     ];
     this.recommendation =  {  name: '', value: ''};
+    // this.careerSearchbar.addEventListener('ionInput', this.handleCareerInput);
   }
 
   @Select(AppState.getUaceSubjects) uaceSubjects$: Observable<Uace[]>;
@@ -48,6 +52,7 @@ export class RecommendationPage implements OnInit {
 
   recommendations: Recommendation[];
   recommendation: Recommendation;
+  // careerSearchbar = document.querySelector('ion-searchbar');
 
   // compareWithFn = (o1, o2) => {
   //   return o1 && o2 ? o1.id === o2.id : o1 === o2;
@@ -57,12 +62,27 @@ export class RecommendationPage implements OnInit {
 
   }
 
+  handleCareerInput(event) {
+        // const query = event.target.value.toLowerCase();
+        // requestAnimationFrame(() => {
+        //     this.careers$.subscribe((data: Career[]) => {
+        //         data.forEach(item => {
+        //             const shouldShow = item.name.toLowerCase().indexOf(query) > -1;
+        //         });
+        //     });
+            // items.forEach(item => {
+            //     const shouldShow = item.textContent.toLowerCase().indexOf(query) > -1;
+            //     item.style.display = shouldShow ? 'block' : 'none';
+            // });
+        // });
+    }
+
   async initialize() {
       await this.appStore.dispatch(new SetCareers());
       await this.appStore.dispatch(new SetSubjects());
   }
 
-    async loadRecommendation() {
+  async loadRecommendation() {
         const loading = await this.loadingCtrl.create({
             message: 'Please wait...',
             animated: true,

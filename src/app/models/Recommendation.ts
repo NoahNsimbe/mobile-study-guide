@@ -4,8 +4,8 @@ export interface Recommendation {
 }
 
 export class UserSubmissions {
-    uce_results?: any;
-    uace_results?: any;
+    uceResults?: any;
+    uaceResults?: any;
     career: string;
 }
 

@@ -65,7 +65,7 @@ export class ServerService {
     if (careerOnly === true) {
       data = {career : submissions.career};
     } else {
-      data = {career : submissions.career, uce_results : submissions.uce_results};
+      data = {career : submissions.career, uce_results : submissions.uceResults};
     }
 
     return this.httpClient
@@ -79,7 +79,7 @@ export class ServerService {
     if (careerOnly === true) {
       data = {career : submissions.career};
     } else {
-      data = {career : submissions.career, uce_results : submissions.uce_results, uace_results : submissions.uace_results};
+      data = {career : submissions.career, uce_results : submissions.uceResults, uace_results : submissions.uaceResults};
     }
 
     return this.httpClient

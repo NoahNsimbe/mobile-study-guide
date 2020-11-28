@@ -13,8 +13,8 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Recommendations',
-      url: '/recommedation',
+      title: 'Home',
+      url: '/home',
       icon: 'library'
     },
     {
@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      this.splashScreen.show();
     });
   }
 

@@ -14,3 +14,7 @@ export class SetCareers {
     static readonly type = '[careers] set careers';
 }
 
+export class SetPrograms {
+    static readonly type = '[programs] set programs';
+}
+

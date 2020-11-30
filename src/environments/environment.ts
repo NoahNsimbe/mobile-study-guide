@@ -8,6 +8,7 @@ export const environment = {
   combination: 'get_combination/',
   course: 'get_course/',
   careers: 'careers/',
+  programs: 'programs/',
   uceSubjects: 'uce_subjects/',
   uaceSubjects: 'uace_subjects/'
 };

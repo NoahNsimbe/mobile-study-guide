@@ -6,7 +6,7 @@ import {Uace, UaceGrades} from '../models/uace';
 import {Uce, UceGrades} from '../models/uce';
 import {Career} from '../models/Career';
 import {Combination, Elective, Recommendation, UserResults, UserSubmissions} from '../models/Recommendation';
-import {SetCareers, SetSubjects} from '../state/app.actions';
+import {SetCareers, SetPrograms, SetSubjects} from '../state/app.actions';
 import {LoadingController, ModalController} from '@ionic/angular';
 import {ServerService} from '../services/server.service';
 import {ResultsModalPage} from '../modals/results-modal/results-modal.page';
@@ -85,6 +85,7 @@ export class RecommendationPage implements OnInit {
   async initialize() {
       await this.appStore.dispatch(new SetCareers());
       await this.appStore.dispatch(new SetSubjects());
+      await this.appStore.dispatch(new SetPrograms());
   }
 
   async loadRecommendation() {

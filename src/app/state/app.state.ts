@@ -1,5 +1,5 @@
 import {Action, Selector, State, StateContext} from '@ngxs/store';
-//import {  ConfirmOrder, OrderFailed, OrderSuccess, AddToCart, RemoveFromCart, SetCart, SetOrders, UpdateAmount } from './orders.actions';
+// import {  ConfirmOrder, OrderFailed, OrderSuccess, AddToCart, RemoveFromCart, SetCart, SetOrders, UpdateAmount } from './orders.actions';
 // import { OrderService } from '../services/order.service';
 // import { Order, OrderItem } from '../models/order';
 // import { StoreItem } from '../models/store-items';
@@ -9,8 +9,9 @@ import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {Uace, UaceGrades} from '../models/uace';
 import {Uce, UceGrades} from '../models/uce';
 import {Career} from '../models/Career';
-import {SetCareers, SetSubjects, SetUaceSubjects, SetUceSubjects} from './app.actions';
+import {SetCareers, SetPrograms, SetSubjects, SetUaceSubjects, SetUceSubjects} from './app.actions';
 import {ServerService} from '../services/server.service';
+import {Program} from '../models/Program';
 
 
 export interface AppStateModel {
@@ -19,6 +20,7 @@ export interface AppStateModel {
     uce: Uce[];
     uceGrades: UceGrades[];
     careers: Career[];
+    programs: Program[];
 }
 
 const defaults: AppStateModel = {
@@ -40,7 +42,8 @@ const defaults: AppStateModel = {
         {name : 'C5', value : 5},
         {name : 'C6', value : 6},
         ],
-    careers: Array<Career>()
+    careers: Array<Career>(),
+    programs: Array<Program>()
 };
 
 @State<AppStateModel>({
@@ -53,6 +56,11 @@ export class AppState {
     @Selector()
     static getUaceSubjects(state: AppStateModel) {
         return state.uace;
+    }
+
+    @Selector()
+    static getPrograms(state: AppStateModel) {
+        return state.programs;
     }
 
     @Selector()
@@ -99,6 +107,15 @@ export class AppState {
     setCareers(context: StateContext<AppStateModel>) {
         this.serverService.getCareers().subscribe( (data: Career[]) => {
             context.patchState({careers: data});
+        }, (error => {
+            console.log(error);
+        }));
+    }
+
+    @Action(SetPrograms)
+    setPrograms(context: StateContext<AppStateModel>) {
+        this.serverService.getPrograms().subscribe( (data: Program[]) => {
+            context.patchState({programs: data});
         }, (error => {
             console.log(error);
         }));

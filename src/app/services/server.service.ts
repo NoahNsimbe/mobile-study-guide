@@ -43,6 +43,14 @@ export class ServerService {
 
   }
 
+  getPrograms(): Observable<Program[]> {
+
+    return this.httpClient
+        .get<Program[]>(`${environment.apiRoot}${environment.programs}`)
+        .pipe(retry(3), catchError(ServerService.handleError));
+
+  }
+
   getUaceSubjects(): Observable<Uace[]> {
 
     return this.httpClient
@@ -73,7 +81,7 @@ export class ServerService {
         .pipe(retry(3), catchError(ServerService.handleError));
   }
 
-  getPrograms(submissions: UserSubmissions, careerOnly: boolean): Observable<Program[]> {
+  getProgram(submissions: UserSubmissions, careerOnly: boolean): Observable<Program[]> {
 
     let data: any;
     if (careerOnly === true) {

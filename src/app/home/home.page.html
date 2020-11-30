@@ -11,6 +11,7 @@
 
   <ion-grid>
 
+<!--    recommendations-->
     <ion-row class="ion-align-items-center">
 
       <ion-col>
@@ -20,7 +21,7 @@
       </ion-col>
 
       <ion-col>
-        <ion-button routerLink="/recommendation">
+        <ion-button routerLink="/programs">
           O'level Recommendation
         </ion-button>
       </ion-col>
@@ -43,12 +44,19 @@
 
     </ion-row>
 
+<!--    Resources-->
     <ion-row class="ion-align-items-center">
 
       <ion-col>
-        <ion-button>
-          O'level Resources
-        </ion-button>
+        <ion-card routerLink="/programs" >
+          <ion-card-header>
+            <ion-card-title>Programs</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            Explore available programs in the various universities
+          </ion-card-content>
+        </ion-card>
       </ion-col>
 
       <ion-col>

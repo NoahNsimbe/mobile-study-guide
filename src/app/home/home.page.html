@@ -15,10 +15,11 @@
     <ion-row class="ion-align-items-center">
 
       <ion-col>
-        <ion-button routerLink="/recommendation" >
-          A'level Recommendation
+        <ion-button routerLink="/programs">
+          O'level Recommendation
         </ion-button>
       </ion-col>
+
 
       <ion-col>
         <ion-button routerLink="/programs">
@@ -44,9 +45,9 @@
 
     </ion-row>
 
-<!--    Resources-->
-    <ion-row class="ion-align-items-center">
 
+    <ion-row class="ion-align-items-center">
+      <!-- Programs -->
       <ion-col>
         <ion-card routerLink="/programs" >
           <ion-card-header>
@@ -59,10 +60,17 @@
         </ion-card>
       </ion-col>
 
+      <!-- Program Eligibility-->
       <ion-col>
-        <ion-button>
-          A'level Resources
-        </ion-button>
+        <ion-card routerLink="/programs" >
+          <ion-card-header>
+            <ion-card-title>Program Eligibility</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            Explore available programs in the various universities
+          </ion-card-content>
+        </ion-card>
       </ion-col>
 
     </ion-row>

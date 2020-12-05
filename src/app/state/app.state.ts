@@ -113,12 +113,13 @@ export class AppState {
     }
 
     @Action(SetPrograms)
-    setPrograms(context: StateContext<AppStateModel>) {
-        this.serverService.getPrograms().subscribe( (data: Program[]) => {
-            context.patchState({programs: data});
-        }, (error => {
-            console.log(error);
-        }));
+    setPrograms(context: StateContext<AppStateModel>, action: SetPrograms) {
+        if(context.getState().programs === [] || action.force === true)
+            this.serverService.getPrograms().subscribe( (data: Program[]) => {
+                context.patchState({programs: data});
+            }, (error => {
+                console.log(error);
+            }));
     }
 
     @Action(SetUceSubjects)

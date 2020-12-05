@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   apiRoot: 'http://127.0.0.1:8000/',
   combination: 'get_combination/',
+  recommendCombination: 'recommend_combination/',
   course: 'get_course/',
   careers: 'careers/',
   programs: 'programs/',

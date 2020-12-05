@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {Store} from "@ngxs/store";
+import {SetPrograms} from "../state/app.actions";
 
 @Component({
   selector: 'app-home',
@@ -8,13 +10,18 @@ import {Router} from '@angular/router';
 })
 export class HomePage implements OnInit {
 
-  constructor(private route: Router) { }
+  constructor(private appStore: Store, private route: Router) { }
 
   ngOnInit() {
   }
 
-  navigateTo(path) {
-    this.route.navigate([ `/${path}`]);
+  async navigateTo(path) {
+    switch (path) {
+      case 'recommend':
+        await this.appStore.dispatch(new SetPrograms());
+    }
+
+    await this.route.navigate([`/${path}`]);
   }
 
 }

@@ -95,4 +95,12 @@ export class ServerService {
         .pipe(retry(3), catchError(ServerService.handleError));
   }
 
+  recommendCombination(programCode: string): Observable<Combination[]> {
+
+    const data = {program_code : programCode};
+
+    return this.httpClient
+        .post<Combination[]>(`${environment.apiRoot}${environment.combination}`, data)
+        .pipe(retry(3), catchError(ServerService.handleError));
+  }
 }

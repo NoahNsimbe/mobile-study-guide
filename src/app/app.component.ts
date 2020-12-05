@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import {LoadingController, Platform} from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import {SwUpdate} from '@angular/service-worker';
+import {Store} from "@ngxs/store";
+import {SetPrograms} from "./state/app.actions";
 
 @Component({
   selector: 'app-root',
@@ -10,6 +13,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
+  title = 'SRS';
   public selectedIndex = 0;
   public appPages = [
     {
@@ -48,7 +52,10 @@ export class AppComponent implements OnInit {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private swUpdate: SwUpdate,
+    private appStore: Store,
+    public loadingCtrl: LoadingController
   ) {
     this.initializeApp();
   }
@@ -61,9 +68,33 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+  
+    
+    if (this.swUpdate.isEnabled) {
+
+      this.swUpdate.available.subscribe(() => {
+        window.location.reload();
+      });
+    }
+    
     const path = window.location.pathname.split('folder/')[1];
     if (path !== undefined) {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
+  }
+
+  async refresh() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait as we perform a refresh...',
+      animated: true,
+      spinner: 'lines'
+    });
+
+    await loading.present();
+
+    await this.appStore.dispatch(new SetPrograms(true));
+
+    await loading.dismiss();
+
   }
 }

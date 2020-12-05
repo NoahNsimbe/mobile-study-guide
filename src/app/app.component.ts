@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {SwUpdate} from '@angular/service-worker';
 import {Store} from "@ngxs/store";
-import {SetPrograms} from "./state/app.actions";
+import {SetCareers, SetPrograms, SetUaceSubjects, SetUceSubjects} from "./state/app.actions";
 
 @Component({
   selector: 'app-root',
@@ -93,6 +93,9 @@ export class AppComponent implements OnInit {
     await loading.present();
 
     await this.appStore.dispatch(new SetPrograms(true));
+    await this.appStore.dispatch(new SetUceSubjects(true));
+    await this.appStore.dispatch(new SetUaceSubjects(true));
+    await this.appStore.dispatch(new SetCareers(true));
 
     await loading.dismiss();
 

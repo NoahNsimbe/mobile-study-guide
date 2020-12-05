@@ -104,12 +104,13 @@ export class AppState {
     }
 
     @Action(SetCareers)
-    setCareers(context: StateContext<AppStateModel>) {
-        this.serverService.getCareers().subscribe( (data: Career[]) => {
-            context.patchState({careers: data});
-        }, (error => {
-            console.log(error);
-        }));
+    setCareers(context: StateContext<AppStateModel>, action: SetUceSubjects) {
+        if(context.getState().careers === [] || action.force === true)
+            this.serverService.getCareers().subscribe( (data: Career[]) => {
+                context.patchState({careers: data});
+            }, (error => {
+                console.log(error);
+            }));
     }
 
     @Action(SetPrograms)
@@ -123,21 +124,23 @@ export class AppState {
     }
 
     @Action(SetUceSubjects)
-    setUceSubjects(context: StateContext<AppStateModel>) {
-        this.serverService.getUceSubjects().subscribe( (data: Uce[]) => {
-            context.patchState({uce : data});
-        }, (error => {
-            console.log(error);
-        }));
+    setUceSubjects(context: StateContext<AppStateModel>, action: SetUceSubjects) {
+        if(context.getState().uce === [] || action.force === true)
+            this.serverService.getUceSubjects().subscribe( (data: Uce[]) => {
+                context.patchState({uce : data});
+            }, (error => {
+                console.log(error);
+            }));
     }
 
     @Action(SetUaceSubjects)
-    setUaceSubjects(context: StateContext<AppStateModel>) {
-        this.serverService.getUaceSubjects().subscribe( (data: Uace[]) => {
-            context.patchState({uace: data});
-        }, (error => {
-            console.log(error);
-        }));
+    setUaceSubjects(context: StateContext<AppStateModel>, action: SetUaceSubjects) {
+        if(context.getState().uace === [] || action.force === true)
+            this.serverService.getUaceSubjects().subscribe( (data: Uace[]) => {
+                context.patchState({uace: data});
+            }, (error => {
+                console.log(error);
+            }));
     }
 
 

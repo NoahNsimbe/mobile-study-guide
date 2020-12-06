@@ -34,3 +34,11 @@ export interface Program {
     duration: number;
     time: string;
 }
+
+export interface ProgramCheck {
+    program_code: string;
+    uce_results: string;
+    uace_results: string;
+    gender: string;
+    admission_type: string;
+}

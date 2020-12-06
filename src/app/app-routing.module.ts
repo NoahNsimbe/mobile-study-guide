@@ -28,7 +28,7 @@ const routes: Routes = [
     loadChildren: () => import('./programs/programs.module').then( m => m.ProgramsPageModule)
   },
   {
-    path: 'program-check',
+    path: 'program_check',
     loadChildren: () => import('./program-check/program-check.module').then( m => m.ProgramCheckPageModule)
   }
 ];

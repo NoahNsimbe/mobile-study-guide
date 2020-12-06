@@ -1,9 +1,154 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>programCheck</ion-title>
+    <ion-title>Program Check</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+<!--  program-->
+  <ion-searchbar placeholder="Program" [(ngModel)]="submission.program_code" (ionInput)="handleInput($event)" ></ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let program of display" (click)="selectProgram(program)" >
+      {{program.name}}
+    </ion-item>
+  </ion-list>
+
+<!--  gender-->
+  <ion-list>
+    <ion-radio-group value="FEMALE" [(ngModel)]="submission.gender">
+      <ion-list-header>
+        <ion-label>Gender</ion-label>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-label>Female</ion-label>
+        <ion-radio slot="start" value="FEMALE"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Male</ion-label>
+        <ion-radio slot="start" value="MALE"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+<!--  admission type-->
+  <ion-list>
+    <ion-radio-group value="PRIVATE" [(ngModel)]="submission.admission_type">
+      <ion-list-header>
+        <ion-label>Admission Type</ion-label>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-label>Private</ion-label>
+        <ion-radio slot="start" value="PRIVATE"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Public/Government</ion-label>
+        <ion-radio slot="start" value="PUBLIC"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+<!--  uce results-->
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label>Biology</ion-label>
+          <ion-input placeholder="placeholder"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Mathematics</ion-label>
+          <ion-input placeholder="placeholder"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Biology</ion-label>
+          <ion-input placeholder="placeholder"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Mathematics</ion-label>
+          <ion-input placeholder="placeholder"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Biology</ion-label>
+          <ion-input placeholder="placeholder"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label>Mathematics</ion-label>
+          <ion-input placeholder="placeholder"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Biology</ion-label>
+          <ion-input placeholder="placeholder"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Mathematics</ion-label>
+          <ion-input placeholder="placeholder"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Biology</ion-label>
+          <ion-input placeholder="placeholder"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Biology</ion-label>
+          <ion-input placeholder="placeholder"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+<!--  uace results-->
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label>Biology</ion-label>
+          <ion-input placeholder="placeholder"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Mathematics</ion-label>
+          <ion-input placeholder="placeholder"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Biology</ion-label>
+          <ion-input placeholder="placeholder"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label>Mathematics</ion-label>
+          <ion-input placeholder="placeholder"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Biology</ion-label>
+          <ion-input placeholder="placeholder"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+<!--  submit-->
+  <ion-item>
+    <ion-button color="primary">Submit</ion-button>
+  </ion-item>
+
+  <ion-app>
+    <ion-content>
+
+      <button class="ion-activatable ripple-parent">
+        Submit
+        <ion-ripple-effect></ion-ripple-effect>
+      </button>
+
+      <button class="ion-activatable ripple-parent">
+        Submit
+        <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+      </button>
+    </ion-content>
+  </ion-app>
 </ion-content>

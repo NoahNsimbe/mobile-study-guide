@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Program} from "../models/Program";
 import {Select, Store} from "@ngxs/store";
 import {AppState} from "../state/app.state";
@@ -6,7 +6,10 @@ import {Observable} from "rxjs";
 import {Uace, UaceGrades} from "../models/uace";
 import {Uce, UceGrades} from "../models/uce";
 import {SetPrograms} from "../state/app.actions";
-import {ProgramCheck} from "../models/Recommendation";
+import {ProgramCheck, UserResults} from "../models/Recommendation";
+import {UceComponent} from "../components/uce/uce.component";
+import {LoadingController, ToastController} from "@ionic/angular";
+import {valueReferenceToExpression} from "@angular/compiler-cli/src/ngtsc/annotations/src/util";
 
 @Component({
   selector: 'app-program-check',
@@ -14,6 +17,8 @@ import {ProgramCheck} from "../models/Recommendation";
   styleUrls: ['./program-check.page.scss'],
 })
 export class ProgramCheckPage implements OnInit {
+
+  @ViewChild(UceComponent, {static: false}) uceComponent !: UceComponent;
 
   programs: Program[];
   display: Program[];
@@ -28,7 +33,9 @@ export class ProgramCheckPage implements OnInit {
   @Select(AppState.getUceGrades) uceGrades$: Observable<UceGrades[]>;
   @Select(AppState.getUaceGrades) uaceGrades$: Observable<UaceGrades[]>;
 
-  constructor(private appStore: Store) {
+  constructor(private appStore: Store,
+              public loadingCtrl: LoadingController,
+              public toastCtrl: ToastController) {
     this.submission = new class implements ProgramCheck {
       admission_type: string;
       gender: string;
@@ -71,6 +78,37 @@ export class ProgramCheckPage implements OnInit {
   selectProgram(program: Program) {
     this.submission.program_code = program.code;
     this.display = Array<Program>();
+  }
+
+  async submit(){
+
+    let uceResults : UserResults[] = this.uceComponent.formatResults();
+
+    if(this.uceComponent.checkResultsValidity()){
+
+      console.log(uceResults)
+
+      const loading = await this.loadingCtrl.create({
+        message: 'loading...',
+        animated: true,
+        spinner: 'lines'
+      });
+
+      await loading.present();
+
+      await loading.dismiss();
+
+    }
+
+    else {
+      const toast = await this.toastCtrl.create({
+        message: 'Please provide all fields.',
+        duration: 2000
+      });
+
+      await toast.present();
+    }
+
   }
 
 }

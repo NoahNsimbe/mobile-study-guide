@@ -10,7 +10,7 @@
 <ion-content>
 
   <ion-item *ngIf="category.toUpperCase() === 'UCE'" >
-    <ion-label position="floating" >Select an elective</ion-label>
+    <ion-label position="floating" >Select subject</ion-label>
     <ion-select [(ngModel)]="selectedSubject.code" placeholder="Select subject" okText="Okay" cancelText="Dismiss">
       <ion-select-option *ngFor="let subject of uceElectives" value="{{subject.code}}" >{{subject.name}}</ion-select-option>
     </ion-select>

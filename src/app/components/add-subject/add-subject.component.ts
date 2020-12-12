@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ModalController} from "@ionic/angular";
+import {ModalController, PopoverController, ToastController} from "@ionic/angular";
 import {Uce, UceGrades} from "../../models/uce";
 import {Uace} from "../../models/uace";
 import {UserResults} from "../../models/Recommendation";
@@ -20,11 +20,12 @@ export class AddSubjectComponent implements OnInit {
 
   selectedSubject: UserResults;
 
-  constructor(public modalCtrl: ModalController) { }
+  constructor(public modalCtrl: ModalController,
+              public toastCtrl: ToastController) { }
 
   dismissModal() {
     this.modalCtrl.dismiss().then(r => {
-      console.log(r);
+      // console.log(r);
     });
   }
 
@@ -35,9 +36,20 @@ export class AddSubjectComponent implements OnInit {
     };
   }
 
-  addSubject() {
-    this.modalCtrl.dismiss(this.selectedSubject).then(r => {
-      console.log(r);
-    });
+  async addSubject() {
+    if(this.selectedSubject.code == "" || this.selectedSubject.value == ""){
+      const toast = await this.toastCtrl.create({
+        message: 'Please provide all fields.',
+        duration: 2000
+      });
+
+      await toast.present();
+    }
+    else {
+      this.modalCtrl.dismiss(this.selectedSubject).then(r => {
+        console.log(r);
+      });
+    }
+
   }
 }

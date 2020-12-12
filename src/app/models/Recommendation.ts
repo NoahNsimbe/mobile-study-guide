@@ -27,6 +27,13 @@ export interface Combination {
     subjects: string[];
 }
 
+export interface ResultsModalData {
+    results?: [],
+    uceRecommendations? : Combination[]
+    uaceRecommendations? : Combination[]
+    flag?: string
+}
+
 export interface Program {
     code: string;
     name: string;

@@ -19,33 +19,43 @@ export class AppComponent implements OnInit {
     {
       title: 'Home',
       url: '/home',
-      icon: 'library'
+      icon: 'home'
     },
     {
-      title: 'Weighing System',
-      url: '/folder/Outbox',
-      icon: 'paper-plane'
+      title: 'Help',
+      url: '/home',
+      icon: 'help'
     },
     {
-      title: 'Articles',
-      url: '/folder/Favorites',
-      icon: 'heart'
+      title: 'About',
+      url: '/home',
+      icon: 'information'
     },
-    {
-      title: 'Archived',
-      url: '/folder/Archived',
-      icon: 'archive'
-    },
-    {
-      title: 'Trash',
-      url: '/folder/Trash',
-      icon: 'trash'
-    },
-    {
-      title: 'Spam',
-      url: '/folder/Spam',
-      icon: 'warning'
-    }
+    // {
+    //   title: 'Weighing System',
+    //   url: '/folder/Outbox',
+    //   icon: 'paper-plane'
+    // },
+    // {
+    //   title: 'Articles',
+    //   url: '/folder/Favorites',
+    //   icon: 'heart'
+    // },
+    // {
+    //   title: 'Archived',
+    //   url: '/folder/Archived',
+    //   icon: 'archive'
+    // },
+    // {
+    //   title: 'Trash',
+    //   url: '/folder/Trash',
+    //   icon: 'trash'
+    // },
+    // {
+    //   title: 'Spam',
+    //   url: '/folder/Spam',
+    //   icon: 'warning'
+    // }
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 

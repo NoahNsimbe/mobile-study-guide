@@ -16,7 +16,7 @@
     <ion-list-header>
       <ion-label>Search a program</ion-label>
     </ion-list-header>
-    <ion-searchbar placeholder="Program" [(ngModel)]="program" (ionInput)="handleInput($event)" ></ion-searchbar>
+    <ion-searchbar placeholder="Program" [(ngModel)]="programName" (ionInput)="handleInput($event)" ></ion-searchbar>
     <ion-item *ngFor="let program of display" (click)="selectProgram(program)" >
       {{program.name}}
     </ion-item>

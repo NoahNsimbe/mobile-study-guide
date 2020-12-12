@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { ProgramCheckPageRoutingModule } from './program-check-routing.module';
 
 import { ProgramCheckPage } from './program-check.page';
-import {UceComponent} from "../components/uce/uce.component";
 import {AddSubjectComponent} from "../components/add-subject/add-subject.component";
-import {UaceComponent} from "../components/uace/uace.component";
 import {UceComponentModule} from "../components/uce/uce.module";
+import {UaceComponentModule} from "../components/uace/uace.module";
 
 @NgModule({
   imports: [
@@ -18,10 +17,11 @@ import {UceComponentModule} from "../components/uce/uce.module";
     FormsModule,
     IonicModule,
     ProgramCheckPageRoutingModule,
-    ReactiveFormsModule,
-    UceComponentModule
+    // ReactiveFormsModule,
+    UceComponentModule,
+    UaceComponentModule
   ],
-  declarations: [ProgramCheckPage, AddSubjectComponent, UaceComponent],
-  entryComponents: [AddSubjectComponent]
+  declarations: [ProgramCheckPage],
+  entryComponents: []
 })
 export class ProgramCheckPageModule {}

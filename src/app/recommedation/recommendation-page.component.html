@@ -1,92 +1,108 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+<!--      <ion-menu-button></ion-menu-button>-->
+      <ion-back-button color="danger"></ion-back-button>
     </ion-buttons>
-    <ion-title>Get Recommendation</ion-title>
+    <ion-title>Recommendation</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-item>
-    <ion-label position="floating" >Select a recommendation</ion-label>
-    <ion-select [(ngModel)]="recommendation" (ionChange)="loadRecommendation()" >
-      <ion-select-option *ngFor="let x of recommendations" [value]="x.value" >{{x.name}}</ion-select-option>
-    </ion-select>
-  </ion-item>
+<!--  <ion-item>-->
+<!--    <ion-label position="floating" >Select a recommendation</ion-label>-->
+<!--    <ion-select [(ngModel)]="recommendation" (ionChange)="loadRecommendation()" >-->
+<!--      <ion-select-option *ngFor="let x of recommendations" [value]="x.value" >{{x.name}}</ion-select-option>-->
+<!--    </ion-select>-->
+<!--  </ion-item>-->
 
-  <ion-item>
-    <ion-label position="floating">Enter Career</ion-label>
-    <ion-input [(ngModel)]="submissions.career" ></ion-input>
-  </ion-item>
+  <!--  Select Recommendation-->
+  <ion-list>
+
+    <ion-radio-group (ionChange)="recommendationChanged('recommendation')"  [(ngModel)]="recommendation" >
+
+      <ion-list-header>
+        <ion-label>Select a recommendation</ion-label>
+      </ion-list-header>
+
+      <ion-item *ngFor="let recommendation of recommendations" >
+        <ion-label>{{ recommendation.name }}</ion-label>
+        <ion-radio slot="start" value="{{recommendation.value}}"></ion-radio>
+      </ion-item>
+
+    </ion-radio-group>
+  </ion-list>
+
+<!--  what to include-->
+  <ion-list>
+    <ion-item >
+      <ion-label>Include my results</ion-label>
+      <ion-checkbox (ionChange)="recommendationChanged('include')"  slot="end" [(ngModel)]="includeResults"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <!--  Enter career-->
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Search a career</ion-label>
+    </ion-list-header>
+    <ion-searchbar placeholder="Career" [(ngModel)]="career" (ionInput)="handleInput($event)" ></ion-searchbar>
+    <ion-item *ngFor="let career of display" (click)="selectCareer(career)" >
+      {{career.name}}
+    </ion-item>
+  </ion-list>
+
+  <!--  gender-->
+  <ion-list>
+
+    <ion-radio-group value="FEMALE"  [(ngModel)]="gender" >
+      <ion-list-header>
+        <ion-label>Gender</ion-label>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-label>Female</ion-label>
+        <ion-radio slot="start" value="FEMALE"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Male</ion-label>
+        <ion-radio slot="start" value="MALE"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <!--  admission type-->
+  <ion-list>
+    <ion-radio-group value="PRIVATE" [(ngModel)]="admissionType">
+      <ion-list-header>
+        <ion-label>Admission Type</ion-label>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-label>Private</ion-label>
+        <ion-radio slot="start" value="PRIVATE"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Public/Government</ion-label>
+        <ion-radio slot="start" value="PUBLIC"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <!--  uce results-->
+  <app-uce *ngIf="includeUceResults && includeResults" ></app-uce>
+
+  <!--  uace results-->
+  <app-uace *ngIf="includeUaceResults && includeResults" ></app-uace>
 
 
-  <ion-grid >
-      <ion-label>Enter UCE Results</ion-label>
+<!--  <ion-button (click)="getRecommendation()" >Submit</ion-button>-->
 
-      <ion-row class="ion-align-items-left" *ngFor="let subject of uceCompulsorySubjects$ | async" >
-
-        <ion-col size=8>
-          <ion-label >{{ subject.name }}</ion-label>
-        </ion-col>
-
-        <ion-col>
-          <ion-select placeholder="Grade" (ionChange)="uceChanged(subject.code, $event)" >
-            <ion-select-option value="{{grade.value}}" *ngFor="let grade of uceGrades$ | async">{{grade.name}}</ion-select-option>
-          </ion-select>
-        </ion-col>
-
-      </ion-row>
-
-<!--    electives-->
-
-      <ion-row class="ion-align-items-left" *ngFor="let subject of submissions.uceResults" >
-
-        <ion-col size=9>
-          <ion-label>{{subject.code}}</ion-label>
-        </ion-col>
-
-        <ion-col size=3>
-          <ion-label>{{subject.value}}</ion-label>
-        </ion-col>
-
-      </ion-row>
-
-      <ion-row>
-        <ion-button (click)="addElective('UCE')">Add Elective</ion-button>
-      </ion-row>
-
-    </ion-grid>
-
-  <ion-grid >
-    <ion-label>Enter UACE Results</ion-label>
-    <ion-row class="ion-align-items-left" *ngFor="let subject of submissions.uaceResults" >
-
-      <ion-col>
-        <ion-label>{{ subject.code }}</ion-label>
-      </ion-col>
-
-      <ion-col>
-        <ion-label>{{ subject.value }}</ion-label>
-      </ion-col>
-
-<!--      <ion-col>-->
-<!--        <ion-select (ionChange)="uaceChanged(subject.code, $event)">-->
-<!--          <ion-select-option *ngFor="let grade of uaceGrades$ | async">{{grade.name}}</ion-select-option>-->
-<!--        </ion-select>-->
-<!--      </ion-col>-->
-
-    </ion-row>
-
-    <ion-row>
-      <ion-button (click)="addElective('UACE')">Add Subject</ion-button>
-    </ion-row>
-
-  </ion-grid>
-
-
-  <ion-button (click)="getRecommendation()" >Submit</ion-button>
+  <!--  submit-->
+  <ion-button expand="block" fill="outline" (click)="submit()" >SUBMIT</ion-button>
 
 </ion-content>
 

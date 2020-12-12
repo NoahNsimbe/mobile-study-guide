@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Recommendation</ion-title>
+    <ion-title>{{results.flag.trim().toUpperCase() + ' RECOMMENDATIONS'}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismissModal()">Close</ion-button>
     </ion-buttons>
@@ -9,9 +9,17 @@
 
 <ion-content>
 
-  <ion-item>
-    <ion-label position="floating" >Recommendations</ion-label>
-    <ion-input value="{{ flag }}" ></ion-input>
-  </ion-item>
+  <ion-list *ngIf="results.flag.trim().toUpperCase() === 'UCE'" >
+<!--    <ion-list-header>-->
+<!--      UCE Recommendations-->
+<!--    </ion-list-header>-->
+
+    <ion-item *ngFor="let recommendation of results.uceRecommendations" >
+      <ion-label>
+        <h2>{{recommendation.abbreviation}}</h2>
+        <h3 *ngFor="let subject of recommendation.subjects" >{{subject}}</h3>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 
 </ion-content>

@@ -15,6 +15,7 @@ import {UceComponent} from "../components/uce/uce.component";
 import {AddSubjectComponent} from "../components/add-subject/add-subject.component";
 import {UaceComponent} from "../components/uace/uace.component";
 import {UceComponentModule} from "../components/uce/uce.module";
+import {UaceComponentModule} from "../components/uace/uace.module";
 
 @NgModule({
   imports: [
@@ -24,10 +25,11 @@ import {UceComponentModule} from "../components/uce/uce.module";
     RecommendationPageRoutingModule,
     ResultsModalPageModule,
     ElectivesModalPageModule,
-    UceComponentModule
+    UceComponentModule,
+    UaceComponentModule
 
   ],
-  declarations: [RecommendationPage, UceComponent],
+  declarations: [RecommendationPage],
   entryComponents: [ResultsModalPage, ElectivesModalPage],
 
 })

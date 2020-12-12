@@ -145,8 +145,6 @@ export class UaceComponent implements OnInit {
         this.uaceResults.removeControl(data.code);
         this.uaceResults.addControl(data.code, new FormControl(data.value));
 
-        console.log(this.uaceResults.value);
-
         this.electivesArray.addControl(data.code, new FormControl(data.value));
 
         this.uaceElectives.forEach(value => {

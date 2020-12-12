@@ -18,6 +18,7 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import {AppState} from './state/app.state';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import {AddSubjectComponent} from "./components/add-subject/add-subject.component";
 
 @NgModule({
   declarations: [AppComponent],

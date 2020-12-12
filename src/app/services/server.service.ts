@@ -74,17 +74,40 @@ export class ServerService {
 
   }
 
-  getCombinations(submissions: UserSubmissions, careerOnly: boolean): Observable<Combination[]> {
+  getCombinations(submissions: UserSubmissions, includeResults: boolean): Observable<any> {
 
     let data: any;
-    if (careerOnly === true) {
-      data = {career : submissions.career};
+    if (includeResults === true) {
+      data = {
+        career : submissions.career,
+        uce_results : submissions.uceResults,
+      };
     } else {
-      data = {career : submissions.career, uce_results : submissions.uceResults};
+      data = {career : submissions.career};
     }
 
     return this.httpClient
-        .post<Combination[]>(`${environment.apiRoot}${environment.combination}`, data)
+        .post<any>(`${environment.apiRoot}${environment.combination}`, data)
+        .pipe(retry(3), catchError(ServerService.handleError));
+  }
+
+  getCourses(submissions: UserSubmissions, includeResults: boolean): Observable<any> {
+
+    let data: any;
+    if (includeResults === true) {
+      data = {
+        career : submissions.career,
+        uce_results : submissions.uceResults,
+        uace_results : submissions.uaceResults,
+        admission_type : submissions.admissionType,
+        gender : submissions.gender,
+      };
+    } else {
+      data = {career : submissions.career};
+    }
+
+    return this.httpClient
+        .post<any>(`${environment.apiRoot}${environment.course}`, data)
         .pipe(retry(3), catchError(ServerService.handleError));
   }
 

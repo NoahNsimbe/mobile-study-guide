@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-import {UceComponent} from "./uce.component";
+import {UaceComponent} from "./uace.component";
 import {AddSubjectComponent} from "../add-subject/add-subject.component";
 import {AddSubjectComponentModule} from "../add-subject/add-subject.module";
 
@@ -17,7 +17,7 @@ import {AddSubjectComponentModule} from "../add-subject/add-subject.module";
         AddSubjectComponentModule
     ],
     entryComponents: [AddSubjectComponent],
-    declarations: [UceComponent],
-    exports: [UceComponent]
+    declarations: [UaceComponent],
+    exports: [UaceComponent]
 })
-export class UceComponentModule {}
+export class UaceComponentModule {}

@@ -1,22 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Select, Store} from '@ngxs/store';
 import {AppState} from '../state/app.state';
 import {Observable} from 'rxjs';
-import {Uace, UaceGrades} from '../models/uace';
-import {Uce, UceGrades} from '../models/uce';
 import {Career} from '../models/Career';
-import {Combination, Elective, Recommendation, UserResults, UserSubmissions} from '../models/Recommendation';
-import {SetCareers, SetPrograms, SetSubjects} from '../state/app.actions';
-import {LoadingController, ModalController} from '@ionic/angular';
+import {Combination, Recommendation, ResultsModalData, UserResults, UserSubmissions} from '../models/Recommendation';
+import {SetCareers} from '../state/app.actions';
+import {AlertController, LoadingController, ModalController, ToastController} from '@ionic/angular';
 import {ServerService} from '../services/server.service';
 import {ResultsModalPage} from '../modals/results-modal/results-modal.page';
-import {ElectivesModalPage} from '../modals/electives-modal/electives-modal.page';
-
-export interface Subjects {
-  code: string;
-  name: string;
-}
-
+import {UceComponent} from "../components/uce/uce.component";
+import {UaceComponent} from "../components/uace/uace.component";
 
 @Component({
   selector: 'app-recommendation',
@@ -24,178 +17,253 @@ export interface Subjects {
   styleUrls: ['./recommendation-page.component.scss'],
 })
 export class RecommendationPage implements OnInit {
+    // preferences = [
+    //     { val: 'My Uce Results', isChecked: false },
+    //     { val: 'My Uace Results', isChecked: false },
+    // ];
 
-  constructor(private appStore: Store, public modalCtrl: ModalController,
-              public loadingCtrl: LoadingController, private serverService: ServerService) {
+    @ViewChild(UceComponent, {static: false}) uceComponent !: UceComponent;
+    @ViewChild(UaceComponent, {static: false}) uaceComponent !: UaceComponent;
 
-    this.recommendations = [
-      {  name: 'Combination, with results', value: 'UCE'},
-      {  name: 'Course, with results', value: 'UACE'},
-      {  name: 'Combination, without results', value: 'COMBINATION'},
-      {  name: 'Course, without results', value: 'COURSE'}
-    ];
-    this.recommendation =  '';
-    this.submissions = {
-        career: '', uaceResults:  [], uceResults: []
+    includeResults : boolean = false;
+    includeUceResults : boolean = false;
+    includeUaceResults : boolean = false;
+    careers: Career[];
+    display: Career[];
+    career: string;
+    admissionType: string;
+    gender: string;
+    recommendation: string;
 
-    };
-    this.uceElectives = [];
 
-    // this.careerSearchbar.addEventListener('ionInput', this.handleCareerInput);
-  }
-
-  @Select(AppState.getUaceSubjects) uaceSubjects$: Observable<Uace[]>;
-  @Select(AppState.getCompulsoryUceSubjects) uceCompulsorySubjects$: Observable<Uce[]>;
-  @Select(AppState.getElectiveUceSubjects) uceElectiveSubjects$: Observable<Uce[]>;
   @Select(AppState.getCareers) careers$: Observable<Career[]>;
 
-  @Select(AppState.getUceGrades) uceGrades$: Observable<UceGrades[]>;
-  @Select(AppState.getUaceGrades) uaceGrades$: Observable<UaceGrades[]>;
+    constructor(private appStore: Store, public modalCtrl: ModalController,
+                public loadingCtrl: LoadingController, private toastCtrl: ToastController,
+                private serverService: ServerService, public alertCtrl: AlertController) {
 
-  // @Select(state => state.subjects.uceGrades) uceGrades$: Observable<UceGrades[]>;
-  // @Select(state => state.subjects.uaceGrades) uaceGrades$: Observable<UaceGrades[]>;
+        this.admissionType = "PUBLIC";
+        this.gender = "FEMALE";
+        this.career = "";
+        this.recommendations = [
+            {  name: 'Combination', value: 'COMBINATION'},
+            {  name: 'Course', value: 'COURSE'}
+        ];
+        this.recommendation =  'COMBINATION';
 
-  @Select() subjects$;
+        // this.uceElectives = [];
+
+        // this.careerSearchbar.addEventListener('ionInput', this.handleCareerInput);
+    }
 
   recommendations: Recommendation[];
-  recommendation: string;
-  submissions: UserSubmissions;
-  uceElectives: Elective[];
+
+  // submissions: UserSubmissions;
+  // uceElectives: Elective[];
   // careerSearchbar = document.querySelector('ion-searchbar');
 
-  ngOnInit() {
-
+  async ngOnInit() {
+      await this.initialize();
   }
-
-  handleCareerInput(event) {
-        // const query = event.target.value.toLowerCase();
-        // requestAnimationFrame(() => {
-        //     this.careers$.subscribe((data: Career[]) => {
-        //         data.forEach(item => {
-        //             const shouldShow = item.name.toLowerCase().indexOf(query) > -1;
-        //         });
-        //     });
-            // items.forEach(item => {
-            //     const shouldShow = item.textContent.toLowerCase().indexOf(query) > -1;
-            //     item.style.display = shouldShow ? 'block' : 'none';
-            // });
-        // });
-    }
 
   async initialize() {
-      await this.appStore.dispatch(new SetCareers());
-      await this.appStore.dispatch(new SetSubjects());
-      await this.appStore.dispatch(new SetPrograms());
-  }
 
-  async loadRecommendation() {
         const loading = await this.loadingCtrl.create({
-            message: 'Please wait...',
+            message: 'loading...',
             animated: true,
             spinner: 'lines'
         });
+
         await loading.present();
 
-        await this.initialize();
+        await this.appStore.dispatch(new SetCareers());
+        this.careers$.subscribe((data: Career[]) => {
+            this.careers = data;
+        });
 
         await loading.dismiss();
+    }
+
+  selectCareer(career: Career) {
+    this.career = career.name;
+    this.display = Array<Career>();
+  }
+
+  recommendationChanged(action:string){
+      if(action.trim().toUpperCase() === "RECOMMENDATION"){
+          this.includeResults = false;
+          this.includeUaceResults = false;
+          this.includeUceResults = false;
+      }
+      else if(action.trim().toUpperCase() === "INCLUDE"){
+          if(this.includeResults){
+              if(this.recommendation.trim().toUpperCase() === "COMBINATION"){
+                  this.includeUceResults = true;
+                  this.includeUaceResults = false;
+              }
+              else {
+                  this.includeUaceResults = true;
+                  this.includeUceResults = true;
+              }
+          }
+          else{
+              this.includeUceResults = false;
+              this.includeUaceResults = false;
+          }
+
+      }
+      else{
+          return;
+      }
+  }
+
+  handleInput(event) {
+        const query = event.target.value.toLowerCase();
+
+        this.display = Array<Career>();
+
+        if(query.trim() === ""){
+            return;
+        }
+
+        requestAnimationFrame(() => {
+            this.careers.forEach(program => {
+                const shouldShow = program.name.toLowerCase().indexOf(query) > -1;
+                if (shouldShow) {
+                    this.display.push(program);
+                }
+            });
+        });
+    }
+
+  async submit(){
+
+      let valid : boolean = true;
+
+      if(this.career === ""){
+          valid = false;
+      }
+
+      if(this.includeResults && this.includeUaceResults && (this.uaceComponent.checkResultsValidity() === false )){
+          valid = false;
+      }
+
+
+      if(this.includeResults && this.includeUceResults && (this.uceComponent.checkResultsValidity() === false )){
+          valid = false;
+      }
+
+        if(valid){
+
+
+            let uceResults : UserResults[] = this.includeUceResults ? this.uceComponent.formatResults() : [];
+
+            let uaceResults : UserResults[] = this.includeUaceResults ?  this.uaceComponent.formatResults() : [];
+
+            let submissions : UserSubmissions = {
+                admissionType: this.admissionType,
+                career: this.career,
+                gender: this.gender,
+                uaceResults: uaceResults,
+                uceResults: uceResults
+            };
+
+            const loading = await this.loadingCtrl.create({
+                message: 'Please wait...',
+                animated: true,
+                spinner: 'lines'
+            });
+            await loading.present();
+
+            const data : ResultsModalData = {
+                flag: '',
+                uceRecommendations: [],
+                uaceRecommendations: []
+            };
+
+            switch (this.recommendation.trim().toUpperCase()) {
+                case 'COMBINATION':
+                    await this.serverService.getCombinations(submissions, this.includeResults)
+                        .subscribe(async (results: any) => {
+                                data.uceRecommendations = results;
+                                data.flag = 'UCE';
+                                await this.presentModal(data);
+                            }, async error => {
+                                console.log(error);
+                                const alert = await this.alertCtrl.create({
+                                    header: 'Oops',
+                                    message: error["Message"],
+                                    buttons: ['OK'],
+                                });
+                                await alert.present();
+                            }
+
+                        );
+                    break;
+                case 'COURSE':
+                    await this.serverService.getCourses(submissions, this.includeResults)
+                        .subscribe(async (results: any) => {
+                                data.uaceRecommendations = results;
+                                data.flag = 'UACE';
+                                await this.presentModal(data);
+                            }, async error => {
+                                console.log(error);
+                                const alert = await this.alertCtrl.create({
+                                    header: 'Oops',
+                                    message: error["Message"],
+                                    buttons: ['OK'],
+                                });
+
+                                await alert.present();
+                            }
+
+                        );
+                    break;
+
+                default:
+                    this.recommendation =  this.recommendations[0].value;
+                    console.log('error');
+            }
+
+            await loading.dismiss();
+
+            // if (!errors){
+            //     await this.presentModal(data);
+            // }
+            // else {
+            //
+            //     const alert = await this.alertCtrl.create({
+            //         cssClass: 'my-custom-class',
+            //         header: 'Oops',
+            //         message: 'An error occurred, please try again later',
+            //         buttons: ['OK'],
+            //     });
+            //
+            //     await alert.present();
+            // }
+
+
+        }
+
+        else {
+            const toast = await this.toastCtrl.create({
+                message: 'Please provide all fields.',
+                duration: 2000
+            });
+
+            await toast.present();
+        }
 
     }
 
-  async getRecommendation() {
-        const loading = await this.loadingCtrl.create({
-            message: 'Please wait...',
-            animated: true,
-            spinner: 'lines'
-        });
-        await loading.present();
-
-
-        const data = {
-            results: [],
-            flag: ''
-        };
-
-        switch (this.recommendation) {
-            case 'UCE':
-                await this.serverService.getCombinations(this.submissions, false)
-                    .subscribe((results: Combination[]) => {
-                        data.results = results;
-                        data.flag = 'UCE';
-                    }, error => {
-                        console.log(error);
-                    }
-
-                );
-                break;
-            case 'UACE':
-                break;
-            case 'COMBINATION':
-                await this.serverService.getCombinations(this.submissions, true)
-                    .subscribe((results: Combination[]) => {
-                        data.results = results;
-                        data.flag = 'UCE';
-                        }, error => {
-                            console.log(error);
-                        }
-
-                    );
-                break;
-            case 'COURSE':
-                break;
-            default:
-                this.recommendation =  this.recommendations[0].value;
-                console.log('error');
-        }
-
-
-
-        await loading.dismiss();
-
-        console.log(data);
-        await this.presentModal(data);
-
-  }
-
-  async presentModal(data: any) {
+  async presentModal(data: ResultsModalData) {
         const modal = await this.modalCtrl.create({
             component: ResultsModalPage,
             componentProps: {
-                results: data.results,
-                flag: data.flag
+                results: data
             }
         });
         return await modal.present();
-    }
-
-  uceChanged(element: string, e: CustomEvent) {
-      this.submissions.uceResults[element] = e.detail.value;
-    }
-
-  async addElective(category: string) {
-
-      const modal = await this.modalCtrl.create({
-              component: ElectivesModalPage,
-              componentProps: {category}
-          });
-
-      await modal.present();
-
-      modal.onDidDismiss().then((response: any) => {
-          const data: UserResults = response.data;
-          if (category.toUpperCase() === 'UCE') {
-              this.submissions.uceResults[data.code] = data.value;
-          }
-
-          if (category.toUpperCase() === 'UACE') {
-              this.submissions.uaceResults[data.code] = data.value;
-          }
-          console.log(this.submissions);
-      });
-  }
-
-  uaceChanged(element: string, e: CustomEvent) {
-        this.submissions.uaceResults[element] = e.detail.value;
     }
 
 }

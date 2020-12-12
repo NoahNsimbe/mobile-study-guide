@@ -28,6 +28,7 @@ export class ProgramCheckPage implements OnInit {
   admissionType: string;
   program: string;
   gender: string;
+  programName: string;
 
   @Select(AppState.getPrograms) programs$: Observable<Program[]>;
   @Select(AppState.getUaceSubjects) uaceSubjects$: Observable<Uace[]>;
@@ -39,13 +40,14 @@ export class ProgramCheckPage implements OnInit {
   @Select(AppState.getUaceGrades) uaceGrades$: Observable<UaceGrades[]>;
 
   constructor(private appStore: Store,
-              public loadingCtrl: LoadingController,
-              public toastCtrl: ToastController,
+              private loadingCtrl: LoadingController,
+              private toastCtrl: ToastController,
               private serverService: ServerService) {
 
     this.admissionType = "PRIVATE";
     this.gender = "FEMALE";
     this.program = "";
+    this.programName = "";
   }
 
   async ngOnInit() {
@@ -91,6 +93,7 @@ export class ProgramCheckPage implements OnInit {
 
   selectProgram(program: Program) {
     this.program = program.code;
+    this.programName = program.name;
     this.display = Array<Program>();
   }
 

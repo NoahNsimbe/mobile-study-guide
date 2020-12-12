@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
+import {ResultsModalData} from "../../models/Recommendation";
 
 @Component({
   selector: 'app-results-modal',
@@ -8,14 +9,13 @@ import {ModalController} from '@ionic/angular';
 })
 export class ResultsModalPage implements OnInit{
 
-  @Input() results: any;
-  @Input() flag: string;
+  @Input() results: ResultsModalData;
 
   constructor(public modalCtrl: ModalController) { }
 
   dismissModal() {
     this.modalCtrl.dismiss().then(r => {
-      console.log(r);
+
     });
   }
 

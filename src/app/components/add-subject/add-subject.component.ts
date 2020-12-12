@@ -47,7 +47,7 @@ export class AddSubjectComponent implements OnInit {
     }
     else {
       this.modalCtrl.dismiss(this.selectedSubject).then(r => {
-        console.log(r);
+        // console.log(r);
       });
     }
 

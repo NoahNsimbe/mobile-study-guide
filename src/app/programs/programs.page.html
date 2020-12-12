@@ -16,4 +16,12 @@
       {{program.name}}
     </ion-item>
   </ion-list>
+
+    <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+        <ion-fab-button color="light" (click)="initialize(true)" >
+<!--            <ion-icon md="caret-back" ios="chevron-back-circle-outline"></ion-icon>-->
+            <ion-icon name="refresh-outline"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
 </ion-content>

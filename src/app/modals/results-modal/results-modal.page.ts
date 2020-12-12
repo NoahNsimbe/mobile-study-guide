@@ -8,7 +8,6 @@ import {ModalController} from '@ionic/angular';
 })
 export class ResultsModalPage implements OnInit{
 
-
   @Input() results: any;
   @Input() flag: string;
 

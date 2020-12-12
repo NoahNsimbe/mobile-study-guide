@@ -1,0 +1,97 @@
+<ion-grid>
+  <ion-row>
+
+    <ion-col>
+
+        <ion-list>
+            <ion-list-header>
+                <ion-label>Compulsory</ion-label>
+            </ion-list-header>
+
+            <ion-grid >
+                <ion-row class="ion-align-items-center">
+
+                    <ion-col>
+                        <ion-item>
+                            <ion-label>Subject</ion-label>
+                        </ion-item>
+                    </ion-col>
+
+                    <ion-col>
+                        <ion-item>
+                            <ion-label>Grade</ion-label>
+                        </ion-item>
+                    </ion-col>
+
+                </ion-row>
+                <ion-row class="ion-align-items-center" *ngFor="let elective of selectedCompulsory">
+
+                    <ion-col>
+                        <ion-item>
+                            <ion-label>{{elective.code}}</ion-label>
+                        </ion-item>
+                    </ion-col>
+
+                    <ion-col>
+                        <ion-item>
+                            <ion-select (ionChange)="updateGrade($event, elective.code)" >
+                                <ion-select-option *ngFor="let x of uceGrades" [value]="x.value" >{{x.name}}</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-col>
+
+                </ion-row>
+            </ion-grid>
+        </ion-list>
+
+    </ion-col>
+
+    <ion-col>
+
+        <ion-list>
+            <ion-list-header>
+                <ion-label>Electives</ion-label>
+                <ion-button (click)="addElective()">Add Elective</ion-button>
+            </ion-list-header>
+
+            <ion-grid >
+                <ion-row class="ion-align-items-center">
+
+                    <ion-col>
+                        <ion-text>Subject</ion-text>
+
+                    </ion-col>
+
+                    <ion-col>
+                        <ion-text>Grade</ion-text>
+                    </ion-col>
+
+                    <ion-col>
+                        <ion-text>Action</ion-text>
+                    </ion-col>
+
+                </ion-row>
+                <ion-row class="ion-align-items-center" *ngFor="let elective of selectedElectives; index as i">
+
+                    <ion-col>
+                        <ion-text>{{elective.code}}</ion-text>
+                    </ion-col>
+
+                    <ion-col>
+                        <ion-text>{{elective.value}}</ion-text>
+                    </ion-col>
+
+                    <ion-col>
+                        <ion-button (click)="removeElective(elective.code)" >Remove</ion-button>
+                    </ion-col>
+
+                </ion-row>
+            </ion-grid>
+        </ion-list>
+
+
+
+    </ion-col>
+
+  </ion-row>
+</ion-grid>

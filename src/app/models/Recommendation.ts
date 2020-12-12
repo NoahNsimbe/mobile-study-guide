@@ -15,7 +15,7 @@ export interface UserSubmissions {
     career: string;
 }
 
-export class UserResults {
+export interface UserResults {
     code: string;
     value: string;
 }

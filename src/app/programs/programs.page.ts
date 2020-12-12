@@ -4,9 +4,9 @@ import {Select, Store} from '@ngxs/store';
 import {Observable} from 'rxjs';
 import {Career} from '../models/Career';
 import {Program} from '../models/Program';
-import {SetCareers, SetPrograms, SetSubjects} from '../state/app.actions';
+import {SetCareers, SetPrograms, SetSubjects, SetUaceSubjects, SetUceSubjects} from '../state/app.actions';
 import {ResultsModalPage} from '../modals/results-modal/results-modal.page';
-import {ModalController} from '@ionic/angular';
+import {LoadingController, ModalController} from '@ionic/angular';
 import {ProgramComponent} from '../modals/program/program.component';
 import {AppState} from '../state/app.state';
 
@@ -22,7 +22,9 @@ export class ProgramsPage implements OnInit {
   display: Program[];
   @Select(AppState.getPrograms) programs$: Observable<Program[]>;
 
-  constructor(private appStore: Store, public modalCtrl: ModalController) {
+  constructor(private appStore: Store,
+              public modalCtrl: ModalController,
+              public loadingCtrl: LoadingController) {
     // this.searchbar = document.querySelector('ion-searchbar');
     // this.searchbar.addEventListener('ionInput', this.handleInput);
   }
@@ -30,18 +32,30 @@ export class ProgramsPage implements OnInit {
   async ngOnInit() {
 
     // this.programs = Array.from(document.querySelector('ion-list').children);
-    await this.initialize();
+    await this.initialize(true);
   }
 
-  async initialize() {
-    await this.appStore.dispatch(new SetPrograms());
+  async initialize(force: boolean) {
+    const loading = await this.loadingCtrl.create({
+      message: 'loading...',
+      animated: true,
+      spinner: 'lines'
+    });
+
+    await loading.present();
+
+    await this.appStore.dispatch(new SetPrograms(force));
     // this.programs = this.appStore.selectSnapshot<Program[]>((state: AppState) => state.app.programs);
     // this.display = this.appStore.selectSnapshot<Program[]>((state: AppState) => state.app.programs);
     //
-    this.programs$.subscribe((data: Program[]) => {
+    await this.programs$.subscribe((data: Program[]) => {
       this.programs = data;
       this.display = data;
     });
+
+    await loading.dismiss();
+
+
   }
 
   handleInput(event) {
@@ -68,5 +82,25 @@ export class ProgramsPage implements OnInit {
     });
     return await modal.present();
   }
+
+  // async refresh() {
+  //   const loading = await this.loadingCtrl.create({
+  //     message: 'Please wait...',
+  //     animated: true,
+  //     spinner: 'lines'
+  //   });
+  //
+  //   await loading.present();
+  //
+  //   await this.appStore.dispatch(new SetPrograms(true));
+  //
+  //   await this.programs$.subscribe((data: Program[]) => {
+  //     this.programs = data;
+  //     this.display = data;
+  //   });
+  //
+  //   await loading.dismiss();
+  //
+  // }
 
 }

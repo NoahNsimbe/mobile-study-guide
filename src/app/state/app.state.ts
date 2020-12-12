@@ -41,6 +41,9 @@ const defaults: AppStateModel = {
         {name : 'C4', value : 4},
         {name : 'C5', value : 5},
         {name : 'C6', value : 6},
+        {name : 'P7', value : 7},
+        {name : 'P8', value : 8},
+        {name : 'F9', value : 9},
         ],
     careers: Array<Career>(),
     programs: Array<Program>()
@@ -97,6 +100,15 @@ export class AppState {
         );
     }
 
+    // @Selector()
+    // static findUceSubjectByName(subject: string, state: AppStateModel): Uce{
+    //     state.uce.forEach(value => {
+    //         if(value.name.trim().toUpperCase() === subject){
+    //             return value;
+    //         }
+    //     })
+    //     return null;
+    // }
     @Action(SetSubjects)
     setSubjects(context: StateContext<AppStateModel>) {
         context.dispatch(new SetUceSubjects());
@@ -105,7 +117,7 @@ export class AppState {
 
     @Action(SetCareers)
     setCareers(context: StateContext<AppStateModel>, action: SetUceSubjects) {
-        if(context.getState().careers === [] || action.force === true)
+        if(context.getState().careers.length === 0 || action.force === true)
             this.serverService.getCareers().subscribe( (data: Career[]) => {
                 context.patchState({careers: data});
             }, (error => {
@@ -115,7 +127,7 @@ export class AppState {
 
     @Action(SetPrograms)
     setPrograms(context: StateContext<AppStateModel>, action: SetPrograms) {
-        if(context.getState().programs === [] || action.force === true)
+        if(context.getState().programs.length === 0 || action.force === true)
             this.serverService.getPrograms().subscribe( (data: Program[]) => {
                 context.patchState({programs: data});
             }, (error => {
@@ -125,7 +137,7 @@ export class AppState {
 
     @Action(SetUceSubjects)
     setUceSubjects(context: StateContext<AppStateModel>, action: SetUceSubjects) {
-        if(context.getState().uce === [] || action.force === true)
+        if(context.getState().uce.length === 0 || action.force === true)
             this.serverService.getUceSubjects().subscribe( (data: Uce[]) => {
                 context.patchState({uce : data});
             }, (error => {
@@ -135,7 +147,7 @@ export class AppState {
 
     @Action(SetUaceSubjects)
     setUaceSubjects(context: StateContext<AppStateModel>, action: SetUaceSubjects) {
-        if(context.getState().uace === [] || action.force === true)
+        if(context.getState().uace.length === 0 || action.force === true)
             this.serverService.getUaceSubjects().subscribe( (data: Uace[]) => {
                 context.patchState({uace: data});
             }, (error => {

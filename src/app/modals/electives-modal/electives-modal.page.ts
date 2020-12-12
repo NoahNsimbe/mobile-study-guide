@@ -25,10 +25,10 @@ export class ElectivesModalPage {
   selectedSubjects: UserResults;
 
   constructor(public modalCtrl: ModalController) {
-    this.selectedSubjects = {
-      code: '',
-      value: ''
-    };
+    // this.selectedSubjects = {
+    //   code: '',
+    //   value: ''
+    // };
   }
 
   dismissModal() {

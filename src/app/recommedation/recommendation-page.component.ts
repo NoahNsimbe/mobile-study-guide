@@ -155,8 +155,6 @@ export class RecommendationPage implements OnInit {
         console.log(data);
         await this.presentModal(data);
 
-
-
   }
 
   async presentModal(data: any) {

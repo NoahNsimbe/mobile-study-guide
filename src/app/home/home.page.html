@@ -43,7 +43,7 @@
     <ion-row class="ion-align-items-center">
       <!-- Recommend Combination -->
       <ion-col>
-        <ion-card (click)="navigateTo('/recommend')" >
+        <ion-card (click)="navigateTo('/recommedation')" >
           <ion-card-header>
             <ion-card-title>Recommend Combinations</ion-card-title>
           </ion-card-header>
@@ -72,12 +72,9 @@
   </ion-grid>
 
   <ion-fab horizontal="end" vertical="bottom" slot="fixed">
-    <ion-fab-button color="light">
-      <ion-icon md="caret-back" ios="chevron-back-circle-outline"></ion-icon>
+    <ion-fab-button color="light" (click)="refresh()" >
+      <ion-icon name="refresh-outline"></ion-icon>
     </ion-fab-button>
-<!--    <ion-fab-button color="danger">-->
-<!--      <ion-icon name="add"></ion-icon>-->
-<!--    </ion-fab-button>-->
   </ion-fab>
 
 </ion-content>

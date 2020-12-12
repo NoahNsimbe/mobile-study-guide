@@ -6,7 +6,7 @@ import {catchError, retry} from 'rxjs/operators';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Uace} from '../models/uace';
 import {Uce} from '../models/uce';
-import {Combination, Program, UserSubmissions} from '../models/Recommendation';
+import {Combination, Program, ProgramCheck, UserSubmissions} from '../models/Recommendation';
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +63,13 @@ export class ServerService {
 
     return this.httpClient
         .get<Uce[]>(`${environment.apiRoot}${environment.uceSubjects}`)
+        .pipe(retry(3), catchError(ServerService.handleError));
+
+  }
+
+  checkProgram(submission : ProgramCheck): Observable<any> {
+    return this.httpClient
+        .post<any>(`${environment.apiRoot}${environment.programCheck}`, submission)
         .pipe(retry(3), catchError(ServerService.handleError));
 
   }

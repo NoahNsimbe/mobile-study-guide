@@ -12,6 +12,8 @@ export interface Elective {
 export interface UserSubmissions {
     uceResults?: UserResults[];
     uaceResults?: UserResults[];
+    gender?: string;
+    admissionType?: string;
     career: string;
 }
 
@@ -37,8 +39,8 @@ export interface Program {
 
 export interface ProgramCheck {
     program_code: string;
-    uce_results: string;
-    uace_results: string;
+    uce_results: UserResults[];
+    uace_results: UserResults[];
     gender: string;
     admission_type: string;
 }

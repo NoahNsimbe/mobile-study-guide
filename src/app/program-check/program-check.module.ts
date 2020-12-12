@@ -9,6 +9,8 @@ import { ProgramCheckPageRoutingModule } from './program-check-routing.module';
 import { ProgramCheckPage } from './program-check.page';
 import {UceComponent} from "../components/uce/uce.component";
 import {AddSubjectComponent} from "../components/add-subject/add-subject.component";
+import {UaceComponent} from "../components/uace/uace.component";
+import {UceComponentModule} from "../components/uce/uce.module";
 
 @NgModule({
   imports: [
@@ -16,9 +18,10 @@ import {AddSubjectComponent} from "../components/add-subject/add-subject.compone
     FormsModule,
     IonicModule,
     ProgramCheckPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UceComponentModule
   ],
-  declarations: [ProgramCheckPage, UceComponent, AddSubjectComponent],
+  declarations: [ProgramCheckPage, AddSubjectComponent, UaceComponent],
   entryComponents: [AddSubjectComponent]
 })
 export class ProgramCheckPageModule {}

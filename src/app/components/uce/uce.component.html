@@ -58,31 +58,42 @@
                 <ion-row class="ion-align-items-center">
 
                     <ion-col>
-                        <ion-text>Subject</ion-text>
-
+                        <ion-item>
+                            <ion-label>Subject</ion-label>
+                        </ion-item>
                     </ion-col>
 
-                    <ion-col>
-                        <ion-text>Grade</ion-text>
+                    <ion-col >
+                        <ion-item>
+                            <ion-label>Grade</ion-label>
+                        </ion-item>
                     </ion-col>
 
-                    <ion-col>
-                        <ion-text>Action</ion-text>
+                    <ion-col >
+                        <ion-item>
+                            <ion-label>Delete</ion-label>
+                        </ion-item>
                     </ion-col>
 
                 </ion-row>
                 <ion-row class="ion-align-items-center" *ngFor="let elective of selectedElectives; index as i">
 
                     <ion-col>
-                        <ion-text>{{elective.code}}</ion-text>
+                        <ion-item>
+                            <ion-label>{{elective.code}}</ion-label>
+                        </ion-item>
                     </ion-col>
 
-                    <ion-col>
-                        <ion-text>{{elective.value}}</ion-text>
+                    <ion-col >
+                        <ion-item>
+                            <ion-label>{{elective.value}}</ion-label>
+                        </ion-item>
                     </ion-col>
 
-                    <ion-col>
-                        <ion-button (click)="removeElective(elective.code)" >Remove</ion-button>
+                    <ion-col >
+                        <ion-item>
+                            <ion-button (click)="removeElective(elective.code)" >Remove</ion-button>
+                        </ion-item>
                     </ion-col>
 
                 </ion-row>

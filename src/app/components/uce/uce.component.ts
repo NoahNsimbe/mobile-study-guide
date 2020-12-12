@@ -23,15 +23,14 @@ export class UceComponent implements OnInit {
   uceResults = new FormGroup({
     electives: this.electivesArray
   });
-
-  @Select(AppState.getCompulsoryUceSubjects) uceCompulsorySubjects$: Observable<Uce[]>;
-  @Select(AppState.getElectiveUceSubjects) uceElectiveSubjects$: Observable<Uce[]>;
-
-  @Select(AppState.getUceGrades) uceGrades$: Observable<UceGrades[]>;
-
   uceElectives: Uce[];
   uaceCompulsory: Uce[];
   uceGrades: UceGrades[];
+
+  @Select(AppState.getCompulsoryUceSubjects) uceCompulsorySubjects$: Observable<Uce[]>;
+  @Select(AppState.getElectiveUceSubjects) uceElectiveSubjects$: Observable<Uce[]>;
+  @Select(AppState.getUceGrades) uceGrades$: Observable<UceGrades[]>;
+
 
   constructor(private formBuilder: FormBuilder,
               private appStore: Store,

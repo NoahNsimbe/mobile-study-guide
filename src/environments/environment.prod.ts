@@ -7,5 +7,6 @@ export const environment = {
   careers: 'careers/',
   programs: 'programs/',
   uceSubjects: 'uce_subjects/',
-  uaceSubjects: 'uace_subjects/'
+  uaceSubjects: 'uace_subjects/',
+  programCheck: 'program_eligibility/'
 };

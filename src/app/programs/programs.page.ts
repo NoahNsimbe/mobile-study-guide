@@ -32,7 +32,7 @@ export class ProgramsPage implements OnInit {
   async ngOnInit() {
 
     // this.programs = Array.from(document.querySelector('ion-list').children);
-    await this.initialize(true);
+    await this.initialize(false);
   }
 
   async initialize(force: boolean) {

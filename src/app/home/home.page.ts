@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {Store} from "@ngxs/store";
-import {SetPrograms} from "../state/app.actions";
+import {SetCareers, SetPrograms, SetUaceSubjects, SetUceSubjects} from "../state/app.actions";
+import {LoadingController} from "@ionic/angular";
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,9 @@ import {SetPrograms} from "../state/app.actions";
 })
 export class HomePage implements OnInit {
 
-  constructor(private appStore: Store, private route: Router) { }
+  constructor(private appStore: Store,
+              private route: Router,
+              public loadingCtrl: LoadingController) { }
 
   ngOnInit() {
   }
@@ -22,6 +25,24 @@ export class HomePage implements OnInit {
     }
 
     await this.route.navigate([`/${path}`]);
+  }
+
+  async refresh() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait as we perform a refresh...',
+      animated: true,
+      spinner: 'lines'
+    });
+
+    await loading.present();
+
+    await this.appStore.dispatch(new SetPrograms(true));
+    await this.appStore.dispatch(new SetUceSubjects(true));
+    await this.appStore.dispatch(new SetUaceSubjects(true));
+    await this.appStore.dispatch(new SetCareers(true));
+
+    await loading.dismiss();
+
   }
 
 }

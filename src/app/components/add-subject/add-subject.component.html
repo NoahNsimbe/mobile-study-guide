@@ -23,19 +23,19 @@
     </ion-select>
   </ion-item>
 
-<!--  <ion-item *ngIf="category.toUpperCase() === 'UACE'" >-->
-<!--    <ion-label position="floating" >Select a subject</ion-label>-->
-<!--    <ion-select [(ngModel)]="selectedSubjects.code" placeholder="Select subject" okText="Okay" cancelText="Dismiss">-->
-<!--      <ion-select-option *ngFor="let subject of uaceSubjects$ | async" value="{{subject.code}}" >{{subject.name}}</ion-select-option>-->
-<!--    </ion-select>-->
-<!--  </ion-item>-->
+  <ion-item *ngIf="category.toUpperCase() === 'UACE'" >
+    <ion-label position="floating" >Select a subject</ion-label>
+    <ion-select [(ngModel)]="selectedSubject.code" placeholder="Select subject" okText="Okay" cancelText="Dismiss">
+      <ion-select-option *ngFor="let subject of uaceElectives" value="{{subject.code}}" >{{subject.name}}</ion-select-option>
+    </ion-select>
+  </ion-item>
 
-<!--  <ion-item *ngIf="category.toUpperCase() === 'UACE'">-->
-<!--    <ion-label position="floating" >Select the grade attained</ion-label>-->
-<!--    <ion-select [(ngModel)]="selectedSubjects.value" placeholder="Select grade">-->
-<!--      <ion-select-option *ngFor="let grade of uaceGrades$ | async" value="{{grade.value}}"  >{{grade.name}}</ion-select-option>-->
-<!--    </ion-select>-->
-<!--  </ion-item>-->
+  <ion-item *ngIf="category.toUpperCase() === 'UACE'">
+    <ion-label position="floating" >Select the grade attained</ion-label>
+    <ion-select [(ngModel)]="selectedSubject.value" placeholder="Select grade">
+      <ion-select-option *ngFor="let grade of uaceGrades" value="{{grade.value}}"  >{{grade.name}}</ion-select-option>
+    </ion-select>
+  </ion-item>
 
   <ion-button (click)="addSubject()">Add Subject</ion-button>
 

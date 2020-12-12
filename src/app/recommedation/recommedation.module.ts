@@ -11,6 +11,10 @@ import {ResultsModalPageModule} from '../modals/results-modal/results-modal.modu
 import {ResultsModalPage} from '../modals/results-modal/results-modal.page';
 import {ElectivesModalPage} from '../modals/electives-modal/electives-modal.page';
 import {ElectivesModalPageModule} from '../modals/electives-modal/electives-modal.module';
+import {UceComponent} from "../components/uce/uce.component";
+import {AddSubjectComponent} from "../components/add-subject/add-subject.component";
+import {UaceComponent} from "../components/uace/uace.component";
+import {UceComponentModule} from "../components/uce/uce.module";
 
 @NgModule({
   imports: [
@@ -19,9 +23,12 @@ import {ElectivesModalPageModule} from '../modals/electives-modal/electives-moda
     IonicModule,
     RecommendationPageRoutingModule,
     ResultsModalPageModule,
-    ElectivesModalPageModule
+    ElectivesModalPageModule,
+    UceComponentModule
+
   ],
+  declarations: [RecommendationPage, UceComponent],
   entryComponents: [ResultsModalPage, ElectivesModalPage],
-  declarations: [RecommendationPage]
+
 })
 export class RecommendationPageModule {}

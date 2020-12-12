@@ -1,0 +1,153 @@
+<ion-grid>
+  <ion-row>
+
+    <ion-col>
+
+<!--      compulsory subjects-->
+      <ion-list>
+        <ion-list-header>
+          <ion-label>Compulsory</ion-label>
+        </ion-list-header>
+
+        <ion-grid >
+          <ion-row class="ion-align-items-center">
+
+            <ion-col>
+              <ion-item>
+                <ion-label>Subject</ion-label>
+              </ion-item>
+            </ion-col>
+
+            <ion-col>
+              <ion-item>
+                <ion-label>Grade</ion-label>
+              </ion-item>
+            </ion-col>
+
+          </ion-row>
+          <ion-row class="ion-align-items-center" *ngFor="let subject of uaceCompulsory">
+
+            <ion-col>
+              <ion-item>
+                <ion-label>{{subject.name}}</ion-label>
+              </ion-item>
+            </ion-col>
+
+            <ion-col>
+              <ion-item>
+                <ion-select (ionChange)="updateGrade($event, subject.code, false)" >
+                  <ion-select-option *ngFor="let x of uaceGrades" [value]="x.value" >{{x.name}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+
+          </ion-row>
+        </ion-grid>
+      </ion-list>
+
+<!--      subsidiaries-->
+      <ion-list>
+        <ion-list-header>
+          <ion-label>Subsidiaries</ion-label>
+        </ion-list-header>
+
+        <ion-grid >
+          <ion-row class="ion-align-items-center">
+
+            <ion-col>
+              <ion-item>
+                <ion-label>Subject</ion-label>
+              </ion-item>
+            </ion-col>
+
+
+            <ion-col >
+              <ion-item>
+                <ion-label>Grade</ion-label>
+              </ion-item>
+            </ion-col>
+
+          </ion-row>
+          <ion-row class="ion-align-items-center">
+
+            <ion-col>
+              <ion-select [(ngModel)]="selectedSubsidiary.code" placeholder="Select subject" okText="Select" cancelText="Dismiss">
+                <ion-select-option *ngFor="let subject of uaceSubsidiaries" value="{{subject.code}}" >{{subject.name}}</ion-select-option>
+              </ion-select>
+            </ion-col>
+
+
+
+            <ion-col  >
+              <ion-select (ionChange)="updateGrade($event, selectedSubsidiary.code, true)" >
+                <ion-select-option *ngFor="let x of uaceGrades" [value]="x.value" >{{x.name}}</ion-select-option>
+              </ion-select>
+            </ion-col>
+
+          </ion-row>
+        </ion-grid>
+      </ion-list>
+
+    </ion-col>
+
+    <ion-col>
+
+      <ion-list>
+        <ion-list-header>
+          <ion-label>Electives</ion-label>
+          <ion-button (click)="addElective()">Add Elective</ion-button>
+        </ion-list-header>
+
+        <ion-grid >
+          <ion-row class="ion-align-items-center">
+
+            <ion-col>
+              <ion-item>
+                <ion-label>Subject</ion-label>
+              </ion-item>
+            </ion-col>
+
+            <ion-col  >
+              <ion-item>
+                <ion-label>Grade</ion-label>
+              </ion-item>
+            </ion-col>
+
+            <ion-col >
+              <ion-item>
+                <ion-label>Delete</ion-label>
+              </ion-item>
+            </ion-col>
+
+          </ion-row>
+          <ion-row class="ion-align-items-center" *ngFor="let elective of selectedElectives; index as i">
+
+            <ion-col>
+              <ion-item>
+                <ion-label>{{elective.code}}</ion-label>
+              </ion-item>
+            </ion-col>
+
+            <ion-col >
+              <ion-item>
+                <ion-label>{{elective.value}}</ion-label>
+              </ion-item>
+            </ion-col>
+
+            <ion-col >
+              <ion-item>
+                <ion-button (click)="removeElective(elective.code)" >Remove</ion-button>
+              </ion-item>
+            </ion-col>
+
+
+          </ion-row>
+        </ion-grid>
+      </ion-list>
+
+
+
+    </ion-col>
+
+  </ion-row>
+</ion-grid>

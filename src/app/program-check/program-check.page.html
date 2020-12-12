@@ -1,5 +1,9 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+<!--      <ion-menu-button></ion-menu-button>-->
+      <ion-back-button color="danger"></ion-back-button>
+    </ion-buttons>
     <ion-title>Program Check</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -7,17 +11,21 @@
 <ion-content>
 
 <!--  program-->
-<!--  <ion-searchbar placeholder="Program" [(ngModel)]="submission.program_code" (ionInput)="handleInput($event)" ></ion-searchbar>-->
-<!--  <ion-list>-->
-<!--    <ion-item *ngFor="let program of display" (click)="selectProgram(program)" >-->
-<!--      {{program.name}}-->
-<!--    </ion-item>-->
-<!--  </ion-list>-->
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Search a program</ion-label>
+    </ion-list-header>
+    <ion-searchbar placeholder="Program" [(ngModel)]="program" (ionInput)="handleInput($event)" ></ion-searchbar>
+    <ion-item *ngFor="let program of display" (click)="selectProgram(program)" >
+      {{program.name}}
+    </ion-item>
+  </ion-list>
 
 <!--  gender-->
   <ion-list>
-<!--    [(ngModel)]="submission.gender"-->
-    <ion-radio-group value="FEMALE" >
+
+    <ion-radio-group value="FEMALE"  [(ngModel)]="gender" >
       <ion-list-header>
         <ion-label>Gender</ion-label>
       </ion-list-header>
@@ -36,8 +44,7 @@
 
 <!--  admission type-->
   <ion-list>
-<!--    [(ngModel)]="submission.admission_type"-->
-    <ion-radio-group value="PRIVATE" >
+    <ion-radio-group value="PRIVATE" [(ngModel)]="admissionType">
       <ion-list-header>
         <ion-label>Admission Type</ion-label>
       </ion-list-header>
@@ -56,6 +63,9 @@
 
 <!--  uce results-->
   <app-uce></app-uce>
+
+<!--  uace results-->
+  <app-uace></app-uace>
 
 <!--  submit-->
   <ion-button expand="block" fill="outline" (click)="submit()" >SUBMIT</ion-button>

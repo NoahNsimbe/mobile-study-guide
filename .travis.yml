@@ -1,3 +1,18 @@
+language: node_js
+node_js:
+  - "12.14"
+branches:
+  only:
+    - master
+before_script:
+  - npm install -g @angular/cli
+  - npm install -g @ionic/cli
+script:
+  - npm install
+  - ionic build --prod
 deploy:
+  skip_cleanup: true
   provider: firebase
-
+env:
+  global:
+    secure: RV+Zy3lRo/qeOQnlJH5xHXScpPCakS7yllaASKI+D8rFekdozGCEkAt9Bi7dPX5OM9avawV02g2FnpXfsf5AM+/ndLWMqnaae0KOWYdEwF4CLdXh5qU9/7E1rHal/uxrEkip5ZIzruKDs0rwo6kU5tAasUX/VaWmTISjsPDTALXXEiW6ZSq4PUouayTfQSiMSb+QNu2KX4zVvesmRHNeR0BD07IODpLxzjyPBcJovMR0j07SQGw0kHfhGY2AtOkpR9xEYJv8Bc72DQ+QtAIWZb1nj5x/k/KSehyFhc4P6SxG6HWKmKEvfD1ww7n2IanKN/dZyzjNaeNTi/F/otD6FX3QOrAk7VUgaqO1RmEKihzwbZGIAoaAh26cXX62Aq/6XysEatD38evgzeaRzYNA0rtbYPIRsUu+Umu14R3cFwvPSfDe5wX+peZMQH91OujIOPGY17n6WJ6q2iBomdRXhY+Oyf+7QNLdzD70zJv0Mkr26sv6Q1L1gD2d2JxGXTwvgGmOJOqW7w4qtxfZEgWIyEj4ge1Qs0Tfk9zpSXzs/oEIejeN+q/jy99wAsTRZ/tIJCrB5ABXZPVcoW5xpZpi6KFqxMMPT1TXOQ4tCGMrF7qU0iUrWOsFjiEIGXJwW/a2sTV/xd+NkVOIJyf01U9gk58t7VKOigWqlGYhNxzlu78=

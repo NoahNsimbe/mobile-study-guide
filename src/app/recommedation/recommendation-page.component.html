@@ -45,7 +45,7 @@
   <!--  Enter career-->
   <ion-list>
     <ion-list-header>
-      <ion-label>Search a career</ion-label>
+      <ion-label>Enter the career</ion-label>
     </ion-list-header>
     <ion-searchbar placeholder="Career" [(ngModel)]="career" (ionInput)="handleInput($event)" ></ion-searchbar>
     <ion-item *ngFor="let career of display" (click)="selectCareer(career)" >

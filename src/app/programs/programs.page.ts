@@ -108,7 +108,9 @@ export class ProgramsPage implements OnInit {
           await loading.present();
 
           await this.serverService.recommendCombinations(program.code.trim().toUpperCase())
-              .subscribe(async (results: any) => {
+              .then(async (results: any) => {
+
+                console.log(results);
 
                 this.combinations = results
                 this.program = program;

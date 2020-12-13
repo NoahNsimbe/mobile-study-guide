@@ -21,12 +21,12 @@
   <ion-list *ngIf="results.flag.trim().toUpperCase() === 'UACE'" >
     <ion-item *ngFor="let recommendation of results.uaceRecommendations" >
       <ion-label>
-        <h2>{{recommendation.name}}</h2>
-        <h3>{{recommendation.college}}</h3>
-        <h3>{{recommendation.description}}</h3>
-        <h3>{{recommendation.duration}}</h3>
-        <h3>{{recommendation.time}}</h3>
-        <h3>{{recommendation.university}}</h3>
+        <h2>Name : {{recommendation.name}}</h2>
+        <h3>College : {{recommendation.college}}</h3>
+        <h3>Description : {{recommendation.description}}</h3>
+        <h3>Duration : {{recommendation.duration}}</h3>
+        <h3>Time : {{recommendation.time}}</h3>
+        <h3>University : {{recommendation.university}}</h3>
       </ion-label>
     </ion-item>
   </ion-list>

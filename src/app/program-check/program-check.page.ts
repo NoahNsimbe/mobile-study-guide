@@ -122,8 +122,7 @@ export class ProgramCheckPage implements OnInit {
 
       await loading.present();
 
-      await this.serverService.checkProgram(submissions)
-          .subscribe((results: any) => {
+      await this.serverService.checkProgram(submissions).then((results: any) => {
                 console.log(results)
               }, error => {
                 console.log(error);

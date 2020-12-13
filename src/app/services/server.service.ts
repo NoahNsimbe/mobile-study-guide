@@ -18,32 +18,44 @@ export class ServerService {
   private static handleError(error: HttpErrorResponse) {
     console.log(error);
     let userResponse: any;
+
     if (error.error instanceof ErrorEvent) {
       userResponse = error.error.message;
-      console.error('An error occurred:', userResponse);
-    } else {
+    }
+
+    else {
       if (error.status === 500) {
-        userResponse = error.error;
-      } else {
+        userResponse = "Sorry, we experienced an error while processing your results, try again later";
+      }
+
+      else if (error.status === 504) {
+        userResponse = "Failed to connect to server, try again later";
+      }
+
+      else {
         userResponse = 'Something bad happened. Please try again later';
       }
-      console.error(
-          `Backend returned code ${error.status}, ` +
-          `body was: ${error.error}`);
+
+      // console.error(
+      //     `Backend returned code ${error.status}, ` +  `body was: ${error.error}`);
     }
+
+    // console.error("\n\nUsers response");
+    // console.error(error.status);
+    // console.error(userResponse);
 
     return throwError(userResponse);
   }
 
-  getCareers(): Observable<Career[]> {
+  async getCareers(): Promise<Career[]> {
 
     return this.httpClient
         .get<Career[]>(`${environment.apiRoot}${environment.careers}`)
-        .pipe(retry(3), catchError(ServerService.handleError));
+        .pipe(retry(3), catchError(ServerService.handleError)).toPromise();
 
   }
 
-  getPrograms(programCode?: string): Observable<Program[]> {
+  async getPrograms(programCode?: string): Promise<Program[]> {
     let endPoint : string;
     if(programCode === null || programCode === undefined || programCode === ""){
       endPoint = environment.programs;
@@ -54,28 +66,29 @@ export class ServerService {
 
     return this.httpClient
         .get<Program[]>(`${environment.apiRoot}${endPoint}`)
-        .pipe(retry(3), catchError(ServerService.handleError));
+        .pipe(retry(3), catchError(ServerService.handleError)).toPromise();
 
   }
 
-  getUaceSubjects(): Observable<Uace[]> {
+  async getUaceSubjects(): Promise<Uace[]> {
 
     return this.httpClient
         .get<Uace[]>(`${environment.apiRoot}${environment.uaceSubjects}`)
-        .pipe(retry(3), catchError(ServerService.handleError));
+        .pipe(retry(3), catchError(ServerService.handleError)).toPromise();
 
   }
 
-  getUceSubjects(): Observable<Uce[]> {
+  async getUceSubjects(): Promise<Uce[]> {
 
     return this.httpClient
         .get<Uce[]>(`${environment.apiRoot}${environment.uceSubjects}`)
-        .pipe(retry(3), catchError(ServerService.handleError));
+        .pipe(retry(3), catchError(ServerService.handleError)).toPromise();
 
   }
 
 
-  checkProgram(submission : ProgramCheck): Observable<any> {
+
+  async checkProgram(submission : ProgramCheck): Promise<any> {
 
     return this.httpClient
         .post<any>(`${environment.apiRoot}${environment.programCheck}`, submission)
@@ -83,7 +96,7 @@ export class ServerService {
 
   }
 
-  getCombinations(submissions: UserSubmissions, includeResults: boolean): Observable<any> {
+  async getCombinations(submissions: UserSubmissions, includeResults: boolean): Promise<Combination[]> {
 
     let data: any;
     if (includeResults === true) {
@@ -96,11 +109,11 @@ export class ServerService {
     }
 
     return this.httpClient
-        .post<any>(`${environment.apiRoot}${environment.combination}`, data)
-        .pipe(retry(3), catchError(ServerService.handleError));
+        .post<Combination[]>(`${environment.apiRoot}${environment.combination}`, data)
+        .pipe(retry(3), catchError(ServerService.handleError)).toPromise();
   }
 
-  getCourses(submissions: UserSubmissions, includeResults: boolean): Observable<any> {
+  async getCourses(submissions: UserSubmissions, includeResults: boolean): Promise<Program[]> {
 
     let data: any;
     if (includeResults === true) {
@@ -116,33 +129,108 @@ export class ServerService {
     }
 
     return this.httpClient
-        .post<any>(`${environment.apiRoot}${environment.course}`, data)
-        .pipe(retry(3), catchError(ServerService.handleError));
-  }
-
-  getProgram(submissions: UserSubmissions, careerOnly: boolean): Observable<Program[]> {
-
-    let data: any;
-    if (careerOnly === true) {
-      data = {career : submissions.career};
-    } else {
-      data = {career : submissions.career,
-        uce_results : this.formatUserResults(submissions.uceResults),
-        uace_results : this.formatUserResults(submissions.uaceResults)};
-    }
-
-    return this.httpClient
         .post<Program[]>(`${environment.apiRoot}${environment.course}`, data)
-        .pipe(retry(3), catchError(ServerService.handleError));
+        .pipe(retry(3), catchError(ServerService.handleError)).toPromise();
   }
 
-  recommendCombinations(programCode: string): Observable<Combination[]> {
+  // async getProgram(submissions: UserSubmissions, careerOnly: boolean): Promise<Program[]> {
+  //
+  //   let data: any;
+  //   if (careerOnly === true) {
+  //     data = {career : submissions.career};
+  //   } else {
+  //     data = {career : submissions.career,
+  //       uce_results : this.formatUserResults(submissions.uceResults),
+  //       uace_results : this.formatUserResults(submissions.uaceResults)};
+  //   }
+  //
+  //   return this.httpClient
+  //       .post<Program[]>(`${environment.apiRoot}${environment.course}`, data)
+  //       .pipe(retry(3), catchError(ServerService.handleError)).toPromise();
+  // }
+
+
+  // checkProgram(submission : ProgramCheck): Observable<any> {
+  //
+  //   return this.httpClient
+  //       .post<any>(`${environment.apiRoot}${environment.programCheck}`, submission)
+  //       .pipe(retry(3), catchError(ServerService.handleError));
+  //
+  // }
+  //
+  // getCombinations(submissions: UserSubmissions, includeResults: boolean): Observable<any> {
+  //
+  //   let data: any;
+  //   if (includeResults === true) {
+  //     data = {
+  //       career : submissions.career,
+  //       uce_results : this.formatUserResults(submissions.uceResults),
+  //     };
+  //   } else {
+  //     data = {career : submissions.career};
+  //   }
+  //
+  //   return this.httpClient
+  //       .post<any>(`${environment.apiRoot}${environment.combination}`, data)
+  //       .pipe(retry(3), catchError(ServerService.handleError));
+  // }
+  //
+  // getCourses(submissions: UserSubmissions, includeResults: boolean): Observable<any> {
+  //
+  //   let data: any;
+  //   if (includeResults === true) {
+  //     data = {
+  //       career : submissions.career,
+  //       uce_results : this.formatUserResults(submissions.uceResults),
+  //       uace_results : this.formatUserResults(submissions.uaceResults),
+  //       admission_type : submissions.admissionType,
+  //       gender : submissions.gender,
+  //     };
+  //   } else {
+  //     data = {career : submissions.career};
+  //   }
+  //
+  //   return this.httpClient
+  //       .post<any>(`${environment.apiRoot}${environment.course}`, data)
+  //       .pipe(retry(3), catchError(ServerService.handleError));
+  // }
+  //
+  // getProgram(submissions: UserSubmissions, careerOnly: boolean): Observable<Program[]> {
+  //
+  //   let data: any;
+  //   if (careerOnly === true) {
+  //     data = {career : submissions.career};
+  //   } else {
+  //     data = {career : submissions.career,
+  //       uce_results : this.formatUserResults(submissions.uceResults),
+  //       uace_results : this.formatUserResults(submissions.uaceResults)};
+  //   }
+  //
+  //   return this.httpClient
+  //       .post<Program[]>(`${environment.apiRoot}${environment.course}`, data)
+  //       .pipe(retry(3), catchError(ServerService.handleError));
+  // }
+  //
+  // recommendCombinations(programCode: string): Observable<Combination[]> {
+  //
+  //   console.log(programCode);
+  //
+  //   const data = {program_code : programCode};
+  //
+  //   return this.httpClient
+  //       .post<Combination[]>(`${environment.apiRoot}${environment.recommendCombinations}`, data)
+  //       .pipe(retry(3), catchError(ServerService.handleError));
+  // }
+
+  async recommendCombinations(programCode: string): Promise<Combination[]> {
+    console.log(programCode);
 
     const data = {program_code : programCode};
 
     return this.httpClient
         .post<Combination[]>(`${environment.apiRoot}${environment.recommendCombinations}`, data)
-        .pipe(retry(3), catchError(ServerService.handleError));
+        .pipe(retry(3), catchError(ServerService.handleError)).toPromise();
+
   }
 
   formatUserResults(userResults : UserResults[]): any{
@@ -153,4 +241,6 @@ export class ServerService {
 
     return output;
   }
+
+
 }

@@ -3,7 +3,14 @@ import {Select, Store} from '@ngxs/store';
 import {AppState} from '../state/app.state';
 import {Observable} from 'rxjs';
 import {Career} from '../models/Career';
-import {Combination, Recommendation, ResultsModalData, UserResults, UserSubmissions} from '../models/Recommendation';
+import {
+    Combination,
+    Program,
+    Recommendation,
+    ResultsModalData,
+    UserResults,
+    UserSubmissions
+} from '../models/Recommendation';
 import {SetCareers} from '../state/app.actions';
 import {AlertController, LoadingController, ModalController, ToastController} from '@ionic/angular';
 import {ServerService} from '../services/server.service';
@@ -47,7 +54,7 @@ export class RecommendationPage implements OnInit {
         this.career = "";
         this.recommendations = [
             {  name: 'Combinations for a particular career', value: 'COMBINATION'},
-            {  name: 'Courses for a particular career', value: 'COURSE'}
+            {  name: 'Program for a particular career', value: 'COURSE'}
         ];
         this.recommendation =  'COMBINATION';
 
@@ -186,7 +193,7 @@ export class RecommendationPage implements OnInit {
             case 'COMBINATION':
 
                 await this.serverService.getCombinations(submissions, this.includeResults)
-                    .subscribe(async (results: any) => {
+                    .then(async (results: Combination[]) => {
                             data.uceRecommendations = results;
                             data.flag = 'UCE';
                             await this.presentModal(data);
@@ -194,7 +201,7 @@ export class RecommendationPage implements OnInit {
                             console.log(error);
                             const alert = await this.alertCtrl.create({
                                 header: 'Oops',
-                                message: error["Message"],
+                                message: error,
                                 buttons: ['OK'],
                             });
                             await alert.present();
@@ -205,7 +212,7 @@ export class RecommendationPage implements OnInit {
             case 'COURSE':
 
                 await this.serverService.getCourses(submissions, this.includeResults)
-                    .subscribe(async (results: any) => {
+                    .then(async (results: Program[]) => {
                             data.uaceRecommendations = results;
                             data.flag = 'UACE';
                             await this.presentModal(data);
@@ -213,7 +220,7 @@ export class RecommendationPage implements OnInit {
                             console.log(error);
                             const alert = await this.alertCtrl.create({
                                 header: 'Oops',
-                                message: error["Message"],
+                                message: error,
                                 buttons: ['OK'],
                             });
 

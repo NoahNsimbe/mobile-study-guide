@@ -118,7 +118,7 @@ export class AppState {
     @Action(SetCareers)
     setCareers(context: StateContext<AppStateModel>, action: SetUceSubjects) {
         if(context.getState().careers.length === 0 || action.force === true)
-            this.serverService.getCareers().subscribe( (data: Career[]) => {
+            this.serverService.getCareers().then( (data: Career[]) => {
                 context.patchState({careers: data});
             }, (error => {
                 console.log(error);
@@ -128,7 +128,7 @@ export class AppState {
     @Action(SetPrograms)
     setPrograms(context: StateContext<AppStateModel>, action: SetPrograms) {
         if(context.getState().programs.length === 0 || action.force === true)
-            this.serverService.getPrograms().subscribe( (data: Program[]) => {
+            this.serverService.getPrograms().then( (data: Program[]) => {
                 context.patchState({programs: data});
             }, (error => {
                 console.log(error);
@@ -138,7 +138,7 @@ export class AppState {
     @Action(SetUceSubjects)
     setUceSubjects(context: StateContext<AppStateModel>, action: SetUceSubjects) {
         if(context.getState().uce.length === 0 || action.force === true)
-            this.serverService.getUceSubjects().subscribe( (data: Uce[]) => {
+            this.serverService.getUceSubjects().then( (data: Uce[]) => {
                 context.patchState({uce : data});
             }, (error => {
                 console.log(error);
@@ -148,7 +148,7 @@ export class AppState {
     @Action(SetUaceSubjects)
     setUaceSubjects(context: StateContext<AppStateModel>, action: SetUaceSubjects) {
         if(context.getState().uace.length === 0 || action.force === true)
-            this.serverService.getUaceSubjects().subscribe( (data: Uace[]) => {
+            this.serverService.getUaceSubjects().then( (data: Uace[]) => {
                 context.patchState({uace: data});
             }, (error => {
                 console.log(error);

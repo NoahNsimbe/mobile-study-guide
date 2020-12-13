@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  apiRoot: 'http://127.0.0.1:8000/',
+  apiRoot: 'http://localhost:8100/api/',
   combination: 'get_combination/',
-  recommendCombination: 'recommend_combination/',
+  recommendCombinations: 'recommend_combination/',
   course: 'get_course/',
   careers: 'careers/',
   programs: 'programs/',

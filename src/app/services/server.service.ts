@@ -43,10 +43,17 @@ export class ServerService {
 
   }
 
-  getPrograms(): Observable<Program[]> {
+  getPrograms(programCode?: string): Observable<Program[]> {
+    let endPoint : string;
+    if(programCode === null || programCode === undefined || programCode === ""){
+      endPoint = environment.programs;
+    }
+    else{
+      endPoint = environment.programs + programCode.trim().toUpperCase() + '/';
+    }
 
     return this.httpClient
-        .get<Program[]>(`${environment.apiRoot}${environment.programs}`)
+        .get<Program[]>(`${environment.apiRoot}${endPoint}`)
         .pipe(retry(3), catchError(ServerService.handleError));
 
   }
@@ -66,6 +73,7 @@ export class ServerService {
         .pipe(retry(3), catchError(ServerService.handleError));
 
   }
+
 
   checkProgram(submission : ProgramCheck): Observable<any> {
     return this.httpClient
@@ -125,12 +133,12 @@ export class ServerService {
         .pipe(retry(3), catchError(ServerService.handleError));
   }
 
-  recommendCombination(programCode: string): Observable<Combination[]> {
+  recommendCombinations(programCode: string): Observable<Combination[]> {
 
     const data = {program_code : programCode};
 
     return this.httpClient
-        .post<Combination[]>(`${environment.apiRoot}${environment.combination}`, data)
+        .post<Combination[]>(`${environment.apiRoot}${environment.recommendCombinations}`, data)
         .pipe(retry(3), catchError(ServerService.handleError));
   }
 }

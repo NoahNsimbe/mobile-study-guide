@@ -46,8 +46,8 @@ export class RecommendationPage implements OnInit {
         this.gender = "FEMALE";
         this.career = "";
         this.recommendations = [
-            {  name: 'Combination', value: 'COMBINATION'},
-            {  name: 'Course', value: 'COURSE'}
+            {  name: 'Combinations for a particular career', value: 'COMBINATION'},
+            {  name: 'Courses for a particular career', value: 'COURSE'}
         ];
         this.recommendation =  'COMBINATION';
 

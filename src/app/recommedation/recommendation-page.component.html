@@ -54,7 +54,7 @@
   </ion-list>
 
   <!--  gender-->
-  <ion-list>
+  <ion-list *ngIf="includeUaceResults && includeResults" >
 
     <ion-radio-group value="FEMALE"  [(ngModel)]="gender" >
       <ion-list-header>
@@ -74,7 +74,7 @@
   </ion-list>
 
   <!--  admission type-->
-  <ion-list>
+  <ion-list *ngIf="includeUaceResults && includeResults" >
     <ion-radio-group value="PRIVATE" [(ngModel)]="admissionType">
       <ion-list-header>
         <ion-label>Admission Type</ion-label>

@@ -153,106 +153,109 @@ export class RecommendationPage implements OnInit {
           valid = false;
       }
 
-        if(valid){
+      if(valid){
 
 
-            let uceResults : UserResults[] = this.includeUceResults ? this.uceComponent.formatResults() : [];
+        let uceResults : UserResults[] = this.includeUceResults ? this.uceComponent.formatResults() : [];
 
-            let uaceResults : UserResults[] = this.includeUaceResults ?  this.uaceComponent.formatResults() : [];
+        let uaceResults : UserResults[] = this.includeUaceResults ?  this.uaceComponent.formatResults() : [];
 
-            let submissions : UserSubmissions = {
-                admissionType: this.admissionType,
-                career: this.career,
-                gender: this.gender,
-                uaceResults: uaceResults,
-                uceResults: uceResults
-            };
+        let submissions : UserSubmissions = {
+            admissionType: this.admissionType,
+            career: this.career,
+            gender: this.gender,
+            uaceResults: uaceResults,
+            uceResults: uceResults
+        };
 
-            const loading = await this.loadingCtrl.create({
-                message: 'Please wait...',
-                animated: true,
-                spinner: 'lines'
-            });
-            await loading.present();
+        const loading = await this.loadingCtrl.create({
+            message: 'Please wait...',
+            animated: true,
+            spinner: 'lines'
+        });
 
-            const data : ResultsModalData = {
-                flag: '',
-                uceRecommendations: [],
-                uaceRecommendations: []
-            };
+        await loading.present();
 
-            switch (this.recommendation.trim().toUpperCase()) {
-                case 'COMBINATION':
-                    await this.serverService.getCombinations(submissions, this.includeResults)
-                        .subscribe(async (results: any) => {
-                                data.uceRecommendations = results;
-                                data.flag = 'UCE';
-                                await this.presentModal(data);
-                            }, async error => {
-                                console.log(error);
-                                const alert = await this.alertCtrl.create({
-                                    header: 'Oops',
-                                    message: error["Message"],
-                                    buttons: ['OK'],
-                                });
-                                await alert.present();
-                            }
+        const data : ResultsModalData = {
+            flag: '',
+            uceRecommendations: [],
+            uaceRecommendations: []
+        };
 
-                        );
-                    break;
-                case 'COURSE':
-                    await this.serverService.getCourses(submissions, this.includeResults)
-                        .subscribe(async (results: any) => {
-                                data.uaceRecommendations = results;
-                                data.flag = 'UACE';
-                                await this.presentModal(data);
-                            }, async error => {
-                                console.log(error);
-                                const alert = await this.alertCtrl.create({
-                                    header: 'Oops',
-                                    message: error["Message"],
-                                    buttons: ['OK'],
-                                });
+        switch (this.recommendation.trim().toUpperCase()) {
+            case 'COMBINATION':
 
-                                await alert.present();
-                            }
+                await this.serverService.getCombinations(submissions, this.includeResults)
+                    .subscribe(async (results: any) => {
+                            data.uceRecommendations = results;
+                            data.flag = 'UCE';
+                            await this.presentModal(data);
+                        }, async error => {
+                            console.log(error);
+                            const alert = await this.alertCtrl.create({
+                                header: 'Oops',
+                                message: error["Message"],
+                                buttons: ['OK'],
+                            });
+                            await alert.present();
+                        }
 
-                        );
-                    break;
+                    );
+                break;
+            case 'COURSE':
 
-                default:
-                    this.recommendation =  this.recommendations[0].value;
-                    console.log('error');
-            }
+                await this.serverService.getCourses(submissions, this.includeResults)
+                    .subscribe(async (results: any) => {
+                            data.uaceRecommendations = results;
+                            data.flag = 'UACE';
+                            await this.presentModal(data);
+                        }, async error => {
+                            console.log(error);
+                            const alert = await this.alertCtrl.create({
+                                header: 'Oops',
+                                message: error["Message"],
+                                buttons: ['OK'],
+                            });
 
-            await loading.dismiss();
+                            await alert.present();
+                        }
 
-            // if (!errors){
-            //     await this.presentModal(data);
-            // }
-            // else {
-            //
-            //     const alert = await this.alertCtrl.create({
-            //         cssClass: 'my-custom-class',
-            //         header: 'Oops',
-            //         message: 'An error occurred, please try again later',
-            //         buttons: ['OK'],
-            //     });
-            //
-            //     await alert.present();
-            // }
+                    );
+                break;
 
-
+            default:
+                this.recommendation =  this.recommendations[0].value;
+                console.log('error');
         }
 
-        else {
-            const toast = await this.toastCtrl.create({
-                message: 'Please provide all fields.',
-                duration: 2000
-            });
+        await loading.dismiss();
 
-            await toast.present();
-        }
+        // if (!errors){
+        //     await this.presentModal(data);
+        // }
+        // else {
+        //
+        //     const alert = await this.alertCtrl.create({
+        //         cssClass: 'my-custom-class',
+        //         header: 'Oops',
+        //         message: 'An error occurred, please try again later',
+        //         buttons: ['OK'],
+        //     });
+        //
+        //     await alert.present();
+        // }
+
+
+    }
+
+      else {
+        const toast = await this.toastCtrl.create({
+            message: 'Please provide all fields.',
+            duration: 2000
+        });
+
+        await toast.present();
+    }
 
     }
 

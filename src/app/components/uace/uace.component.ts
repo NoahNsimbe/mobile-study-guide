@@ -8,6 +8,7 @@ import {ModalController, ToastController} from "@ionic/angular";
 import {SetUaceSubjects} from "../../state/app.actions";
 import {UserResults} from "../../models/Recommendation";
 import {AddSubjectComponent} from "../add-subject/add-subject.component";
+import {UceGrades} from "../../models/uce";
 
 @Component({
   selector: 'app-uace',
@@ -18,11 +19,13 @@ export class UaceComponent implements OnInit {
 
   @Select(AppState.getUaceSubjects) uaceSubjects$: Observable<Uace[]>;
   @Select(AppState.getUaceGrades) uaceGrades$: Observable<UaceGrades[]>;
+  @Select(AppState.getUceGrades) uceGrades$: Observable<UceGrades[]>;
 
   uaceElectives: Uace[];
   uaceCompulsory: Uace[];
   uaceSubsidiaries: Uace[];
   uaceGrades: UaceGrades[];
+  uceGrades: UceGrades[];
   electivesArray = new FormGroup({});
   selectedElectives: UserResults[];
   selectedSubsidiary: UserResults;
@@ -80,6 +83,10 @@ export class UaceComponent implements OnInit {
     //
     await this.uaceGrades$.subscribe((uaceGrades: UaceGrades[]) => {
       this.uaceGrades = uaceGrades;
+    });
+
+    await this.uceGrades$.subscribe((uceGrades: UceGrades[]) => {
+      this.uceGrades = uceGrades;
     });
   }
 

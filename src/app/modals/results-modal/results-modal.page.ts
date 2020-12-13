@@ -20,7 +20,7 @@ export class ResultsModalPage implements OnInit{
   }
 
   ngOnInit(): void {
-    console.log(this.results);
+    // console.log(this.results);
   }
 
 }

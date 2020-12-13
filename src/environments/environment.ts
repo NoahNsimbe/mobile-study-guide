@@ -12,7 +12,7 @@ export const environment = {
   programs: 'programs/',
   uceSubjects: 'uce_subjects/',
   uaceSubjects: 'uace_subjects/',
-  programCheck: 'program_eligibility/'
+  programCheck: 'program_check/'
 };
 
 /*

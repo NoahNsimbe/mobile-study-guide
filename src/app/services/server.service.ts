@@ -6,7 +6,7 @@ import {catchError, retry} from 'rxjs/operators';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Uace} from '../models/uace';
 import {Uce} from '../models/uce';
-import {Combination, Program, ProgramCheck, UserSubmissions} from '../models/Recommendation';
+import {Combination, Program, ProgramCheck, UserResults, UserSubmissions} from '../models/Recommendation';
 
 @Injectable({
   providedIn: 'root'
@@ -76,6 +76,7 @@ export class ServerService {
 
 
   checkProgram(submission : ProgramCheck): Observable<any> {
+
     return this.httpClient
         .post<any>(`${environment.apiRoot}${environment.programCheck}`, submission)
         .pipe(retry(3), catchError(ServerService.handleError));
@@ -88,7 +89,7 @@ export class ServerService {
     if (includeResults === true) {
       data = {
         career : submissions.career,
-        uce_results : submissions.uceResults,
+        uce_results : this.formatUserResults(submissions.uceResults),
       };
     } else {
       data = {career : submissions.career};
@@ -105,8 +106,8 @@ export class ServerService {
     if (includeResults === true) {
       data = {
         career : submissions.career,
-        uce_results : submissions.uceResults,
-        uace_results : submissions.uaceResults,
+        uce_results : this.formatUserResults(submissions.uceResults),
+        uace_results : this.formatUserResults(submissions.uaceResults),
         admission_type : submissions.admissionType,
         gender : submissions.gender,
       };
@@ -125,7 +126,9 @@ export class ServerService {
     if (careerOnly === true) {
       data = {career : submissions.career};
     } else {
-      data = {career : submissions.career, uce_results : submissions.uceResults, uace_results : submissions.uaceResults};
+      data = {career : submissions.career,
+        uce_results : this.formatUserResults(submissions.uceResults),
+        uace_results : this.formatUserResults(submissions.uaceResults)};
     }
 
     return this.httpClient
@@ -140,5 +143,14 @@ export class ServerService {
     return this.httpClient
         .post<Combination[]>(`${environment.apiRoot}${environment.recommendCombinations}`, data)
         .pipe(retry(3), catchError(ServerService.handleError));
+  }
+
+  formatUserResults(userResults : UserResults[]): any{
+    let output : {} = {};
+    userResults.forEach(value => {
+      output[value.code] = value.value;
+    })
+
+    return output;
   }
 }

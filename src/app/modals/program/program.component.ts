@@ -21,4 +21,9 @@ export class ProgramComponent implements OnInit {
     });
   }
 
+  findCombinations() {
+    this.modalCtrl.dismiss(this.program).then(r => {
+      console.log(r);
+    });
+  }
 }

@@ -4,14 +4,22 @@
 <!--        <ion-menu-button></ion-menu-button>-->
         <ion-back-button color="danger"></ion-back-button>
     </ion-buttons>
-    <ion-title>Programs</ion-title>
+    <ion-title *ngIf="displayPrograms">Programs</ion-title>
+      <ion-title *ngIf="displayCombinations" >Recommended Combinations</ion-title>
   </ion-toolbar>
+
   <ion-toolbar>
-    <ion-searchbar (ionInput)="handleInput($event)" ></ion-searchbar>
+      <ion-item>
+          <ion-searchbar *ngIf="displayPrograms" (ionInput)="handleInput($event)" ></ion-searchbar>
+          <ion-text *ngIf="displayCombinations" >{{program.name.trim().toUpperCase()}}</ion-text>
+          <ion-button slot="end" *ngIf="displayCombinations" (click)="closeRecommendations()" >Close</ion-button>
+      </ion-item>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="displayPrograms" >
+
   <ion-list>
     <ion-item *ngFor="let program of display"  (click)="presentModal(program)" >
       {{program.name}}
@@ -24,5 +32,25 @@
             <ion-icon name="refresh-outline"></ion-icon>
         </ion-fab-button>
     </ion-fab>
+
+</ion-content>
+
+<ion-content *ngIf="displayCombinations" >
+    <ion-list>
+<!--        <ion-list-header>-->
+<!--            <ion-label>Recommended Combinations</ion-label>-->
+<!--            <ion-button (click)="closeRecommendations()" ></ion-button>-->
+<!--        </ion-list-header>-->
+        <ion-item *ngFor="let combination of combinations" >
+
+            <ion-text>{{combination.abbreviation}}</ion-text>
+            <ion-list>
+                <ion-item *ngFor="let subject of combination.subjects" >
+                    <ion-text>{{subject}}</ion-text>
+                </ion-item>
+            </ion-list>
+<!--            <ion-label *ngFor="let subject of combination.subjects" >{{subject}}<br></ion-label>-->
+        </ion-item>
+    </ion-list>
 
 </ion-content>

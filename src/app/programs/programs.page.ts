@@ -6,9 +6,12 @@ import {Career} from '../models/Career';
 import {Program} from '../models/Program';
 import {SetCareers, SetPrograms, SetSubjects, SetUaceSubjects, SetUceSubjects} from '../state/app.actions';
 import {ResultsModalPage} from '../modals/results-modal/results-modal.page';
-import {LoadingController, ModalController} from '@ionic/angular';
+import {AlertController, LoadingController, ModalController} from '@ionic/angular';
 import {ProgramComponent} from '../modals/program/program.component';
 import {AppState} from '../state/app.state';
+import {Combination, UserResults} from "../models/Recommendation";
+import {FormControl} from "@angular/forms";
+import {ServerService} from "../services/server.service";
 
 @Component({
   selector: 'app-programs',
@@ -20,11 +23,17 @@ export class ProgramsPage implements OnInit {
   searchbar;
   programs: Program[];
   display: Program[];
+  displayPrograms: boolean = true;
+  displayCombinations: boolean = false;
+  combinations: Combination[] = [];
+  program: Program;
   @Select(AppState.getPrograms) programs$: Observable<Program[]>;
 
   constructor(private appStore: Store,
               public modalCtrl: ModalController,
-              public loadingCtrl: LoadingController) {
+              public alertCtrl: AlertController,
+              public loadingCtrl: LoadingController,
+              private serverService: ServerService,) {
     // this.searchbar = document.querySelector('ion-searchbar');
     // this.searchbar.addEventListener('ionInput', this.handleInput);
   }
@@ -80,7 +89,54 @@ export class ProgramsPage implements OnInit {
         program: data,
       }
     });
-    return await modal.present();
+    await modal.present();
+
+    modal.onDidDismiss().then(async (response: any) => {
+      const program: Program = response.data;
+
+      if (program !== null && program !== undefined) {
+
+        this.combinations = [];
+        this.program = null;
+
+          const loading = await this.loadingCtrl.create({
+            message: 'Getting combinations...',
+            animated: true,
+            spinner: 'lines'
+          });
+
+          await loading.present();
+
+          await this.serverService.recommendCombinations(program.code.trim().toUpperCase())
+              .subscribe(async (results: any) => {
+
+                this.combinations = results
+                this.program = program;
+                this.displayPrograms = false;
+                this.displayCombinations = true;
+
+                  },
+                  async error => {
+
+                    this.displayPrograms = true;
+                    this.displayCombinations = false;
+
+                    const alert = await this.alertCtrl.create({
+                      header: 'Oops',
+                      message: error["Message"],
+                      buttons: ['OK'],
+                    });
+
+                    await alert.present();
+                  }
+
+              );
+
+          await loading.dismiss();
+      }
+
+    });
+
   }
 
   // async refresh() {
@@ -103,4 +159,10 @@ export class ProgramsPage implements OnInit {
   //
   // }
 
+  async closeRecommendations() {
+    this.displayCombinations = false;
+    this.displayPrograms = true;
+
+    await this.initialize(false);
+  }
 }

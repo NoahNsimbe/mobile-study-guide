@@ -30,7 +30,7 @@ export interface Combination {
 export interface ResultsModalData {
     results?: [],
     uceRecommendations? : Combination[]
-    uaceRecommendations? : Combination[]
+    uaceRecommendations? : Program[]
     flag?: string
 }
 

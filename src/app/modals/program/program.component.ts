@@ -13,7 +13,9 @@ export class ProgramComponent implements OnInit {
 
   constructor(public modalCtrl: ModalController) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.program);
+  }
 
   dismissModal() {
     this.modalCtrl.dismiss().then(r => {

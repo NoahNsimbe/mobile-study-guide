@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Program Details</ion-title>
+    <ion-title>{{ program.name }}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismissModal()">Back</ion-button>
     </ion-buttons>
@@ -21,9 +21,25 @@
           </ion-item>
         </ion-col>
 
-        <ion-col>
+        <ion-col size="9">
           <ion-item>
             <ion-label>{{ program.code }}</ion-label>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+
+      <ion-row class="ion-align-items-center">
+
+        <ion-col size="3" >
+          <ion-item>
+            <ion-label>University</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="9">
+          <ion-item>
+            <ion-label>{{ program.university }}</ion-label>
           </ion-item>
         </ion-col>
 
@@ -37,7 +53,7 @@
           </ion-item>
         </ion-col>
 
-        <ion-col>
+        <ion-col size="9">
           <ion-item>
             <ion-label>{{ program.name }}</ion-label>
           </ion-item>
@@ -53,7 +69,7 @@
           </ion-item>
         </ion-col>
 
-        <ion-col>
+        <ion-col size="9">
           <ion-item>
             <ion-label>{{ program.college }}</ion-label>
           </ion-item>
@@ -69,7 +85,7 @@
           </ion-item>
         </ion-col>
 
-        <ion-col>
+        <ion-col size="9">
           <ion-item>
             <ion-label>{{ program.description }}</ion-label>
           </ion-item>
@@ -85,7 +101,7 @@
           </ion-item>
         </ion-col>
 
-        <ion-col>
+        <ion-col size="9">
           <ion-item>
             <ion-label>{{ program.duration }}</ion-label>
           </ion-item>
@@ -101,7 +117,7 @@
           </ion-item>
         </ion-col>
 
-        <ion-col>
+        <ion-col size="9" >
           <ion-item>
             <ion-label>{{ program.time }}</ion-label>
           </ion-item>
@@ -112,6 +128,8 @@
     </ion-grid>
   </ion-list>
 
-  <ion-button expand="block" fill="outline" (click)="findCombinations()" >Find recommended combinations</ion-button>
+  <ion-button expand="block" fill="outline" (click)="findCombinations()" >
+    Find recommended combinations
+  </ion-button>
 
 </ion-content>

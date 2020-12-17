@@ -26,6 +26,14 @@ export class SetCareers {
     }
 }
 
+export class SetArticles {
+    static readonly type = '[articles] set articles';
+    constructor(public force?: boolean) {
+        if(force === undefined)
+            this.force = false;
+    }
+}
+
 export class SetPrograms {
     static readonly type = '[programs] set programs';
     constructor(public force?: boolean) {

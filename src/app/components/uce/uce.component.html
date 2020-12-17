@@ -98,10 +98,14 @@
 
                     <ion-col size="3" >
                         <ion-item>
-                            <ion-button color="danger"
-                                        (click)="removeElective(elective.code)" >
-                                <ion-icon name="close-circle-outline"></ion-icon>
-                            </ion-button>
+<!--                            <ion-button color="danger"-->
+<!--                                        (click)="removeElective(elective.code)" >-->
+<!--                                <ion-icon name="close-circle-outline"></ion-icon>-->
+<!--                            </ion-button>-->
+                            <ion-chip color="danger"  (click)="removeElective(elective.code)"  >
+                                <ion-icon name="close-circle"></ion-icon>
+                            </ion-chip>
+
                         </ion-item>
                     </ion-col>
 

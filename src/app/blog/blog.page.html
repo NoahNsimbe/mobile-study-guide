@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Articles</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+            pullingIcon="chevron-down-circle-outline"
+            pullingText="Pull to refresh"
+            refreshingSpinner="lines"
+            refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-grid *ngIf="articles" >
+    <ion-row>
+
+      <ion-col *ngFor="let article of articles$ | async" size="6">
+
+        <ion-card>
+          <img src="./madison.jpg" />
+          <ion-card-header>
+            <ion-card-title>{{ article.title}}</ion-card-title>
+            <ion-card-subtitle>{{ article.date }}</ion-card-subtitle>
+            <ion-chip>
+              <ion-avatar>
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjYzVkYmZmIiBkPSJNMCAwaDUxMnY1MTJIMHoiLz48cGF0aCBkPSJNMjU2IDMwNGM2MS42IDAgMTEyLTUwLjQgMTEyLTExMlMzMTcuNiA4MCAyNTYgODBzLTExMiA1MC40LTExMiAxMTIgNTAuNCAxMTIgMTEyIDExMnptMCA0MGMtNzQuMiAwLTIyNCAzNy44LTIyNCAxMTJ2NTZoNDQ4di01NmMwLTc0LjItMTQ5LjgtMTEyLTIyNC0xMTJ6IiBmaWxsPSIjODJhZWZmIi8+PC9zdmc+" />
+              </ion-avatar>
+              <ion-label>{{ article.author }}</ion-label>
+            </ion-chip>
+          </ion-card-header>
+          <ion-card-content>
+            {{ article.body }}
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+
+
+
+  <ion-grid  *ngIf="!articles" >
+      <ion-row>
+
+        <ion-col size="6" *ngFor="let x of skeleton" >
+
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title><ion-skeleton-text animated style="width: 70%" ></ion-skeleton-text></ion-card-title>
+              <ion-card-subtitle><ion-skeleton-text animated style="width: 30%" ></ion-skeleton-text></ion-card-subtitle>
+              <ion-chip>
+                <ion-label><ion-skeleton-text animated></ion-skeleton-text></ion-label>
+              </ion-chip>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-skeleton-text animated></ion-skeleton-text>
+              <ion-skeleton-text animated></ion-skeleton-text>
+              <ion-skeleton-text animated></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%" ></ion-skeleton-text>
+            </ion-card-content>
+          </ion-card>
+
+        </ion-col>
+
+      </ion-row>
+
+    </ion-grid>
+
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button color="light" (click)="initialize(true)" >
+      <ion-icon name="refresh-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

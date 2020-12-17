@@ -9,9 +9,10 @@ import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {Uace, UaceGrades} from '../models/uace';
 import {Uce, UceGrades} from '../models/uce';
 import {Career} from '../models/Career';
-import {SetCareers, SetPrograms, SetSubjects, SetUaceSubjects, SetUceSubjects} from './app.actions';
+import {SetArticles, SetCareers, SetPrograms, SetSubjects, SetUaceSubjects, SetUceSubjects} from './app.actions';
 import {ServerService} from '../services/server.service';
 import {Program} from '../models/Program';
+import {Article} from "../models/Article";
 
 
 export interface AppStateModel {
@@ -21,6 +22,7 @@ export interface AppStateModel {
     uceGrades: UceGrades[];
     careers: Career[];
     programs: Program[];
+    articles: Article[];
 }
 
 const defaults: AppStateModel = {
@@ -46,7 +48,8 @@ const defaults: AppStateModel = {
         {name : 'F9', value : 9},
         ],
     careers: Array<Career>(),
-    programs: Array<Program>()
+    programs: Array<Program>(),
+    articles: Array<Article>()
 };
 
 @State<AppStateModel>({
@@ -64,6 +67,11 @@ export class AppState {
     @Selector()
     static getPrograms(state: AppStateModel) {
         return state.programs;
+    }
+
+    @Selector()
+    static getArticles(state: AppStateModel) {
+        return state.articles;
     }
 
     @Selector()
@@ -116,10 +124,20 @@ export class AppState {
     }
 
     @Action(SetCareers)
-    setCareers(context: StateContext<AppStateModel>, action: SetUceSubjects) {
+    setCareers(context: StateContext<AppStateModel>, action: SetCareers) {
         if(context.getState().careers.length === 0 || action.force === true)
             this.serverService.getCareers().then( (data: Career[]) => {
                 context.patchState({careers: data});
+            }, (error => {
+                console.log(error);
+            }));
+    }
+
+    @Action(SetArticles)
+    setArticles(context: StateContext<AppStateModel>, action: SetArticles) {
+        if(context.getState().articles.length === 0 || action.force === true)
+            this.serverService.getArticles().then( (data: Article[]) => {
+                context.patchState({articles: data});
             }, (error => {
                 console.log(error);
             }));

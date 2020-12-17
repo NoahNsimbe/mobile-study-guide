@@ -13,7 +13,8 @@ export const environment = {
   uceSubjects: 'uce_subjects/',
   uaceSubjects: 'uace_subjects/',
   programCheck: 'program_check/',
-  programDetails: 'program_details/'
+  programDetails: 'program_details/',
+  articles: 'articles/'
 };
 
 /*

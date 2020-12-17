@@ -30,6 +30,10 @@ const routes: Routes = [
   {
     path: 'program_check',
     loadChildren: () => import('./program-check/program-check.module').then( m => m.ProgramCheckPageModule)
+  },
+  {
+    path: 'blog',
+    loadChildren: () => import('./blog/blog.module').then( m => m.BlogPageModule)
   }
 ];
 

@@ -14,6 +14,7 @@ import {
   UserResults,
   UserSubmissions
 } from '../models/Recommendation';
+import {Article} from "../models/Article";
 
 @Injectable({
   providedIn: 'root'
@@ -103,6 +104,13 @@ export class ServerService {
 
   }
 
+  async getArticles(): Promise<Article[]> {
+
+    return this.httpClient
+        .get<Article[]>(`${environment.apiRoot}${environment.articles}`)
+        .pipe(retry(3), catchError(ServerService.handleError)).toPromise();
+
+  }
 
 
   async checkProgram(submission : ProgramCheck): Promise<ProgramCheckResults> {

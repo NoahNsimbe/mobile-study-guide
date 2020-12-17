@@ -30,7 +30,7 @@ import {AddSubjectComponent} from "./components/add-subject/add-subject.componen
     HttpClientModule,
     NgxsModule.forRoot([AppState], {developmentMode: !environment.production}),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsStoragePluginModule.forRoot({key: [] }),
+    NgxsStoragePluginModule.forRoot({key: [AppState] }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [

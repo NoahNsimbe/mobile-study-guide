@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{results.flag.trim().toUpperCase() + ' RECOMMENDATIONS'}}</ion-title>
+    <ion-title *ngIf="results.flag.trim().toUpperCase() === 'UACE'" >RECOMMENDED PROGRAMS</ion-title>
+    <ion-title *ngIf="results.flag.trim().toUpperCase() === 'UCE'" >RECOMMENDED COMBINATIONS</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismissModal()">Close</ion-button>
     </ion-buttons>

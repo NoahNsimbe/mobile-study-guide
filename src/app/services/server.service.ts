@@ -6,7 +6,14 @@ import {catchError, retry} from 'rxjs/operators';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Uace} from '../models/uace';
 import {Uce} from '../models/uce';
-import {Combination, Program, ProgramCheck, UserResults, UserSubmissions} from '../models/Recommendation';
+import {
+  Combination,
+  Program,
+  ProgramCheck,
+  ProgramCheckResults,
+  UserResults,
+  UserSubmissions
+} from '../models/Recommendation';
 
 @Injectable({
   providedIn: 'root'
@@ -70,6 +77,16 @@ export class ServerService {
 
   }
 
+  async getProgramDetails(programCode: string): Promise<Program> {
+    const data = {
+        program_code : programCode
+      };
+    return this.httpClient
+        .post<Program>(`${environment.apiRoot}${environment.programDetails}`, data)
+        .pipe(retry(3), catchError(ServerService.handleError)).toPromise();
+
+  }
+
   async getUaceSubjects(): Promise<Uace[]> {
 
     return this.httpClient
@@ -88,11 +105,11 @@ export class ServerService {
 
 
 
-  async checkProgram(submission : ProgramCheck): Promise<any> {
+  async checkProgram(submission : ProgramCheck): Promise<ProgramCheckResults> {
 
     return this.httpClient
-        .post<any>(`${environment.apiRoot}${environment.programCheck}`, submission)
-        .pipe(retry(3), catchError(ServerService.handleError));
+        .post<ProgramCheckResults>(`${environment.apiRoot}${environment.programCheck}`, submission)
+        .pipe(retry(3), catchError(ServerService.handleError)).toPromise();
 
   }
 

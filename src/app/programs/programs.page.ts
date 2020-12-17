@@ -83,21 +83,53 @@ export class ProgramsPage implements OnInit {
   }
 
   async presentModal(data: Program) {
-    const modal = await this.modalCtrl.create({
-      component: ProgramComponent,
-      componentProps: {
-        program: data,
-      }
+
+    let programDetails: Program;
+
+    const loading = await this.loadingCtrl.create({
+      message: 'Getting program details...',
+      animated: true,
+      spinner: 'lines'
     });
-    await modal.present();
 
-    modal.onDidDismiss().then(async (response: any) => {
-      const program: Program = response.data;
+    await loading.present();
 
-      if (program !== null && program !== undefined) {
+    await this.serverService.getProgramDetails(data.code.trim().toUpperCase())
+        .then(async (results: Program) => {
+              programDetails = results;
+              await loading.dismiss();
 
-        this.combinations = [];
-        this.program = null;
+            }, async error => {
+              console.log(error);
+              programDetails = null;
+              await loading.dismiss();
+
+              const alert = await this.alertCtrl.create({
+                header: 'Oops',
+                message: error,
+                buttons: ['OK'],
+              });
+              await alert.present();
+            }
+        );
+
+
+    if(programDetails !== null){
+      const modal = await this.modalCtrl.create({
+        component: ProgramComponent,
+        componentProps: {
+          program: data,
+        }
+      });
+      await modal.present();
+
+      modal.onDidDismiss().then(async (response: any) => {
+        const program: Program = response.data;
+
+        if (program !== null && program !== undefined) {
+
+          this.combinations = [];
+          this.program = null;
 
           const loading = await this.loadingCtrl.create({
             message: 'Getting combinations...',
@@ -110,12 +142,12 @@ export class ProgramsPage implements OnInit {
           await this.serverService.recommendCombinations(program.code.trim().toUpperCase())
               .then(async (results: any) => {
 
-                console.log(results);
+                    console.log(results);
 
-                this.combinations = results
-                this.program = program;
-                this.displayPrograms = false;
-                this.displayCombinations = true;
+                    this.combinations = results
+                    this.program = program;
+                    this.displayPrograms = false;
+                    this.displayCombinations = true;
 
                   },
                   async error => {
@@ -135,9 +167,10 @@ export class ProgramsPage implements OnInit {
               );
 
           await loading.dismiss();
-      }
+        }
 
-    });
+      });
+    }
 
   }
 

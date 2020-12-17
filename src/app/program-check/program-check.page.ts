@@ -6,9 +6,9 @@ import {Observable} from "rxjs";
 import {Uace, UaceGrades} from "../models/uace";
 import {Uce, UceGrades} from "../models/uce";
 import {SetPrograms} from "../state/app.actions";
-import {Combination, ProgramCheck, UserResults, UserSubmissions} from "../models/Recommendation";
+import {Combination, ProgramCheck, ProgramCheckResults, UserResults, UserSubmissions} from "../models/Recommendation";
 import {UceComponent} from "../components/uce/uce.component";
-import {LoadingController, ToastController} from "@ionic/angular";
+import {AlertController, LoadingController, ToastController} from "@ionic/angular";
 import {valueReferenceToExpression} from "@angular/compiler-cli/src/ngtsc/annotations/src/util";
 import {UaceComponent} from "../components/uace/uace.component";
 import {ServerService} from "../services/server.service";
@@ -42,7 +42,8 @@ export class ProgramCheckPage implements OnInit {
   constructor(private appStore: Store,
               private loadingCtrl: LoadingController,
               private toastCtrl: ToastController,
-              private serverService: ServerService) {
+              private serverService: ServerService,
+              public alertCtrl: AlertController) {
 
     this.admissionType = "PRIVATE";
     this.gender = "FEMALE";
@@ -122,14 +123,38 @@ export class ProgramCheckPage implements OnInit {
 
       await loading.present();
 
-      await this.serverService.checkProgram(submissions).then((results: any) => {
-                console.log(results)
-              }, error => {
-                console.log(error);
+      await this.serverService.checkProgram(submissions).then(async (results: ProgramCheckResults) => {
+
+                if(results.check.trim().toUpperCase() === "PASSED"){
+                  await loading.dismiss();
+                  const alert = await this.alertCtrl.create({
+                    header: 'Congratulations',
+                    message: 'You dont meet all the requirements for the program',
+                    buttons: ['OK'],
+                  });
+                  await alert.present();
+                }
+                else{
+                  await loading.dismiss();
+                  const alert = await this.alertCtrl.create({
+                    header: 'Oops',
+                    message: 'You dont meet all the requirements for that program, checkout the program details for more information about it',
+                    buttons: ['OK'],
+                  });
+                  await alert.present();
+                }
+              }, async error => {
+                  await loading.dismiss();
+                  const alert = await this.alertCtrl.create({
+                    header: 'Oops',
+                    message: error,
+                    buttons: ['OK'],
+                  });
+                  await alert.present();
               }
           );
 
-      await loading.dismiss();
+
 
     }
 

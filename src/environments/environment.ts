@@ -12,7 +12,8 @@ export const environment = {
   programs: 'programs/',
   uceSubjects: 'uce_subjects/',
   uaceSubjects: 'uace_subjects/',
-  programCheck: 'program_check/'
+  programCheck: 'program_check/',
+  programDetails: 'program_details/'
 };
 
 /*

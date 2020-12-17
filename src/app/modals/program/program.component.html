@@ -9,26 +9,108 @@
 
 <ion-content>
 
-<ion-item>
-<ion-label>Code : {{ program.code }}</ion-label>
-</ion-item>
-<ion-item>
-<ion-label>Name : {{ program.name }}</ion-label>
-</ion-item>
-<ion-item>
-<ion-label>College : {{ program.college }}</ion-label>
-</ion-item>
-<ion-item>
-<ion-label>Description : {{ program.description }}</ion-label>
-</ion-item>
-<ion-item>
-<ion-label>Duration : {{ program.duration }}</ion-label>
-</ion-item>
-<ion-item>
-<ion-label>Time : {{ program.time }}</ion-label>
-</ion-item>
+  <ion-list>
 
+    <ion-grid >
 
+      <ion-row class="ion-align-items-center">
+
+        <ion-col size="3" >
+          <ion-item>
+            <ion-label>Code</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item>
+            <ion-label>{{ program.code }}</ion-label>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+
+      <ion-row class="ion-align-items-center">
+
+        <ion-col size="3" >
+          <ion-item>
+            <ion-label>Name</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item>
+            <ion-label>{{ program.name }}</ion-label>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+
+      <ion-row class="ion-align-items-center">
+
+        <ion-col size="3" >
+          <ion-item>
+            <ion-label>College</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item>
+            <ion-label>{{ program.college }}</ion-label>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+
+      <ion-row class="ion-align-items-center">
+
+        <ion-col size="3" >
+          <ion-item>
+            <ion-label>Description</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item>
+            <ion-label>{{ program.description }}</ion-label>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+
+      <ion-row class="ion-align-items-center">
+
+        <ion-col size="3" >
+          <ion-item>
+            <ion-label>Duration</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item>
+            <ion-label>{{ program.duration }}</ion-label>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+
+      <ion-row class="ion-align-items-center">
+
+        <ion-col size="3" >
+          <ion-item>
+            <ion-label>Time</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item>
+            <ion-label>{{ program.time }}</ion-label>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+
+    </ion-grid>
+  </ion-list>
 
   <ion-button expand="block" fill="outline" (click)="findCombinations()" >Find recommended combinations</ion-button>
 

@@ -44,6 +44,10 @@ export interface Program {
     time: string;
 }
 
+export interface ProgramCheckResults {
+    check: string;
+}
+
 export interface ProgramCheck {
     program_code: string;
     uce_results: UserResults[];

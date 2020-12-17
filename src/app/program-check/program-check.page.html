@@ -13,10 +13,15 @@
 <!--  program-->
 
   <ion-list>
-    <ion-list-header>
-      <ion-label>Search a program</ion-label>
-    </ion-list-header>
-    <ion-searchbar placeholder="Program" [(ngModel)]="programName" (ionInput)="handleInput($event)" ></ion-searchbar>
+<!--    <ion-list-header>-->
+<!--      <ion-header>Search a program</ion-header>-->
+<!--    </ion-list-header>-->
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Search a program</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-searchbar placeholder="Type a program" [(ngModel)]="programName" (ionInput)="handleInput($event)" ></ion-searchbar>
     <ion-item *ngFor="let program of display" (click)="selectProgram(program)" >
       {{program.name}}
     </ion-item>
@@ -26,9 +31,14 @@
   <ion-list>
 
     <ion-radio-group value="FEMALE"  [(ngModel)]="gender" >
-      <ion-list-header>
-        <ion-label>Gender</ion-label>
-      </ion-list-header>
+<!--      <ion-list-header>-->
+<!--        <ion-header>Gender</ion-header>-->
+<!--      </ion-list-header>-->
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>GENDER</ion-title>
+        </ion-toolbar>
+      </ion-header>
 
       <ion-item>
         <ion-label>Female</ion-label>
@@ -45,9 +55,15 @@
 <!--  admission type-->
   <ion-list>
     <ion-radio-group value="PRIVATE" [(ngModel)]="admissionType">
-      <ion-list-header>
-        <ion-label>Admission Type</ion-label>
-      </ion-list-header>
+<!--      <ion-list-header>-->
+<!--        <ion-label>Admission Type</ion-label>-->
+<!--      </ion-list-header>-->
+
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>ADMISSION TYPE</ion-title>
+        </ion-toolbar>
+      </ion-header>
 
       <ion-item>
         <ion-label>Private</ion-label>

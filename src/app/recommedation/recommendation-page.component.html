@@ -22,9 +22,15 @@
 
     <ion-radio-group (ionChange)="recommendationChanged('recommendation')"  [(ngModel)]="recommendation" >
 
-      <ion-list-header>
-        <ion-label>Select a recommendation</ion-label>
-      </ion-list-header>
+<!--      <ion-list-header>-->
+<!--        <ion-label>Select a recommendation</ion-label>-->
+<!--      </ion-list-header>-->
+
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Select a recommendation</ion-title>
+        </ion-toolbar>
+      </ion-header>
 
       <ion-item *ngFor="let recommendation of recommendations" >
         <ion-label>{{ recommendation.name }}</ion-label>
@@ -37,17 +43,22 @@
 <!--  what to include-->
   <ion-list>
     <ion-item >
-      <ion-label>Include my results</ion-label>
+      <ion-label>Check if you want to include your results</ion-label>
       <ion-checkbox (ionChange)="recommendationChanged('include')"  slot="end" [(ngModel)]="includeResults"></ion-checkbox>
     </ion-item>
   </ion-list>
 
   <!--  Enter career-->
   <ion-list>
-    <ion-list-header>
-      <ion-label>Enter the career</ion-label>
-    </ion-list-header>
-    <ion-searchbar placeholder="Career" [(ngModel)]="career" (ionInput)="handleInput($event)" ></ion-searchbar>
+<!--    <ion-list-header>-->
+<!--      <ion-label>Enter the career</ion-label>-->
+<!--    </ion-list-header>-->
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Search the career</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-searchbar placeholder="Enter Career" [(ngModel)]="career" (ionInput)="handleInput($event)" ></ion-searchbar>
     <ion-item *ngFor="let career of display" (click)="selectCareer(career)" >
       {{career.name}}
     </ion-item>
@@ -57,9 +68,11 @@
   <ion-list *ngIf="includeUaceResults && includeResults" >
 
     <ion-radio-group value="FEMALE"  [(ngModel)]="gender" >
-      <ion-list-header>
-        <ion-label>Gender</ion-label>
-      </ion-list-header>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>GENDER</ion-title>
+        </ion-toolbar>
+      </ion-header>
 
       <ion-item>
         <ion-label>Female</ion-label>
@@ -76,9 +89,11 @@
   <!--  admission type-->
   <ion-list *ngIf="includeUaceResults && includeResults" >
     <ion-radio-group value="PRIVATE" [(ngModel)]="admissionType">
-      <ion-list-header>
-        <ion-label>Admission Type</ion-label>
-      </ion-list-header>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>ADMISSION TYPE</ion-title>
+        </ion-toolbar>
+      </ion-header>
 
       <ion-item>
         <ion-label>Private</ion-label>

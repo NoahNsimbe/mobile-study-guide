@@ -1,3 +1,8 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>UCE RESULTS</ion-title>
+    </ion-toolbar>
+</ion-header>
 <ion-grid>
   <ion-row>
 
@@ -5,7 +10,7 @@
 
         <ion-list>
             <ion-list-header>
-                <ion-label>Compulsory</ion-label>
+                <ion-header>Compulsory Subjects (7)</ion-header>
             </ion-list-header>
 
             <ion-grid >
@@ -50,26 +55,27 @@
 
         <ion-list>
             <ion-list-header>
-                <ion-label>Electives</ion-label>
-                <ion-button (click)="addElective()">Add Elective</ion-button>
+                <ion-header>Electives (MAX 3)</ion-header>
+                <ion-button color="success"
+                            (click)="addElective()">Add Elective Subjects</ion-button>
             </ion-list-header>
 
             <ion-grid >
                 <ion-row class="ion-align-items-center">
 
-                    <ion-col>
+                    <ion-col size="6" >
                         <ion-item>
                             <ion-label>Subject</ion-label>
                         </ion-item>
                     </ion-col>
 
-                    <ion-col >
+                    <ion-col size="3"  >
                         <ion-item>
                             <ion-label>Grade</ion-label>
                         </ion-item>
                     </ion-col>
 
-                    <ion-col >
+                    <ion-col size="3" >
                         <ion-item>
                             <ion-label>Delete</ion-label>
                         </ion-item>
@@ -78,21 +84,24 @@
                 </ion-row>
                 <ion-row class="ion-align-items-center" *ngFor="let elective of selectedElectives; index as i">
 
-                    <ion-col>
+                    <ion-col size="6" >
                         <ion-item>
                             <ion-label>{{elective.code}}</ion-label>
                         </ion-item>
                     </ion-col>
 
-                    <ion-col >
+                    <ion-col size="3"  >
                         <ion-item>
                             <ion-label>{{elective.value}}</ion-label>
                         </ion-item>
                     </ion-col>
 
-                    <ion-col >
+                    <ion-col size="3" >
                         <ion-item>
-                            <ion-button (click)="removeElective(elective.code)" >Remove</ion-button>
+                            <ion-button color="danger"
+                                        (click)="removeElective(elective.code)" >
+                                <ion-icon name="close-circle-outline"></ion-icon>
+                            </ion-button>
                         </ion-item>
                     </ion-col>
 

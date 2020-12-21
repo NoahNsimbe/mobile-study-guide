@@ -294,7 +294,7 @@
         minimum_grade
         <ion-col size="8" >
           <ion-item>
-            <ion-label>{{subject.subject | subjectCode }}</ion-label>
+            <ion-label>{{subject.subject | subjectCode | titlecase }}</ion-label>
           </ion-item>
         </ion-col>
 
@@ -338,7 +338,7 @@
 
         <ion-col size="8" >
           <ion-item>
-            <ion-label>{{subject.subject | uce}}</ion-label>
+            <ion-label>{{subject.subject | uce | titlecase}}</ion-label>
           </ion-item>
         </ion-col>
 

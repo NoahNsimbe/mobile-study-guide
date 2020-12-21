@@ -5,6 +5,8 @@ import {Article} from "../models/Article";
 import {ServerService} from "../services/server.service";
 import {ProgramDetails} from "../models/Program";
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import {AngularFireAuth} from "@angular/fire/auth";
+// import firebase from 'firebase/app';
 
 @Component({
   selector: 'app-article',
@@ -24,6 +26,7 @@ export class ArticlePage implements OnInit {
   constructor(private route: ActivatedRoute,
               public loadingCtrl: LoadingController,
               private router: Router,
+              public auth: AngularFireAuth,
               public alertCtrl: AlertController,
               private serverService: ServerService) {
 
@@ -92,5 +95,9 @@ export class ArticlePage implements OnInit {
   submit() {
     this.article.body = this.model.editorData.trim();
     console.log(this.article);
+  }
+
+  login() {
+    // this.auth.signInWithPopUp(new firebase.auth.GoogleAuthProvider());
   }
 }

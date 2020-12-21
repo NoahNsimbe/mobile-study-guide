@@ -18,15 +18,17 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import {AppState} from './state/app.state';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import {AddSubjectComponent} from "./components/add-subject/add-subject.component";
 import { SubjectCodePipe } from './pipes/subject-code.pipe';
-
+import {AngularFireModule} from "@angular/fire";
+import {AngularFireAuthModule} from "@angular/fire/auth";
 
 @NgModule({
   declarations: [AppComponent, SubjectCodePipe],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
     AppRoutingModule,
     HttpClientModule,
     NgxsModule.forRoot([AppState], {developmentMode: !environment.production}),

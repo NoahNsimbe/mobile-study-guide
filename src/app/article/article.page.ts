@@ -97,6 +97,6 @@ export class ArticlePage implements OnInit {
   }
 
   login() {
-    // this.auth.signInWithPopUp(new firebase.auth.GoogleAuthProvider());
+    // this.auth.signInWithPopUpn(new firebase.auth.GoogleAuthProvider());
   }
 }

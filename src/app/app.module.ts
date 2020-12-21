@@ -19,7 +19,7 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import {AppState} from './state/app.state';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { SubjectCodePipe } from './pipes/subject-code.pipe';
-import {AngularFireModule} from "@angular/fire";
+// import {AngularFireModule} from "@angular/fire";
 import {AngularFireAuthModule} from "@angular/fire/auth";
 
 @NgModule({
@@ -27,7 +27,7 @@ import {AngularFireAuthModule} from "@angular/fire/auth";
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+    // AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AppRoutingModule,
     HttpClientModule,

@@ -29,8 +29,8 @@ export class RecommendationPage implements OnInit {
     //     { val: 'My Uace Results', isChecked: false },
     // ];
 
-    @ViewChild(UceComponent, {static: false}) uceComponent !: UceComponent;
-    @ViewChild(UaceComponent, {static: false}) uaceComponent !: UaceComponent;
+    @ViewChild(UceComponent) uceComponent !: UceComponent;
+    @ViewChild(UaceComponent) uaceComponent !: UaceComponent;
 
     includeResults : boolean = false;
     includeUceResults : boolean = false;

@@ -20,8 +20,8 @@ import {ServerService} from "../services/server.service";
 })
 export class ProgramCheckPage implements OnInit {
 
-  @ViewChild(UceComponent, {static: false}) uceComponent !: UceComponent;
-  @ViewChild(UaceComponent, {static: false}) uaceComponent !: UaceComponent;
+  @ViewChild(UceComponent) uceComponent !: UceComponent;
+  @ViewChild(UaceComponent) uaceComponent !: UaceComponent;
 
   programs: Program[];
   display: Program[];

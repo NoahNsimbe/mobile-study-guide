@@ -135,10 +135,134 @@
     </ion-grid>
   </ion-list>
 
+  <ion-list *ngIf="programDetails.program_constraints.length > 0" >
+
+    <ion-list-header>
+      <ion-header>Program Subjects</ion-header>
+    </ion-list-header>
+
+<!--    <ion-item lines="None">-->
+<!--      <ion-label>Number of required essential subjects : {{ programDetails.program_constraints[0].essentials }}</ion-label>-->
+<!--      <ion-label>Number of required relevant subjects : {{ programDetails.program_constraints[0].relevant }}</ion-label>-->
+<!--    </ion-item>-->
+
+    <ion-grid >
+      <ion-row class="ion-align-items-center">
+
+        <ion-col size="6" >
+          <ion-item>
+            <ion-label>Subject</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="3"  >
+          <ion-item>
+            <ion-label>Category</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="3" >
+          <ion-item>
+            <ion-label>Compulsory</ion-label>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+      <ion-row class="ion-align-items-center" *ngFor="let subject of programDetails.program_subjects">
+
+        <ion-col size="6" >
+          <ion-item>
+            <ion-label>{{subject.subject | titlecase}}</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="3"  >
+          <ion-item>
+            <ion-label>{{subject.category.toString() | titlecase }}</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="3" >
+          <ion-item>
+            <ion-label>{{subject.compulsory_state + '' | titlecase}}</ion-label>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+
+  </ion-list>
+
   <ion-list *ngIf="programDetails.cut_off_points.length > 0" >
 
     <ion-list-header>
       <ion-header>Cut Off Points</ion-header>
+    </ion-list-header>
+
+    <ion-grid >
+      <ion-row class="ion-align-items-center">
+
+        <ion-col size="3" >
+          <ion-item>
+            <ion-label>Year</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="3"  >
+          <ion-item>
+            <ion-label>Points</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="3" >
+          <ion-item>
+            <ion-label>Admission Type</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="3" >
+          <ion-item>
+            <ion-label>Gender</ion-label>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+      <ion-row class="ion-align-items-center" *ngFor="let cutoff of programDetails.cut_off_points">
+
+        <ion-col size="3" >
+          <ion-item>
+            <ion-label>{{cutoff.year}}</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="3"  >
+          <ion-item>
+            <ion-label>{{cutoff.points}}</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="3" >
+          <ion-item>
+            <ion-label>{{cutoff.type}}</ion-label>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="3"  >
+          <ion-item>
+            <ion-label>{{cutoff.gender}}</ion-label>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+  </ion-list>
+
+  <ion-list *ngIf="programDetails.o_level_constraints.length > 0" >
+
+    <ion-list-header>
+      <ion-header>O level Constaints</ion-header>
     </ion-list-header>
 
     <ion-grid >

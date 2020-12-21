@@ -1,10 +1,14 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <!--      <ion-menu-button></ion-menu-button>-->
-      <ion-back-button color="danger"></ion-back-button>
+            <ion-menu-button></ion-menu-button>
+<!--      <ion-back-button color="danger"></ion-back-button>-->
     </ion-buttons>
-    <ion-title>Articles</ion-title>
+<!--    <ion-title>Articles</ion-title>-->
+    <ion-chip (click)="viewArticle(true)" >
+      <ion-icon name="pencil-outline"></ion-icon>
+      <ion-label>Write an article</ion-label>
+    </ion-chip>
   </ion-toolbar>
 </ion-header>
 
@@ -24,11 +28,11 @@
 
       <ion-col *ngFor="let article of articles$ | async" size="6">
 
-        <ion-card>
+        <ion-card (click)="viewArticle(false, article.id)" >
           <img src="./madison.jpg" />
           <ion-card-header>
             <ion-card-title>{{ article.title}}</ion-card-title>
-            <ion-card-subtitle>{{ article.date }}</ion-card-subtitle>
+            <ion-card-subtitle>{{ article.created_on }}</ion-card-subtitle>
             <ion-chip>
               <ion-avatar>
                 <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjYzVkYmZmIiBkPSJNMCAwaDUxMnY1MTJIMHoiLz48cGF0aCBkPSJNMjU2IDMwNGM2MS42IDAgMTEyLTUwLjQgMTEyLTExMlMzMTcuNiA4MCAyNTYgODBzLTExMiA1MC40LTExMiAxMTIgNTAuNCAxMTIgMTEyIDExMnptMCA0MGMtNzQuMiAwLTIyNCAzNy44LTIyNCAxMTJ2NTZoNDQ4di01NmMwLTc0LjItMTQ5LjgtMTEyLTIyNC0xMTJ6IiBmaWxsPSIjODJhZWZmIi8+PC9zdmc+" />

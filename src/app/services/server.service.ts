@@ -89,6 +89,13 @@ export class ServerService {
 
   }
 
+  async getArticle(id: number): Promise<Article> {
+    return this.httpClient
+        .get<Article>(`${environment.apiRoot}${environment.articles}${id}`)
+        .pipe(retry(3), catchError(ServerService.handleError)).toPromise();
+
+  }
+
   async getUaceSubjects(): Promise<Uace[]> {
 
     return this.httpClient

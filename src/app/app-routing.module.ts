@@ -40,7 +40,7 @@ const routes: Routes = [
     loadChildren: () => import('./blog/blog.module').then( m => m.BlogPageModule)
   },
   {
-    path: 'article',
+    path: 'article/:id',
     loadChildren: () => import('./article/article.module').then( m => m.ArticlePageModule)
   }
 ];

@@ -1,9 +1,32 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>article</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button color="danger"></ion-back-button>
+    </ion-buttons>
+        <ion-title *ngIf="isCreating" >Write Article</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="isCreating" >
 
+</ion-content>
+
+
+<ion-content *ngIf="!isCreating" >
+  <ion-card>
+    <img src="./madison.jpg" />
+    <ion-card-header>
+      <ion-card-title>{{ article.title}}</ion-card-title>
+      <ion-card-subtitle>{{ article.date }}</ion-card-subtitle>
+      <ion-chip>
+        <ion-avatar>
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjYzVkYmZmIiBkPSJNMCAwaDUxMnY1MTJIMHoiLz48cGF0aCBkPSJNMjU2IDMwNGM2MS42IDAgMTEyLTUwLjQgMTEyLTExMlMzMTcuNiA4MCAyNTYgODBzLTExMiA1MC40LTExMiAxMTIgNTAuNCAxMTIgMTEyIDExMnptMCA0MGMtNzQuMiAwLTIyNCAzNy44LTIyNCAxMTJ2NTZoNDQ4di01NmMwLTc0LjItMTQ5LjgtMTEyLTIyNC0xMTJ6IiBmaWxsPSIjODJhZWZmIi8+PC9zdmc+" />
+        </ion-avatar>
+        <ion-label>{{ article.author }}</ion-label>
+      </ion-chip>
+    </ion-card-header>
+    <ion-card-content>
+      {{ article.body }}
+    </ion-card-content>
+  </ion-card>
 </ion-content>

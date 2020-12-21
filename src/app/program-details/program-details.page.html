@@ -14,9 +14,11 @@
 
   <ion-list>
 
-    <ion-list-header>
-      <ion-header>Program Details</ion-header>
-    </ion-list-header>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Program Details</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
     <ion-grid >
 
@@ -137,9 +139,11 @@
 
   <ion-list *ngIf="programDetails.program_constraints.length > 0" >
 
-    <ion-list-header>
-      <ion-header>Program Subjects</ion-header>
-    </ion-list-header>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Program Subjects</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
 <!--    <ion-item lines="None">-->
 <!--      <ion-label>Number of required essential subjects : {{ programDetails.program_constraints[0].essentials }}</ion-label>-->
@@ -196,9 +200,11 @@
 
   <ion-list *ngIf="programDetails.cut_off_points.length > 0" >
 
-    <ion-list-header>
-      <ion-header>Cut Off Points</ion-header>
-    </ion-list-header>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Cut Off Points</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
     <ion-grid >
       <ion-row class="ion-align-items-center">
@@ -244,13 +250,13 @@
 
         <ion-col size="3" >
           <ion-item>
-            <ion-label>{{cutoff.type}}</ion-label>
+            <ion-label>{{cutoff.type | titlecase}}</ion-label>
           </ion-item>
         </ion-col>
 
         <ion-col size="3"  >
           <ion-item>
-            <ion-label>{{cutoff.gender}}</ion-label>
+            <ion-label>{{cutoff.gender | titlecase}}</ion-label>
           </ion-item>
         </ion-col>
 
@@ -261,9 +267,11 @@
 
   <ion-list *ngIf="programDetails.a_level_constraints.length > 0" >
 
-    <ion-list-header>
-      <ion-header>A level Constraints</ion-header>
-    </ion-list-header>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>A level Constraints</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
     <ion-grid >
       <ion-row class="ion-align-items-center">
@@ -303,9 +311,11 @@
 
   <ion-list *ngIf="programDetails.o_level_constraints.length > 0" >
 
-    <ion-list-header>
-      <ion-header>O level Constraints</ion-header>
-    </ion-list-header>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>O level Constraints</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
     <ion-grid >
       <ion-row class="ion-align-items-center">

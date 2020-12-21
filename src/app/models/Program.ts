@@ -40,11 +40,16 @@ export interface OLevelConstraints {
     subject: string;
 }
 
+export interface ALevelConstraints {
+    minimum_grade: number;
+    subject: string;
+}
+
 export interface ProgramDetails {
     program: Program;
     cut_off_points?: CutOffPoints[];
     program_constraints?: ProgramConstraints[];
     program_subjects?: ProgramSubjects[];
-    a_level_constraints?: [];
+    a_level_constraints?: ALevelConstraints[];
     o_level_constraints?: OLevelConstraints[];
 }

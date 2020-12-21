@@ -259,63 +259,82 @@
 
   </ion-list>
 
-  <ion-list *ngIf="programDetails.o_level_constraints.length > 0" >
+  <ion-list *ngIf="programDetails.a_level_constraints.length > 0" >
 
     <ion-list-header>
-      <ion-header>O level Constaints</ion-header>
+      <ion-header>A level Constraints</ion-header>
     </ion-list-header>
 
     <ion-grid >
       <ion-row class="ion-align-items-center">
 
-        <ion-col size="3" >
+        <ion-col size="8" >
           <ion-item>
-            <ion-label>Year</ion-label>
+            <ion-label>Subject</ion-label>
           </ion-item>
         </ion-col>
 
-        <ion-col size="3"  >
+        <ion-col size="4"  >
           <ion-item>
-            <ion-label>Points</ion-label>
+            <ion-label>Minimum Grade</ion-label>
           </ion-item>
         </ion-col>
 
-        <ion-col size="3" >
+
+      </ion-row>
+      <ion-row class="ion-align-items-center" *ngFor="let subject of programDetails.a_level_constraints">
+        minimum_grade
+        <ion-col size="8" >
           <ion-item>
-            <ion-label>Admission Type</ion-label>
+            <ion-label>{{subject.subject}}</ion-label>
           </ion-item>
         </ion-col>
 
-        <ion-col size="3" >
+        <ion-col size="4"  >
           <ion-item>
-            <ion-label>Gender</ion-label>
+            <ion-label>{{subject.minimum_grade}}</ion-label>
           </ion-item>
         </ion-col>
 
       </ion-row>
-      <ion-row class="ion-align-items-center" *ngFor="let cutoff of programDetails.cut_off_points">
+    </ion-grid>
 
-        <ion-col size="3" >
+  </ion-list>
+
+  <ion-list *ngIf="programDetails.o_level_constraints.length > 0" >
+
+    <ion-list-header>
+      <ion-header>O level Constraints</ion-header>
+    </ion-list-header>
+
+    <ion-grid >
+      <ion-row class="ion-align-items-center">
+
+        <ion-col size="8" >
           <ion-item>
-            <ion-label>{{cutoff.year}}</ion-label>
+            <ion-label>Subject</ion-label>
           </ion-item>
         </ion-col>
 
-        <ion-col size="3"  >
+        <ion-col size="4"  >
           <ion-item>
-            <ion-label>{{cutoff.points}}</ion-label>
+            <ion-label>Maximum Grade</ion-label>
           </ion-item>
         </ion-col>
 
-        <ion-col size="3" >
+
+      </ion-row>
+      <ion-row class="ion-align-items-center" *ngFor="let subject of programDetails.o_level_constraints">
+
+        <ion-col size="8" >
           <ion-item>
-            <ion-label>{{cutoff.type}}</ion-label>
+            <ion-label>{{subject.subject}}</ion-label>
           </ion-item>
         </ion-col>
 
-        <ion-col size="3"  >
+        <ion-col size="4"  >
           <ion-item>
-            <ion-label>{{cutoff.gender}}</ion-label>
+            <ion-label>{{subject.maximum_grade}}</ion-label>
           </ion-item>
         </ion-col>
 

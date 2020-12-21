@@ -125,36 +125,36 @@ export class ProgramCheckPage implements OnInit {
 
       await this.serverService.checkProgram(submissions).then(async (results: ProgramCheckResults) => {
 
-                console.log(results);
+            console.log(results);
 
-                if(results.check.trim().toUpperCase() === "PASSED"){
-                  await loading.dismiss();
-                  const alert = await this.alertCtrl.create({
-                    header: 'Congratulations',
-                    message: 'You meet all the requirements for the program',
-                    buttons: ['OK'],
-                  });
-                  await alert.present();
-                }
-                else{
-                  await loading.dismiss();
-                  const alert = await this.alertCtrl.create({
-                    header: 'Oops',
-                    message: 'You dont meet all the requirements for that program based on the previous year cutoff points and program subjects, checkout the program details for more information about it',
-                    buttons: ['OK'],
-                  });
-                  await alert.present();
-                }
-              }, async error => {
-                  await loading.dismiss();
-                  const alert = await this.alertCtrl.create({
-                    header: 'Oops',
-                    message: error,
-                    buttons: ['OK'],
-                  });
-                  await alert.present();
-              }
-          );
+            if(results.check.trim().toUpperCase() === "PASSED"){
+              await loading.dismiss();
+              const alert = await this.alertCtrl.create({
+                header: 'Congratulations',
+                message: 'You meet all the requirements for the program',
+                buttons: ['OK'],
+              });
+              await alert.present();
+            }
+            else{
+              await loading.dismiss();
+              const alert = await this.alertCtrl.create({
+                header: 'Oops',
+                message: 'You dont meet all the requirements for that program based on the previous year cutoff points and program subjects, checkout the program details for more information about it',
+                buttons: ['OK'],
+              });
+              await alert.present();
+            }
+          }, async error => {
+            await loading.dismiss();
+            const alert = await this.alertCtrl.create({
+              header: 'Oops',
+              message: error,
+              buttons: ['OK'],
+            });
+            await alert.present();
+          }
+      );
 
 
 

@@ -14,6 +14,10 @@
 
   <ion-list>
 
+    <ion-list-header>
+      <ion-header>Program Details</ion-header>
+    </ion-list-header>
+
     <ion-grid >
 
       <ion-row class="ion-align-items-center">
@@ -131,123 +135,69 @@
     </ion-grid>
   </ion-list>
 
-  <ion-list>
+  <ion-list *ngIf="programDetails.cut_off_points.length > 0" >
+
+    <ion-list-header>
+      <ion-header>Cut Off Points</ion-header>
+    </ion-list-header>
 
     <ion-grid >
-
       <ion-row class="ion-align-items-center">
 
         <ion-col size="3" >
           <ion-item>
-            <ion-label>Code</ion-label>
+            <ion-label>Year</ion-label>
           </ion-item>
         </ion-col>
 
-        <ion-col size="9">
+        <ion-col size="3"  >
           <ion-item>
-            <ion-label>{{ programDetails.program.code }}</ion-label>
+            <ion-label>Points</ion-label>
           </ion-item>
         </ion-col>
-
-      </ion-row>
-
-      <ion-row class="ion-align-items-center">
 
         <ion-col size="3" >
           <ion-item>
-            <ion-label>University</ion-label>
+            <ion-label>Admission Type</ion-label>
           </ion-item>
         </ion-col>
-
-        <ion-col size="9">
-          <ion-item>
-            <ion-label>{{ programDetails.program.university }}</ion-label>
-          </ion-item>
-        </ion-col>
-
-      </ion-row>
-
-      <ion-row class="ion-align-items-center">
 
         <ion-col size="3" >
           <ion-item>
-            <ion-label>Name</ion-label>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="9">
-          <ion-item>
-            <ion-label>{{ programDetails.program.name }}</ion-label>
+            <ion-label>Gender</ion-label>
           </ion-item>
         </ion-col>
 
       </ion-row>
-
-      <ion-row class="ion-align-items-center">
+      <ion-row class="ion-align-items-center" *ngFor="let cutoff of programDetails.cut_off_points">
 
         <ion-col size="3" >
           <ion-item>
-            <ion-label>College</ion-label>
+            <ion-label>{{cutoff.year}}</ion-label>
           </ion-item>
         </ion-col>
 
-        <ion-col size="9">
+        <ion-col size="3"  >
           <ion-item>
-            <ion-label>{{ programDetails.program.college }}</ion-label>
+            <ion-label>{{cutoff.points}}</ion-label>
           </ion-item>
         </ion-col>
-
-      </ion-row>
-
-      <ion-row class="ion-align-items-center">
 
         <ion-col size="3" >
           <ion-item>
-            <ion-label>Description</ion-label>
+            <ion-label>{{cutoff.type}}</ion-label>
           </ion-item>
         </ion-col>
 
-        <ion-col size="9">
+        <ion-col size="3"  >
           <ion-item>
-            <ion-label>{{ programDetails.program.description }}</ion-label>
+            <ion-label>{{cutoff.gender}}</ion-label>
           </ion-item>
         </ion-col>
 
       </ion-row>
-
-      <ion-row class="ion-align-items-center">
-
-        <ion-col size="3" >
-          <ion-item>
-            <ion-label>Duration</ion-label>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="9">
-          <ion-item>
-            <ion-label>{{ programDetails.program.duration }}</ion-label>
-          </ion-item>
-        </ion-col>
-
-      </ion-row>
-
-      <ion-row class="ion-align-items-center">
-
-        <ion-col size="3" >
-          <ion-item>
-            <ion-label>Time</ion-label>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="9" >
-          <ion-item>
-            <ion-label>{{ programDetails.program.time }}</ion-label>
-          </ion-item>
-        </ion-col>
-
-      </ion-row>
-
     </ion-grid>
+
   </ion-list>
 
   <ion-button expand="block" fill="outline" (click)="loadCombinations()" >

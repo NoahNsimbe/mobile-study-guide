@@ -56,8 +56,6 @@ export class ProgramDetailsPage implements OnInit {
     await this.serverService.getProgramDetails(this.code.trim().toUpperCase())
         .then(async (results: ProgramDetails) => {
               this.programDetails = results;
-              // console.log(results);
-              // console.log(this.programDetails);
               await loading.dismiss();
 
             },
@@ -97,7 +95,7 @@ export class ProgramDetailsPage implements OnInit {
               combinations = []
               const alert = await this.alertCtrl.create({
                 header: 'Oops',
-                message: error["Message"],
+                message: error,
                 buttons: ['OK'],
               });
 
@@ -107,7 +105,7 @@ export class ProgramDetailsPage implements OnInit {
 
     await loading.dismiss();
 
-    if(combinations != []){
+    if(combinations !== []){
       const modal = await this.modalCtrl.create({
         component: ProgramComponent,
         componentProps: {

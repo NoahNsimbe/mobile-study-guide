@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Program} from '../../models/Program';
+import {Program, ProgramDetails} from '../../models/Program';
 import {ModalController} from '@ionic/angular';
+import {Combination} from "../../models/Recommendation";
 
 @Component({
   selector: 'app-program',
@@ -9,12 +10,12 @@ import {ModalController} from '@ionic/angular';
 })
 export class ProgramComponent implements OnInit {
 
-  @Input() program: Program;
+  @Input() program: ProgramDetails;
+  @Input() combinations: Combination[];
 
   constructor(public modalCtrl: ModalController) { }
 
   ngOnInit() {
-    console.log(this.program);
   }
 
   dismissModal() {

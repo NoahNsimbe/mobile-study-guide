@@ -20,9 +20,9 @@ import {AppState} from './state/app.state';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import {AddSubjectComponent} from "./components/add-subject/add-subject.component";
 
+
 @NgModule({
   declarations: [AppComponent],
-  entryComponents: [],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

@@ -1,135 +1,154 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ program.name }}</ion-title>
+    <ion-title>{{ program.program.name }}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismissModal()">Back</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content *ngIf="combinations.length !== 0" >
   <ion-list>
+    <ion-item *ngFor="let combination of combinations" >
 
-    <ion-grid >
-
-      <ion-row class="ion-align-items-center">
-
-        <ion-col size="3" >
-          <ion-item>
-            <ion-label>Code</ion-label>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="9">
-          <ion-item>
-            <ion-label>{{ program.code }}</ion-label>
-          </ion-item>
-        </ion-col>
-
-      </ion-row>
-
-      <ion-row class="ion-align-items-center">
-
-        <ion-col size="3" >
-          <ion-item>
-            <ion-label>University</ion-label>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="9">
-          <ion-item>
-            <ion-label>{{ program.university }}</ion-label>
-          </ion-item>
-        </ion-col>
-
-      </ion-row>
-
-      <ion-row class="ion-align-items-center">
-
-        <ion-col size="3" >
-          <ion-item>
-            <ion-label>Name</ion-label>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="9">
-          <ion-item>
-            <ion-label>{{ program.name }}</ion-label>
-          </ion-item>
-        </ion-col>
-
-      </ion-row>
-
-      <ion-row class="ion-align-items-center">
-
-        <ion-col size="3" >
-          <ion-item>
-            <ion-label>College</ion-label>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="9">
-          <ion-item>
-            <ion-label>{{ program.college }}</ion-label>
-          </ion-item>
-        </ion-col>
-
-      </ion-row>
-
-      <ion-row class="ion-align-items-center">
-
-        <ion-col size="3" >
-          <ion-item>
-            <ion-label>Description</ion-label>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="9">
-          <ion-item>
-            <ion-label>{{ program.description }}</ion-label>
-          </ion-item>
-        </ion-col>
-
-      </ion-row>
-
-      <ion-row class="ion-align-items-center">
-
-        <ion-col size="3" >
-          <ion-item>
-            <ion-label>Duration</ion-label>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="9">
-          <ion-item>
-            <ion-label>{{ program.duration }}</ion-label>
-          </ion-item>
-        </ion-col>
-
-      </ion-row>
-
-      <ion-row class="ion-align-items-center">
-
-        <ion-col size="3" >
-          <ion-item>
-            <ion-label>Time</ion-label>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="9" >
-          <ion-item>
-            <ion-label>{{ program.time }}</ion-label>
-          </ion-item>
-        </ion-col>
-
-      </ion-row>
-
-    </ion-grid>
+      <ion-text>{{combination.abbreviation}}</ion-text>
+      <ion-list>
+        <ion-item *ngFor="let subject of combination.subjects" >
+          <ion-text>{{subject}}</ion-text>
+        </ion-item>
+      </ion-list>
+      <!--            <ion-label *ngFor="let subject of combination.subjects" >{{subject}}<br></ion-label>-->
+    </ion-item>
   </ion-list>
 
-  <ion-button expand="block" fill="outline" (click)="findCombinations()" >
-    Find recommended combinations
-  </ion-button>
-
 </ion-content>
+
+<!--<ion-content>-->
+
+<!--  <ion-list>-->
+
+<!--    <ion-grid >-->
+
+<!--      <ion-row class="ion-align-items-center">-->
+
+<!--        <ion-col size="3" >-->
+<!--          <ion-item>-->
+<!--            <ion-label>Code</ion-label>-->
+<!--          </ion-item>-->
+<!--        </ion-col>-->
+
+<!--        <ion-col size="9">-->
+<!--          <ion-item>-->
+<!--            <ion-label>{{ program.program.code }}</ion-label>-->
+<!--          </ion-item>-->
+<!--        </ion-col>-->
+
+<!--      </ion-row>-->
+
+<!--      <ion-row class="ion-align-items-center">-->
+
+<!--        <ion-col size="3" >-->
+<!--          <ion-item>-->
+<!--            <ion-label>University</ion-label>-->
+<!--          </ion-item>-->
+<!--        </ion-col>-->
+
+<!--        <ion-col size="9">-->
+<!--          <ion-item>-->
+<!--            <ion-label>{{ program.program.university }}</ion-label>-->
+<!--          </ion-item>-->
+<!--        </ion-col>-->
+
+<!--      </ion-row>-->
+
+<!--      <ion-row class="ion-align-items-center">-->
+
+<!--        <ion-col size="3" >-->
+<!--          <ion-item>-->
+<!--            <ion-label>Name</ion-label>-->
+<!--          </ion-item>-->
+<!--        </ion-col>-->
+
+<!--        <ion-col size="9">-->
+<!--          <ion-item>-->
+<!--            <ion-label>{{ program.program.name }}</ion-label>-->
+<!--          </ion-item>-->
+<!--        </ion-col>-->
+
+<!--      </ion-row>-->
+
+<!--      <ion-row class="ion-align-items-center">-->
+
+<!--        <ion-col size="3" >-->
+<!--          <ion-item>-->
+<!--            <ion-label>College</ion-label>-->
+<!--          </ion-item>-->
+<!--        </ion-col>-->
+
+<!--        <ion-col size="9">-->
+<!--          <ion-item>-->
+<!--            <ion-label>{{ program.program.college }}</ion-label>-->
+<!--          </ion-item>-->
+<!--        </ion-col>-->
+
+<!--      </ion-row>-->
+
+<!--      <ion-row class="ion-align-items-center">-->
+
+<!--        <ion-col size="3" >-->
+<!--          <ion-item>-->
+<!--            <ion-label>Description</ion-label>-->
+<!--          </ion-item>-->
+<!--        </ion-col>-->
+
+<!--        <ion-col size="9">-->
+<!--          <ion-item>-->
+<!--            <ion-label>{{ program.program.description }}</ion-label>-->
+<!--          </ion-item>-->
+<!--        </ion-col>-->
+
+<!--      </ion-row>-->
+
+<!--      <ion-row class="ion-align-items-center">-->
+
+<!--        <ion-col size="3" >-->
+<!--          <ion-item>-->
+<!--            <ion-label>Duration</ion-label>-->
+<!--          </ion-item>-->
+<!--        </ion-col>-->
+
+<!--        <ion-col size="9">-->
+<!--          <ion-item>-->
+<!--            <ion-label>{{ program.program.duration }}</ion-label>-->
+<!--          </ion-item>-->
+<!--        </ion-col>-->
+
+<!--      </ion-row>-->
+
+<!--      <ion-row class="ion-align-items-center">-->
+
+<!--        <ion-col size="3" >-->
+<!--          <ion-item>-->
+<!--            <ion-label>Time</ion-label>-->
+<!--          </ion-item>-->
+<!--        </ion-col>-->
+
+<!--        <ion-col size="9" >-->
+<!--          <ion-item>-->
+<!--            <ion-label>{{ program.program.time }}</ion-label>-->
+<!--          </ion-item>-->
+<!--        </ion-col>-->
+
+<!--      </ion-row>-->
+
+<!--    </ion-grid>-->
+<!--  </ion-list>-->
+
+<!--  <ion-button expand="block" fill="outline" (click)="findCombinations()" >-->
+<!--    Find recommended combinations-->
+<!--  </ion-button>-->
+
+<!--</ion-content>-->
+
+
+

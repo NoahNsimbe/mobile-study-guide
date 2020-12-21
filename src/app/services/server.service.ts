@@ -15,6 +15,7 @@ import {
   UserSubmissions
 } from '../models/Recommendation';
 import {Article} from "../models/Article";
+import {ProgramDetails} from "../models/Program";
 
 @Injectable({
   providedIn: 'root'
@@ -78,12 +79,12 @@ export class ServerService {
 
   }
 
-  async getProgramDetails(programCode: string): Promise<Program> {
+  async getProgramDetails(programCode: string): Promise<ProgramDetails> {
     const data = {
         program_code : programCode
       };
     return this.httpClient
-        .post<Program>(`${environment.apiRoot}${environment.programDetails}`, data)
+        .post<ProgramDetails>(`${environment.apiRoot}${environment.programDetails}`, data)
         .pipe(retry(3), catchError(ServerService.handleError)).toPromise();
 
   }

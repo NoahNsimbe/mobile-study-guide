@@ -18,7 +18,6 @@ import {ProgramComponent} from '../modals/program/program.component';
     IonicModule,
     ProgramsPageRoutingModule
   ],
-  entryComponents: [ProgramComponent],
-  declarations: [ProgramsPage, ProgramComponent]
+  declarations: [ProgramsPage]
 })
 export class ProgramsPageModule {}

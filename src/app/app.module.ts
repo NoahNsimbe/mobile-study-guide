@@ -20,7 +20,7 @@ import {AppState} from './state/app.state';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { SubjectCodePipe } from './pipes/subject-code.pipe';
 // import {AngularFireModule} from "@angular/fire";
-import {AngularFireAuthModule} from "@angular/fire/auth";
+// import {AngularFireAuthModule} from "@angular/fire/auth";
 
 @NgModule({
   declarations: [AppComponent, SubjectCodePipe],

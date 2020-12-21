@@ -4,7 +4,7 @@ import {AlertController, LoadingController} from "@ionic/angular";
 import {Article} from "../models/Article";
 import {ServerService} from "../services/server.service";
 import {ProgramDetails} from "../models/Program";
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 // import {AngularFireAuth} from "@angular/fire/auth";
 // import firebase from 'firebase/app';
 
@@ -18,7 +18,7 @@ export class ArticlePage implements OnInit {
   id: string = null;
   article: Article = null;
   isCreating: boolean = false;
-  public Editor = ClassicEditor;
+  // public Editor = ClassicEditor;
   public model = {
     editorData: '<p>Enter body!</p>'
   };

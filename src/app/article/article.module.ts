@@ -7,14 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { ArticlePageRoutingModule } from './article-routing.module';
 
 import { ArticlePage } from './article.page';
-import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
+// import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CKEditorModule,
+    // CKEditorModule,
     ArticlePageRoutingModule
   ],
   declarations: [ArticlePage]

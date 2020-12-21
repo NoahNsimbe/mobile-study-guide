@@ -22,7 +22,7 @@
 
   <ion-list>
     <ion-item *ngFor="let program of display"  (click)="presentModal(program)" >
-      {{program.name}}
+        {{program.name}}&nbsp;-&nbsp;{{program.university}}&nbsp;(&nbsp;{{ program.college.replace("_"," ") }},&nbsp;{{ program.time }}&nbsp;class)
     </ion-item>
   </ion-list>
 

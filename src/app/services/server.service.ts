@@ -123,8 +123,16 @@ export class ServerService {
 
   async checkProgram(submission : ProgramCheck): Promise<ProgramCheckResults> {
 
+    const data = {
+      program_code : submission.program_code,
+      uce_results : this.formatUserResults(submission.uce_results),
+      uace_results : this.formatUserResults(submission.uace_results),
+      admission_type : submission.admission_type,
+      gender : submission.admission_type,
+    };
+
     return this.httpClient
-        .post<ProgramCheckResults>(`${environment.apiRoot}${environment.programCheck}`, submission)
+        .post<ProgramCheckResults>(`${environment.apiRoot}${environment.programCheck}`, data)
         .pipe(retry(3), catchError(ServerService.handleError)).toPromise();
 
   }

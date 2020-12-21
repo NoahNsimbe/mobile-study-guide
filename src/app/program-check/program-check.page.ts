@@ -100,7 +100,7 @@ export class ProgramCheckPage implements OnInit {
 
   async submit(){
 
-    if(this.uceComponent.checkResultsValidity() && this.uaceComponent.checkResultsValidity()){
+    if( this.program !== null && this.program !== "" && this.uceComponent.checkResultsValidity() && this.uaceComponent.checkResultsValidity()){
 
       let uceResults : UserResults[] = this.uceComponent.formatResults();
       let uaceResults : UserResults[] = this.uaceComponent.formatResults();
@@ -125,11 +125,13 @@ export class ProgramCheckPage implements OnInit {
 
       await this.serverService.checkProgram(submissions).then(async (results: ProgramCheckResults) => {
 
+                console.log(results);
+
                 if(results.check.trim().toUpperCase() === "PASSED"){
                   await loading.dismiss();
                   const alert = await this.alertCtrl.create({
                     header: 'Congratulations',
-                    message: 'You dont meet all the requirements for the program',
+                    message: 'You meet all the requirements for the program',
                     buttons: ['OK'],
                   });
                   await alert.present();

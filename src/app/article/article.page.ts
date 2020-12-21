@@ -4,6 +4,7 @@ import {AlertController, LoadingController} from "@ionic/angular";
 import {Article} from "../models/Article";
 import {ServerService} from "../services/server.service";
 import {ProgramDetails} from "../models/Program";
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-article',
@@ -15,12 +16,36 @@ export class ArticlePage implements OnInit {
   id: string = null;
   article: Article = null;
   isCreating: boolean = false;
+  public Editor = ClassicEditor;
+  public model = {
+    editorData: '<p>Enter body!</p>'
+  };
 
   constructor(private route: ActivatedRoute,
               public loadingCtrl: LoadingController,
               private router: Router,
               public alertCtrl: AlertController,
               private serverService: ServerService) {
+
+    this.article = new class implements Article {
+      articleImage: "";
+      article_image: "";
+      article_image_alt: "";
+      author: "";
+      authorImage: "";
+      author_image: "";
+      author_image_alt: "";
+      bait: "";
+      body: "";
+      claps: number;
+      created_on: "";
+      date: "";
+      id: number;
+      read_time: "";
+      tags: "";
+      title: "";
+      updated_on: "";
+    }
   }
 
   async ngOnInit() {
@@ -62,5 +87,10 @@ export class ArticlePage implements OnInit {
               await alert.present();
             }
         );
+  }
+
+  submit() {
+    this.article.body = this.model.editorData.trim();
+    console.log(this.article);
   }
 }

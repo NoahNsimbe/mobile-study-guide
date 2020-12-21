@@ -140,7 +140,7 @@ export class ProgramCheckPage implements OnInit {
                   await loading.dismiss();
                   const alert = await this.alertCtrl.create({
                     header: 'Oops',
-                    message: 'You dont meet all the requirements for that program, checkout the program details for more information about it',
+                    message: 'You dont meet all the requirements for that program based on the previous year cutoff points and program subjects, checkout the program details for more information about it',
                     buttons: ['OK'],
                   });
                   await alert.present();

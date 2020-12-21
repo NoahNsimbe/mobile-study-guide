@@ -3,12 +3,16 @@
     <ion-buttons slot="start">
       <ion-back-button color="danger"></ion-back-button>
     </ion-buttons>
-        <ion-title *ngIf="isCreating" >Write Article</ion-title>
+        <ion-title *ngIf="isCreating" >Write An Article</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content *ngIf="isCreating" >
-
+  <ion-item>
+    <ion-label position="floating">Title</ion-label>
+    <ion-textarea>
+    </ion-textarea>
+  </ion-item>
 </ion-content>
 
 

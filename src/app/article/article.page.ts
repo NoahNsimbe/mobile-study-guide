@@ -26,9 +26,9 @@ export class ArticlePage implements OnInit {
   async ngOnInit() {
     this.id = this.route.snapshot.paramMap.get("id");
     if (this.id === null) {
-      this.router.navigate(["/blog"]);
-      return;
-    } else this.isCreating = this.id.toUpperCase() === "CREATE";
+      this.isCreating = true;
+    }
+    else this.isCreating = this.id.toUpperCase() === "CREATE";
 
     if (!this.isCreating)
       await this.loadData();

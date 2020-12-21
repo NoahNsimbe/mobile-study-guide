@@ -18,12 +18,13 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import {AppState} from './state/app.state';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { SubjectCodePipe } from './pipes/subject-code.pipe';
+// import { UcePipe } from './pipes/uce-pipe.pipe';
+// import { SubjectCodePipe } from './pipes/subject-code.pipe';
 // import {AngularFireModule} from "@angular/fire";
 // import {AngularFireAuthModule} from "@angular/fire/auth";
 
 @NgModule({
-  declarations: [AppComponent, SubjectCodePipe],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -33,13 +34,16 @@ import { SubjectCodePipe } from './pipes/subject-code.pipe';
     HttpClientModule,
     NgxsModule.forRoot([AppState], {developmentMode: !environment.production}),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsStoragePluginModule.forRoot({key: [AppState] }),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    NgxsStoragePluginModule.forRoot({key: [AppState]}),
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
+  ],
+  exports: [
+    // SubjectCodePipe
   ],
   bootstrap: [AppComponent]
 })

@@ -1,21 +1,21 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {Store} from "@ngxs/store";
 import {AppState} from "../state/app.state";
-import {Uace} from "../models/uace";
+import {Uce} from "../models/uce";
 
 @Pipe({
-  name: 'subjectCode'
+  name: 'uce'
 })
-export class SubjectCodePipe implements PipeTransform  {
+export class UcePipe implements PipeTransform {
 
   constructor(private store: Store) {
   }
 
   transform(code: string, ...args: any[]): string {
 
-    const subjects : Uace[] = this.store.selectSnapshot(AppState.getUaceSubjects);
+    const subjects : Uce[] = this.store.selectSnapshot(AppState.getUceSubjects);
 
-    let subject : Uace = subjects.find(value => {
+    let subject : Uce = subjects.find(value => {
       return value.code.trim().toUpperCase() === code.trim().toUpperCase()
     });
 

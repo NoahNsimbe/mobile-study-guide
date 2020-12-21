@@ -8,16 +8,19 @@ import { ProgramDetailsPageRoutingModule } from './program-details-routing.modul
 
 import { ProgramDetailsPage } from './program-details.page';
 import {ProgramComponent} from "../modals/program/program.component";
+import {SubjectCodePipe} from "../pipes/subject-code.pipe";
+import {UcePipe} from "../pipes/uce-pipe.pipe";
+// import {AppModule} from "../app.module";
+// import {SubjectCodePipe} from "../pipes/subject-code.pipe";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-
-    ProgramDetailsPageRoutingModule
-  ],
-  declarations: [ProgramDetailsPage, ProgramComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        ProgramDetailsPageRoutingModule,
+    ],
+  declarations: [ProgramDetailsPage, ProgramComponent, SubjectCodePipe, UcePipe],
   entryComponents: [ProgramComponent]
 })
 export class ProgramDetailsPageModule {}

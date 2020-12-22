@@ -121,7 +121,6 @@ export class ArticlePage implements OnInit {
 
   async submit() {
     this.article.body = this.model.editorData.trim();
-    console.log(this.article);
 
     const loading = await this.loadingCtrl.create({
       message: 'creating article...',

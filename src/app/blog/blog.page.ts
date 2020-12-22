@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Select, Store} from "@ngxs/store";
 import {SetArticles} from "../state/app.actions";
-import {LoadingController} from "@ionic/angular";
+import {AlertController, LoadingController} from "@ionic/angular";
 import {AppState} from "../state/app.state";
 import {Observable} from "rxjs";
 import {Article} from "../models/Article";
@@ -20,6 +20,7 @@ export class BlogPage implements OnInit {
 
   constructor(private appStore: Store,
               private router: Router,
+              public alertCtrl: AlertController,
               public loadingCtrl: LoadingController,) {
     this.articles = false;
   }
@@ -34,9 +35,17 @@ export class BlogPage implements OnInit {
 
     await this.appStore.dispatch(new SetArticles(force));
 
-    await this.articles$.subscribe((data: Article[]) => {
+    await this.articles$.subscribe(async (data: Article[]) => {
       if(data.length > 0){
         this.articles = true;
+      }
+      else {
+        const alert = await this.alertCtrl.create({
+          header: 'Oops',
+          message: "No articles yet, click the refresh button at your the bottom right to retrieve any written articles if they exist",
+          buttons: ['OK'],
+        });
+        await alert.present();
       }
     });
   }

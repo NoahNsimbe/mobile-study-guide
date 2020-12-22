@@ -50,8 +50,30 @@ export class BlogPage implements OnInit {
     });
   }
 
-    doRefresh($event: CustomEvent) {
-        
+    async doRefresh() {
+
+      const loading = await this.loadingCtrl.create({
+        message: 'loading...',
+        animated: true,
+        spinner: 'lines'
+      });
+
+      await loading.present();
+
+      await this.appStore.dispatch(new SetArticles(true));
+
+      await this.articles$.subscribe(async (data: Article[]) => {
+        if (data.length <= 0) {
+          const alert = await this.alertCtrl.create({
+            header: 'Oops',
+            message: "No articles",
+            buttons: ['OK'],
+          });
+          await alert.present();
+        }
+      });
+
+      await loading.dismiss();
     }
 
     viewArticle(isCreating: boolean, id?: number) {

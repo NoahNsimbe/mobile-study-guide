@@ -121,6 +121,23 @@ export class ServerService {
   }
 
 
+  async createArticle(article : Article): Promise<Article> {
+
+    // const data = {
+    //   program_code : submission.program_code,
+    //   uce_results : this.formatUserResults(submission.uce_results),
+    //   uace_results : this.formatUserResults(submission.uace_results),
+    //   admission_type : submission.admission_type,
+    //   gender : submission.admission_type,
+    // };
+
+    return this.httpClient
+        .post<Article>(`${environment.apiRoot}${environment.crateArticle}`, article)
+        .pipe(retry(3), catchError(ServerService.handleError)).toPromise();
+
+  }
+
+
   async checkProgram(submission : ProgramCheck): Promise<ProgramCheckResults> {
 
     const data = {

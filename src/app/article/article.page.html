@@ -14,6 +14,17 @@
     </ion-textarea>
   </ion-item>
 
+  <ion-item>
+    <ion-label position="floating">Bait</ion-label>
+    <ion-textarea [(ngModel)]="article.bait" >
+    </ion-textarea>
+
+    <ion-label position="floating">Read time (seconds) * </ion-label>
+    <ion-input type="number" [(ngModel)]="article.read_time" >
+    </ion-input>
+
+  </ion-item>
+
   <ckeditor [(ngModel)]="model.editorData" [editor]="Editor" ></ckeditor>
   <!--  submit-->
   <ion-button expand="block" fill="outline" (click)="submit()" >SUBMIT</ion-button>
@@ -26,16 +37,18 @@
     <img src="./madison.jpg" />
     <ion-card-header>
       <ion-card-title>{{ article.title}}</ion-card-title>
+      <ion-card-subtitle>{{ article.bait }}</ion-card-subtitle>
       <ion-card-subtitle>{{ article.date }}</ion-card-subtitle>
       <ion-chip>
         <ion-avatar>
           <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjYzVkYmZmIiBkPSJNMCAwaDUxMnY1MTJIMHoiLz48cGF0aCBkPSJNMjU2IDMwNGM2MS42IDAgMTEyLTUwLjQgMTEyLTExMlMzMTcuNiA4MCAyNTYgODBzLTExMiA1MC40LTExMiAxMTIgNTAuNCAxMTIgMTEyIDExMnptMCA0MGMtNzQuMiAwLTIyNCAzNy44LTIyNCAxMTJ2NTZoNDQ4di01NmMwLTc0LjItMTQ5LjgtMTEyLTIyNC0xMTJ6IiBmaWxsPSIjODJhZWZmIi8+PC9zdmc+" />
         </ion-avatar>
         <ion-label>{{ article.author }}</ion-label>
+        <ion-label>{{ article.date }}</ion-label>
       </ion-chip>
     </ion-card-header>
     <ion-card-content>
-      {{ article.body }}
+      <div [innerHTML]=" article.body "></div>
     </ion-card-content>
   </ion-card>
 </ion-content>

@@ -15,6 +15,7 @@ export const environment = {
   programCheck: 'program_check/',
   programDetails: 'program_details/',
   articles: 'articles/',
+  crateArticle: 'create_article/',
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   firebaseConfig : {
     apiKey: "AIzaSyABd9_E7RhtwIHw9dbaaUKe5opBhvtqdeg",

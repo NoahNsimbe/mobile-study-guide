@@ -75,6 +75,13 @@ export class AppState {
     }
 
     @Selector()
+    static getArticle(id : number, state?: AppStateModel) : Article {
+        return state.articles.find(value => {
+            return value.id === id
+        });
+    }
+
+    @Selector()
     static getUaceGrades(state: AppStateModel) {
         return state.uaceGrades;
     }
@@ -107,6 +114,7 @@ export class AppState {
             value.category.toUpperCase() === 'ELECTIVE'
         );
     }
+
 
     // @Selector()
     // static findUceSubjectByName(subject: string, state: AppStateModel): Uce{

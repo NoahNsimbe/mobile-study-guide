@@ -11,6 +11,7 @@ export const environment = {
   programCheck: 'program_check/',
   programDetails: 'program_details/',
   articles: 'articles/',
+  crateArticle: 'create_article/',
   firebaseConfig : {
     apiKey: "AIzaSyABd9_E7RhtwIHw9dbaaUKe5opBhvtqdeg",
     authDomain: "e-srs-001.firebaseapp.com",

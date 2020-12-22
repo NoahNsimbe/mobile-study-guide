@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {Store} from "@ngxs/store";
-import {SetCareers, SetPrograms, SetUaceSubjects, SetUceSubjects} from "../state/app.actions";
+import {SetArticles, SetCareers, SetPrograms, SetUaceSubjects, SetUceSubjects} from "../state/app.actions";
 import {LoadingController} from "@ionic/angular";
 
 @Component({
@@ -40,7 +40,7 @@ export class HomePage implements OnInit {
     await this.appStore.dispatch(new SetUceSubjects(true));
     await this.appStore.dispatch(new SetUaceSubjects(true));
     await this.appStore.dispatch(new SetCareers(true));
-
+    await this.appStore.dispatch(new SetArticles(true));
     await loading.dismiss();
 
   }

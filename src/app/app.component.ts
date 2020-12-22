@@ -22,11 +22,6 @@ export class AppComponent implements OnInit {
       icon: 'home'
     },
     {
-      title: 'Weighting System',
-      url: '/home',
-      icon: 'home'
-    },
-    {
       title: 'Articles',
       url: '/blog',
       icon: 'library'
@@ -41,6 +36,11 @@ export class AppComponent implements OnInit {
       url: '/home',
       icon: 'information'
     },
+    // {
+    //   title: 'Weighting System',
+    //   url: '/home',
+    //   icon: 'home'
+    // },
     // {
     //   title: 'Weighing System',
     //   url: '/folder/Outbox',

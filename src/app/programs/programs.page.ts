@@ -76,7 +76,9 @@ export class ProgramsPage implements OnInit {
     requestAnimationFrame(() => {
       this.programs.forEach(program => {
         const shouldShow = program.name.toLowerCase().indexOf(query) > -1;
-        if (shouldShow) {
+        const shouldShow2 = program.code.toLowerCase().indexOf(query) > -1;
+
+        if (shouldShow || shouldShow2) {
           this.display.push(program);
           // program.style.display = shouldShow ? 'block' : 'none';
         }

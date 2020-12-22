@@ -267,13 +267,41 @@ export class RecommendationPage implements OnInit {
     }
 
     async presentModal(data: ResultsModalData) {
-        const modal = await this.modalCtrl.create({
-            component: ResultsModalPage,
-            componentProps: {
-                results: data
-            }
-        });
-        return await modal.present();
+
+        if(data.flag.trim().toUpperCase() === 'UCE' && data.uceRecommendations.length === 0 && this.includeResults){
+            const alert = await this.alertCtrl.create({
+                header: 'Oops',
+                message: 'We couldn\'t find combinations based on your results ',
+                buttons: ['OK'],
+            });
+
+            await alert.present();
+
+            return ;
+        }
+        else if(data.flag.trim().toUpperCase() === 'UACE' && data.uaceRecommendations.length === 0 && this.includeResults){
+            const alert = await this.alertCtrl.create({
+                header: 'Oops',
+                message: 'We couldn\'t find programs based on your results. Please checkout the program details for its restrictions',
+                buttons: ['OK'],
+            });
+
+            await alert.present();
+
+            return ;
+        }
+        else{
+
+            const modal = await this.modalCtrl.create({
+                component: ResultsModalPage,
+                componentProps: {
+                    results: data
+                }
+            });
+            return await modal.present();
+        }
+
+
     }
 
 }
